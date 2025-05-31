@@ -12,7 +12,7 @@ from ebible_downloader import EBibleDownloader
 
 downloader = EBibleDownloader()
 downloader.list_files()  # Browse available translations
-downloader.download_file("eng-web_readaloud.txt")  # Download specific file
+downloader.download_file("eng-engULB.txt")  # Download English ULB
 ```
 
 ### Context Query (`contextquery.py`)
@@ -21,7 +21,7 @@ Finds similar Bible verses for generating translation training examples using BM
 ```python
 from contextquery import ContextQuery
 
-cq = ContextQuery("source.txt", "target.txt")
+cq = ContextQuery("eng-engULB.txt", "npi-npiulb.txt")
 results = cq.search_by_text("blessed are the peacemakers", top_k=3)
 ```
 
@@ -32,7 +32,7 @@ results = cq.search_by_text("blessed are the peacemakers", top_k=3)
 4. Searches branches in parallel until all examples found
 
 ### Example Usage (`example.py`)
-Demonstrates finding English-Nepali translation context examples:
+Demonstrates finding translation context examples using English ULB and Nepali ULB:
 
 ```python
 python example.py
