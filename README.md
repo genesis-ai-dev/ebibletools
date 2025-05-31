@@ -25,6 +25,21 @@ cq = ContextQuery("eng-engULB.txt", "npi-npiulb.txt")
 results = cq.search_by_text("blessed are the peacemakers", top_k=3)
 ```
 
+**Return Format:**
+Both `search_by_text()` and `search_by_line()` return `List[Tuple[int, str, str, float]]`:
+```python
+[
+    (line_number, source_text, target_text, coverage),
+    (1234, "Blessed are the peacemakers", "धन्या शान्ति निर्माता", 0.75),
+    (5678, "Blessed are the merciful", "धन्या दयावान", 0.50),
+    # ...
+]
+```
+- `line_number`: 1-indexed line in original files
+- `source_text`: matching verse in source language  
+- `target_text`: corresponding verse in target language
+- `coverage`: ratio of query words found (0.0-1.0)
+
 **Algorithm:**
 1. Uses BM25 to score verse relevance
 2. Finds covered substrings in selected verses
