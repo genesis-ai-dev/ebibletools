@@ -70,3 +70,8 @@ The benchmark will output:
 - Progress bars during testing
 - Final results showing average similarity scores
 - Performance comparison between different example counts 
+
+## Colab Notebooks
+
+Interactive Bible translation benchmarks and experiments will be collected here:
+**[eBible Translation Benchmarks](https://colab.research.google.com/drive/1QkW3GLCHFy9VdW-yTgSKZ03a7p0WB3rh?usp=sharing)**
