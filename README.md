@@ -63,6 +63,51 @@ Demonstrates finding translation context examples using English ULB and Nepali U
 python example.py
 ```
 
+## Benchmarks
+
+The `benchmarks/` directory contains tools for evaluating translation quality using different ContextQuery configurations.
+
+### Translation Benchmark (`benchmarks/translation_benchmark.py`)
+Compares translation quality across different numbers of in-context examples using OpenAI's API.
+
+**Setup:**
+```bash
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# Set up environment variables
+cp benchmarks/env.template .env
+# Edit .env to add your OpenAI API key
+```
+
+**Basic Usage:**
+```bash
+cd benchmarks
+python translation_benchmark.py
+```
+
+**Advanced Configuration:**
+```bash
+# Compare different example counts
+python translation_benchmark.py --example-counts 1 3 5 10
+
+# Test with more files and examples
+python translation_benchmark.py --num-target-files 5 --num-tests-per-file 10
+
+# Use different source file
+python translation_benchmark.py --source-file your-source.txt
+```
+
+**Output:**
+- Configuration summary
+- Progress tracking with tqdm
+- Similarity scores comparing translations to ground truth
+- Performance rankings across different example counts
+
+See `benchmarks/README.md` for detailed documentation.
+
 ## Installation
 
 ```bash
