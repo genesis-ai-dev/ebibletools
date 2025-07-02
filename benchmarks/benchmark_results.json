@@ -1,0 +1,483 @@
+{
+  "benchmark_config": {
+    "query_method": "context",
+    "source_file": "eng-engULB.txt",
+    "example_counts": [
+      0,
+      3,
+      5
+    ],
+    "metrics": [
+      "BLEU",
+      "chrF+",
+      "METEOR",
+      "ROUGE-L",
+      "BERTScore",
+      "Edit Dist",
+      "TER"
+    ]
+  },
+  "summary_stats": {
+    "0": {
+      "BLEU": {
+        "mean": 0.008722482193930747,
+        "std": 0.003492830302576561,
+        "min": 0.004260377574746469,
+        "max": 0.013897369362318638,
+        "count": 6
+      },
+      "chrF+": {
+        "mean": 0.13280557072465288,
+        "std": 0.023938395290427274,
+        "min": 0.10380281694904278,
+        "max": 0.1608388961165512,
+        "count": 6
+      },
+      "METEOR": {
+        "mean": 0.003720238095238096,
+        "std": 0.009112685054996943,
+        "min": 0.0,
+        "max": 0.022321428571428575,
+        "count": 6
+      },
+      "ROUGE-L": {
+        "mean": 0.005555555555555556,
+        "std": 0.013608276348795434,
+        "min": 0.0,
+        "max": 0.03333333333333333,
+        "count": 6
+      },
+      "BERTScore": {
+        "mean": 0.4205010732014974,
+        "std": 0.028168262871502186,
+        "min": 0.3791966736316681,
+        "max": 0.46078619360923767,
+        "count": 6
+      },
+      "Edit Dist": {
+        "mean": 0.22003195423112118,
+        "std": 0.014949947575177576,
+        "min": 0.20083682008368198,
+        "max": 0.23383084577114432,
+        "count": 6
+      },
+      "TER": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "count": 6
+      }
+    },
+    "3": {
+      "BLEU": {
+        "mean": 0.24863040165219058,
+        "std": 0.3673187700552114,
+        "min": 0.005547414255613756,
+        "max": 0.9555630362682846,
+        "count": 6
+      },
+      "chrF+": {
+        "mean": 0.4954702964355433,
+        "std": 0.3323040055093931,
+        "min": 0.19126724462822567,
+        "max": 1.0,
+        "count": 6
+      },
+      "METEOR": {
+        "mean": 0.3921514085632599,
+        "std": 0.3579289114559789,
+        "min": 0.06696428571428571,
+        "max": 0.9522993010647332,
+        "count": 6
+      },
+      "ROUGE-L": {
+        "mean": 0.408529971320669,
+        "std": 0.35126624940911083,
+        "min": 0.1,
+        "max": 1.0,
+        "count": 6
+      },
+      "BERTScore": {
+        "mean": 0.7358570694923401,
+        "std": 0.15043623436013254,
+        "min": 0.584032416343689,
+        "max": 0.9884461760520935,
+        "count": 6
+      },
+      "Edit Dist": {
+        "mean": 0.49745903854915646,
+        "std": 0.2944657983504544,
+        "min": 0.24025974025974028,
+        "max": 0.990909090909091,
+        "count": 6
+      },
+      "TER": {
+        "mean": 0.2476422260185007,
+        "std": 0.35894711634855453,
+        "min": 0.0,
+        "max": 0.9444444444444444,
+        "count": 6
+      }
+    },
+    "5": {
+      "BLEU": {
+        "mean": 0.2627483614863381,
+        "std": 0.368950970020563,
+        "min": 0.006508522100111948,
+        "max": 0.9555630362682846,
+        "count": 6
+      },
+      "chrF+": {
+        "mean": 0.5023297440395178,
+        "std": 0.32036581780769485,
+        "min": 0.2201552756390322,
+        "max": 1.0,
+        "count": 6
+      },
+      "METEOR": {
+        "mean": 0.3932614321690809,
+        "std": 0.36170696488162146,
+        "min": 0.03703703703703703,
+        "max": 0.9522993010647332,
+        "count": 6
+      },
+      "ROUGE-L": {
+        "mean": 0.4160412082970097,
+        "std": 0.3644930471084573,
+        "min": 0.047058823529411764,
+        "max": 1.0,
+        "count": 6
+      },
+      "BERTScore": {
+        "mean": 0.7095570464928945,
+        "std": 0.1718301761908151,
+        "min": 0.5269054770469666,
+        "max": 0.9884461760520935,
+        "count": 6
+      },
+      "Edit Dist": {
+        "mean": 0.5118050143992897,
+        "std": 0.2952287356123333,
+        "min": 0.255,
+        "max": 0.990909090909091,
+        "count": 6
+      },
+      "TER": {
+        "mean": 0.2705916795854585,
+        "std": 0.36312839825207127,
+        "min": 0.0,
+        "max": 0.9444444444444444,
+        "count": 6
+      }
+    }
+  },
+  "detailed_results": [
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 27178,
+      "source": "But there arose some people who belonged to the synagogue called the synagogue of the Freedmen, of the Cyrenians and Alexandrians, and some from Cilicia and Asia. These people were debating with Stephen.",
+      "reference": "Onaqa bati bei Juda tamo qudei naŋgi tigelosib Stiven ombla anjam na qotoqneb. Tamo naŋgi di Juda naŋgo Qotei tal beiq di gaigai louoqneb. Naŋgi nami kaŋgal tamo sosibqa olo bunuqna naŋgo segi wau ojoqneb deqa naŋgi Qotei tal dia louoqneb. Qotei tal di aqa ñam endegsib waiyeb, “Tamo Naŋgo Segi Wau Ojo Qaji Naŋgo Qotei Tal.” Tamo naŋgi di Stiven ombla anjam na qotoqneb. Naŋgi nami Sairini qure ti Aleksandria qure ti Silisia sawa ti Esia sawaq dena ti beleŋeb.",
+      "translation": "Here is the translation of the text into Spanish:\n\n\"Pero se levantaron algunos de los que pertenecían a la sinagoga llamada de los Libertos, de los Cireneos y Alejandrinos, y algunos de Cilicia y Asia. Estas personas estaban discutiendo con Esteban.\"",
+      "example_count": 0,
+      "scores": {
+        "BLEU": 0.004260377574746469,
+        "chrF+": 0.10846726003876897,
+        "METEOR": 0.0,
+        "ROUGE-L": 0.0,
+        "BERTScore": 0.4011536240577698,
+        "Edit Dist": 0.23376623376623373,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 27178,
+      "source": "But there arose some people who belonged to the synagogue called the synagogue of the Freedmen, of the Cyrenians and Alexandrians, and some from Cilicia and Asia. These people were debating with Stephen.",
+      "reference": "Onaqa bati bei Juda tamo qudei naŋgi tigelosib Stiven ombla anjam na qotoqneb. Tamo naŋgi di Juda naŋgo Qotei tal beiq di gaigai louoqneb. Naŋgi nami kaŋgal tamo sosibqa olo bunuqna naŋgo segi wau ojoqneb deqa naŋgi Qotei tal dia louoqneb. Qotei tal di aqa ñam endegsib waiyeb, “Tamo Naŋgo Segi Wau Ojo Qaji Naŋgo Qotei Tal.” Tamo naŋgi di Stiven ombla anjam na qotoqneb. Naŋgi nami Sairini qure ti Aleksandria qure ti Silisia sawa ti Esia sawaq dena ti beleŋeb.",
+      "translation": "Tamo qudei naŋgi qotei naŋgi \"Freedmen\" qotei qaji naŋgi Cyrenians Alexandrians wo, Cilicia Esia wo qaji. Naŋgo qure mana goge di Stephen naŋgi kalil qusibqa.",
+      "example_count": 3,
+      "scores": {
+        "BLEU": 0.005547414255613756,
+        "chrF+": 0.19126724462822567,
+        "METEOR": 0.11708178523920923,
+        "ROUGE-L": 0.19047619047619047,
+        "BERTScore": 0.6160469651222229,
+        "Edit Dist": 0.24025974025974028,
+        "TER": 0.07407407407407407
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 27178,
+      "source": "But there arose some people who belonged to the synagogue called the synagogue of the Freedmen, of the Cyrenians and Alexandrians, and some from Cilicia and Asia. These people were debating with Stephen.",
+      "reference": "Onaqa bati bei Juda tamo qudei naŋgi tigelosib Stiven ombla anjam na qotoqneb. Tamo naŋgi di Juda naŋgo Qotei tal beiq di gaigai louoqneb. Naŋgi nami kaŋgal tamo sosibqa olo bunuqna naŋgo segi wau ojoqneb deqa naŋgi Qotei tal dia louoqneb. Qotei tal di aqa ñam endegsib waiyeb, “Tamo Naŋgo Segi Wau Ojo Qaji Naŋgo Qotei Tal.” Tamo naŋgi di Stiven ombla anjam na qotoqneb. Naŋgi nami Sairini qure ti Aleksandria qure ti Silisia sawa ti Esia sawaq dena ti beleŋeb.",
+      "translation": "Bati bei qudei naŋgi ojeleŋosiqa uŋgasari qotei naŋgi Synagogue di Libertines, di Cyrenians wo Alexandrians, wo qudei naŋgi Cilicia wo Asia. Tamo qudei naŋgi Stephen aqa anjam na qotoqneb.",
+      "example_count": 5,
+      "scores": {
+        "BLEU": 0.020701828365728404,
+        "chrF+": 0.2201552756390322,
+        "METEOR": 0.15518327605956472,
+        "ROUGE-L": 0.25688073394495414,
+        "BERTScore": 0.6082962155342102,
+        "Edit Dist": 0.2727272727272727,
+        "TER": 0.12345679012345678
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 24385,
+      "source": "but whoever blasphemes against the Holy Spirit will never have forgiveness, but is guilty of an eternal sin.”",
+      "reference": "Ariya tamo a Mondor Bole misiliŋyqas une di Qotei na kobotqasai. Une di tamo aqa jejamuq di gaigai sqas.”",
+      "translation": "The text you provided is a passage from the Bible, specifically from the book of Mark 3:29. Here is the translation in Spanish:\n\n\"pero el que blasfeme contra el Espíritu Santo nunca tendrá perdón, sino que es culpable de un pecado eterno.\"",
+      "example_count": 0,
+      "scores": {
+        "BLEU": 0.009402448118597483,
+        "chrF+": 0.13496448871662345,
+        "METEOR": 0.022321428571428575,
+        "ROUGE-L": 0.03333333333333333,
+        "BERTScore": 0.4189598262310028,
+        "Edit Dist": 0.20083682008368198,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 24385,
+      "source": "but whoever blasphemes against the Holy Spirit will never have forgiveness, but is guilty of an eternal sin.”",
+      "reference": "Ariya tamo a Mondor Bole misiliŋyqas une di Qotei na kobotqasai. Une di tamo aqa jejamuq di gaigai sqas.”",
+      "translation": "Ariya tamo bei na Mondor Bole misiliŋyqas une di Qotei na kobotqasai, niŋgi kobotetgej aqa segi kaŋgal tamo unub, osib niŋgi ŋambile gaigai sqab.",
+      "example_count": 3,
+      "scores": {
+        "BLEU": 0.2988565156407745,
+        "chrF+": 0.6688796689671668,
+        "METEOR": 0.58751015198979,
+        "ROUGE-L": 0.5581395348837209,
+        "BERTScore": 0.7924484610557556,
+        "Edit Dist": 0.6137931034482759,
+        "TER": 0.3157894736842105
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 24385,
+      "source": "but whoever blasphemes against the Holy Spirit will never have forgiveness, but is guilty of an eternal sin.”",
+      "reference": "Ariya tamo a Mondor Bole misiliŋyqas une di Qotei na kobotqasai. Une di tamo aqa jejamuq di gaigai sqas.”",
+      "translation": "Ariya tamo bei na Mondor Bole misiliŋyqas une di Qotei na kobotqasai, aqa bei yqas di a ŋambile boledamu oqab.",
+      "example_count": 5,
+      "scores": {
+        "BLEU": 0.37194474424733415,
+        "chrF+": 0.6507020221044878,
+        "METEOR": 0.5992603550295859,
+        "ROUGE-L": 0.6153846153846154,
+        "BERTScore": 0.7741436958312988,
+        "Edit Dist": 0.6727272727272727,
+        "TER": 0.42105263157894735
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 25446,
+      "source": "You, Capernaum, do you think you will be exalted to heaven? No, you will be brought down to Hades.",
+      "reference": "O Kaperneam tamo uŋgasari, niŋgi laŋ qureq oqwa kere e? Keresai. Qotei na niŋgi breiŋgimqa moiyo qureq aiqab.”",
+      "translation": "Sure, here is the translation of the text into Spanish:\n\n\"Y tú, Capernaum, ¿piensas que serás exaltada hasta el cielo? No, serás llevada hasta el Hades.\"",
+      "example_count": 0,
+      "scores": {
+        "BLEU": 0.013897369362318638,
+        "chrF+": 0.13071874900340893,
+        "METEOR": 0.0,
+        "ROUGE-L": 0.0,
+        "BERTScore": 0.42816630005836487,
+        "Edit Dist": 0.20261437908496727,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 25446,
+      "source": "You, Capernaum, do you think you will be exalted to heaven? No, you will be brought down to Hades.",
+      "reference": "O Kaperneam tamo uŋgasari, niŋgi laŋ qureq oqwa kere e? Keresai. Qotei na niŋgi breiŋgimqa moiyo qureq aiqab.”",
+      "translation": "O Kaperneam tamo uŋgasari, niŋgi laŋ qureq oqwa kere e? Keresai. Qotei na niŋgi breiŋgimqa moiyo qureq aiqab.",
+      "example_count": 3,
+      "scores": {
+        "BLEU": 0.9555630362682846,
+        "chrF+": 1.0,
+        "METEOR": 0.9522993010647332,
+        "ROUGE-L": 1.0,
+        "BERTScore": 0.9884461760520935,
+        "Edit Dist": 0.990909090909091,
+        "TER": 0.9444444444444444
+      }
+    },
+    {
+      "target_file": "boj-boj2014.txt",
+      "line_index": 25446,
+      "source": "You, Capernaum, do you think you will be exalted to heaven? No, you will be brought down to Hades.",
+      "reference": "O Kaperneam tamo uŋgasari, niŋgi laŋ qureq oqwa kere e? Keresai. Qotei na niŋgi breiŋgimqa moiyo qureq aiqab.”",
+      "translation": "O Kaperneam tamo uŋgasari, niŋgi laŋ qureq oqwa kere e? Keresai. Qotei na niŋgi breiŋgimqa moiyo qureq aiqab.",
+      "example_count": 5,
+      "scores": {
+        "BLEU": 0.9555630362682846,
+        "chrF+": 1.0,
+        "METEOR": 0.9522993010647332,
+        "ROUGE-L": 1.0,
+        "BERTScore": 0.9884461760520935,
+        "Edit Dist": 0.990909090909091,
+        "TER": 0.9444444444444444
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30215,
+      "source": "“This is the covenant that I will make with them after those days, says the Lord. I will put my laws in their hearts, and I will write them on their minds.",
+      "reference": "Diosi yalabe casan trato queyanae tie tinue. Lachi mantaca yalachi tencabi poto, yalaca miisa cariyanae tie tinue.",
+      "translation": "Sure, here is the translation of the text into Spanish:\n\n\"Este es el pacto que haré con ellos después de aquellos días, dice el Señor. Pondré mis leyes en sus corazones, y las escribiré en sus mentes.\"",
+      "example_count": 0,
+      "scores": {
+        "BLEU": 0.010700143107304574,
+        "chrF+": 0.15804121352352202,
+        "METEOR": 0.0,
+        "ROUGE-L": 0.0,
+        "BERTScore": 0.46078619360923767,
+        "Edit Dist": 0.23383084577114432,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30215,
+      "source": "“This is the covenant that I will make with them after those days, says the Lord. I will put my laws in their hearts, and I will write them on their minds.",
+      "reference": "Diosi yalabe casan trato queyanae tie tinue. Lachi mantaca yalachi tencabi poto, yalaca miisa cariyanae tie tinue.",
+      "translation": "Miya Diosiri manca mate yalari casan trato manqueyanae tinue. Itsanque jochunae tinue: Lachi mantaca yalachi tencabi poanae tinue. Lachi mantaca miisa cariyanae tinue.",
+      "example_count": 3,
+      "scores": {
+        "BLEU": 0.20664181816537017,
+        "chrF+": 0.6631676171662191,
+        "METEOR": 0.5326704545454546,
+        "ROUGE-L": 0.5,
+        "BERTScore": 0.7804933190345764,
+        "Edit Dist": 0.592814371257485,
+        "TER": 0.11764705882352944
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30215,
+      "source": "“This is the covenant that I will make with them after those days, says the Lord. I will put my laws in their hearts, and I will write them on their minds.",
+      "reference": "Diosi yalabe casan trato queyanae tie tinue. Lachi mantaca yalachi tencabi poto, yalaca miisa cariyanae tie tinue.",
+      "translation": "Miya Diosiri manca mate yalari casan trato manqueyanae tinue. Itsanque jochunae tinue: Lachi mantaca yalachi tencabi poanae tinue. Lachi mantaca miisa cariyanae tinue.",
+      "example_count": 5,
+      "scores": {
+        "BLEU": 0.20664181816537017,
+        "chrF+": 0.6631676171662191,
+        "METEOR": 0.5326704545454546,
+        "ROUGE-L": 0.5,
+        "BERTScore": 0.7804933190345764,
+        "Edit Dist": 0.592814371257485,
+        "TER": 0.11764705882352944
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30522,
+      "source": "As each one of you has received a gift, use it to serve one another, faithfully administering God's grace in its various forms.",
+      "reference": "Diosiri nula jeralelaca man quiraque man quiraque poden suwaca joe. Junni nulari Diosibe man cosa quino podeitori, junca sele quinilaquina! Diosichi tenchi pánatori, seque panilaquina! ya fiqui Diosichi fiqui joeque. Poperelaca ayudainatori, Diosichi sonbabe seque ayudailaina! Beco beco tsanquito nenalarana! Tsanque nenalaranari, tsachila Diosica fécari se tilatichunae. Tsantino jochunae. Diosica duque se tito, numatotiya mantá tan joe tintsan jochunae.",
+      "translation": "Sure, here is the translation of the text into Spanish:\n\n\"Cada uno de ustedes ha recibido un don, úselo para servirse mutuamente, administrando fielmente la gracia de Dios en sus diversas formas.\"",
+      "example_count": 0,
+      "scores": {
+        "BLEU": 0.0055784840418150105,
+        "chrF+": 0.10380281694904278,
+        "METEOR": 0.0,
+        "ROUGE-L": 0.0,
+        "BERTScore": 0.3791966736316681,
+        "Edit Dist": 0.2210065645514223,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30522,
+      "source": "As each one of you has received a gift, use it to serve one another, faithfully administering God's grace in its various forms.",
+      "reference": "Diosiri nula jeralelaca man quiraque man quiraque poden suwaca joe. Junni nulari Diosibe man cosa quino podeitori, junca sele quinilaquina! Diosichi tenchi pánatori, seque panilaquina! ya fiqui Diosichi fiqui joeque. Poperelaca ayudainatori, Diosichi sonbabe seque ayudailaina! Beco beco tsanquito nenalarana! Tsanque nenalaranari, tsachila Diosica fécari se tilatichunae. Tsantino jochunae. Diosica duque se tito, numatotiya mantá tan joe tintsan jochunae.",
+      "translation": "Jeralelaca cuwenta sona iton jonari se jono jonhoe tiyoe, nenasa manquiraque, sele ayudaintsan joe, Diosiri mancachi man quiraque, nenasa mantá cuwachunae.",
+      "example_count": 3,
+      "scores": {
+        "BLEU": 0.007417181594642197,
+        "chrF+": 0.21309586966777572,
+        "METEOR": 0.09638247282608695,
+        "ROUGE-L": 0.1,
+        "BERTScore": 0.6536750793457031,
+        "Edit Dist": 0.25164113785557984,
+        "TER": 0.03389830508474578
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30522,
+      "source": "As each one of you has received a gift, use it to serve one another, faithfully administering God's grace in its various forms.",
+      "reference": "Diosiri nula jeralelaca man quiraque man quiraque poden suwaca joe. Junni nulari Diosibe man cosa quino podeitori, junca sele quinilaquina! Diosichi tenchi pánatori, seque panilaquina! ya fiqui Diosichi fiqui joeque. Poperelaca ayudainatori, Diosichi sonbabe seque ayudailaina! Beco beco tsanquito nenalarana! Tsanque nenalaranari, tsachila Diosica fécari se tilatichunae. Tsantino jochunae. Diosica duque se tito, numatotiya mantá tan joe tintsan jochunae.",
+      "translation": "Source: As each one of you has received a gift, use it to serve one another, faithfully administering God's grace in its various forms.\nTarget: Jeralelaca la cuwenta sona iton jonari se jono jonhoe tiyoe, sele ayudaintsan joe, Diosi mancachi man quiraque, nenasa mantá cuwachunae.",
+      "example_count": 5,
+      "scores": {
+        "BLEU": 0.015130219771199344,
+        "chrF+": 0.22709546257304591,
+        "METEOR": 0.08311816927810986,
+        "ROUGE-L": 0.07692307692307693,
+        "BERTScore": 0.5790573954582214,
+        "Edit Dist": 0.28665207877461707,
+        "TER": 0.016949152542372836
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30424,
+      "source": "Look, the pay of the laborers is crying out—the pay that you have withheld from those who harvested your fields, and the cries of the harvesters have gone into the ears of the Lord of hosts.",
+      "reference": "Junni nulachi witaca trabaja quimin peyunlari Diosibe duque rocailainae padeseinayoe tito. Nulari cajosalenan pacara quito, tarinlaquinae. Junni sonban Miya Diosiri yala rocainaminlaca meránae.",
+      "translation": "Sure, here is the translation of the text into Spanish:\n\n\"Mira, el salario de los trabajadores está clamando—el salario que has retenido de aquellos que cosecharon tus campos, y los clamores de los cosechadores han llegado a los oídos del Señor de los ejércitos.\"",
+      "example_count": 0,
+      "scores": {
+        "BLEU": 0.008496070958802303,
+        "chrF+": 0.1608388961165512,
+        "METEOR": 0.0,
+        "ROUGE-L": 0.0,
+        "BERTScore": 0.43474382162094116,
+        "Edit Dist": 0.22813688212927752,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30424,
+      "source": "Look, the pay of the laborers is crying out—the pay that you have withheld from those who harvested your fields, and the cries of the harvesters have gone into the ears of the Lord of hosts.",
+      "reference": "Junni nulachi witaca trabaja quimin peyunlari Diosibe duque rocailainae padeseinayoe tito. Nulari cajosalenan pacara quito, tarinlaquinae. Junni sonban Miya Diosiri yala rocainaminlaca meránae.",
+      "translation": "Miya, junni tencabe senlaca nenato—tencabe junni nenalarachunae tencabe nenato nenaminlae, tsanque nenato nenalarachunae Diosichi Pilabi nenato nenaminlae.",
+      "example_count": 3,
+      "scores": {
+        "BLEU": 0.017756443988458156,
+        "chrF+": 0.2364113781838725,
+        "METEOR": 0.06696428571428571,
+        "ROUGE-L": 0.10256410256410256,
+        "BERTScore": 0.584032416343689,
+        "Edit Dist": 0.2953367875647669,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "cof-cofNT.txt",
+      "line_index": 30424,
+      "source": "Look, the pay of the laborers is crying out—the pay that you have withheld from those who harvested your fields, and the cries of the harvesters have gone into the ears of the Lord of hosts.",
+      "reference": "Junni nulachi witaca trabaja quimin peyunlari Diosibe duque rocailainae padeseinayoe tito. Nulari cajosalenan pacara quito, tarinlaquinae. Junni sonban Miya Diosiri yala rocainaminlaca meránae.",
+      "translation": "Source: Look, the pay of the laborers is crying out—the pay that you have withheld from those who harvested your fields, and the cries of the harvesters have gone into the ears of the Lord of hosts.  \nTarget: Yalachi, junni tencari jera mancari yabe rocailainari, junni tencari jera mancari yabe rocailainari, tsanque junni tencari jera mancari yabe rocailainari, Diosichi Pilabi tsanque chuteca joe.",
+      "example_count": 5,
+      "scores": {
+        "BLEU": 0.006508522100111948,
+        "chrF+": 0.25285808675432153,
+        "METEOR": 0.03703703703703703,
+        "ROUGE-L": 0.047058823529411764,
+        "BERTScore": 0.5269054770469666,
+        "Edit Dist": 0.255,
+        "TER": 0.0
+      }
+    }
+  ]
+}
