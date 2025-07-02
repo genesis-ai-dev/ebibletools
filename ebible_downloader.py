@@ -1,6 +1,7 @@
 import os
 import requests
-from typing import List, Dict
+import random
+from typing import List, Dict, Optional
 
 class EBibleDownloader:
     def __init__(self):
@@ -44,7 +45,17 @@ class EBibleDownloader:
         print(f"✓ Downloaded {filename} to {filepath}")
         return True
     
-    def download_all(self, filter_term: str = "", max_files: int = None, 
+    def download_random_ebible(self) -> Optional[str]:
+        """Download a random eBible file"""
+        files = self.list_files()
+        if not files:
+            return None
+        
+        filename = random.choice(files)["name"]
+        self.download_file(filename)
+        return filename
+    
+    def download_all(self, filter_term: str = "", max_files: Optional[int] = None, 
                     skip_existing: bool = True) -> Dict[str, bool]:
         """Download all available files from the eBible corpus
         
@@ -70,7 +81,7 @@ class EBibleDownloader:
         print(f"Found {len(available_files)} files to download")
         
         # Calculate total size
-        total_size = sum(f["size"] for f in available_files)
+        total_size = sum(int(f["size"]) for f in available_files)
         print(f"Total download size: {self.format_size(total_size)}")
         
         # Confirm with user for large downloads
@@ -94,7 +105,7 @@ class EBibleDownloader:
                 skipped += 1
                 continue
             
-            print(f"[{i}/{len(available_files)}] Downloading {filename} ({self.format_size(file_info['size'])})")
+            print(f"[{i}/{len(available_files)}] Downloading {filename} ({self.format_size(int(file_info['size']))})")
             
             try:
                 success = self.download_file(filename)
