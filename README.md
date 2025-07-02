@@ -11,15 +11,25 @@ Downloads parallel Bible translations from the [eBible corpus](https://github.co
 from ebible_downloader import EBibleDownloader
 
 downloader = EBibleDownloader()
-downloader.list_files()  # Browse available translations
-downloader.download_file("eng-engULB.txt")  # Download English ULB
+
+# Download all files
+downloader.download_all()
+
+# Download only English files
+downloader.download_all(filter_term="eng-")
+
+# Download first 10 files only
+downloader.download_all(max_files=10)
+
+# Force re-download existing files
+downloader.download_all(skip_existing=False)
 ```
 
 ### Context Query (`contextquery.py`)
 Finds similar Bible verses for generating translation training examples using BM25 scoring and branching search.
 
 ```python
-from contextquery import ContextQuery
+from query.contextquery import ContextQuery
 
 cq = ContextQuery("eng-engULB.txt", "npi-npiulb.txt")
 results = cq.search_by_text("blessed are the peacemakers", top_k=3)
