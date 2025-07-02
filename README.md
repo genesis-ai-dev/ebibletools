@@ -1,119 +1,301 @@
 # eBible Tools
 
-Tools for downloading and analyzing Bible translations for machine learning applications, particularly for generating in-context learning examples for translation training. Made this because I'm tired of remaking basically this from scratch every time I need it (:
+A comprehensive toolkit for biblical text processing, translation benchmarking, and semantic search with advanced query capabilities.
 
-## Components
+## Features
 
-### EBible Downloader (`ebible_downloader.py`)
-Downloads parallel Bible translations from the [eBible corpus](https://github.com/BibleNLP/ebible/tree/main/corpus).
+- **Unified Query Interface**: Switch between BM25, TF-IDF, and context-aware search methods
+- **Translation Benchmarking**: Comprehensive evaluation framework with multiple quality metrics
+- **Multi-Provider LLM Support**: Use 100+ LLM providers (OpenAI, Anthropic, Google, Groq, etc.) via liteLLM
+- **Professional MT Metrics**: Industry-standard evaluation including BLEU, chrF, METEOR, ROUGE, BERTScore
+- **Semantic Search**: Advanced context-aware search with coverage weighting and branching
+- **Corpus Management**: Tools for downloading and processing biblical texts
 
-```python
-from ebible_downloader import EBibleDownloader
+## Quick Start
 
-downloader = EBibleDownloader()
+```bash
+# Clone and setup
+git clone <repository-url>
+cd ebibletools
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
 
-# Download all files
-downloader.download_all()
+# Download some biblical texts
+python ebible_downloader.py
 
-# Download only English files
-downloader.download_all(filter_term="eng-")
-
-# Download first 10 files only
-downloader.download_all(max_files=10)
-
-# Force re-download existing files
-downloader.download_all(skip_existing=False)
+# Run a simple benchmark
+cd benchmarks
+python translation_benchmark.py --query-method context --num-tests-per-file 5 --model gpt-4o
 ```
 
-### Context Query (`contextquery.py`)
-Finds similar Bible verses for generating translation training examples using BM25 scoring and branching search.
+## Query System
 
+The unified query system supports three different search methods:
+
+### BM25 Query (Default)
 ```python
-from query.contextquery import ContextQuery
+from query import Query
 
-cq = ContextQuery("eng-engULB.txt", "npi-npiulb.txt")
-results = cq.search_by_text("blessed are the peacemakers", top_k=3)
+# Pure BM25 scoring
+query = Query(method='bm25')
+results = query.search_by_text("love your neighbor", limit=5)
 ```
 
-**Return Format:**
-Both `search_by_text()` and `search_by_line()` return `List[Tuple[int, str, str, float]]`:
+### TF-IDF Query
 ```python
-[
-    (line_number, source_text, target_text, coverage),
-    (1234, "Blessed are the peacemakers", "धन्या शान्ति निर्माता", 0.75),
-    (5678, "Blessed are the merciful", "धन्या दयावान", 0.50),
-    # ...
-]
+# TF-IDF based similarity
+query = Query(method='tfidf')
+results = query.search_by_text("forgiveness", limit=5)
 ```
-- `line_number`: 1-indexed line in original files
-- `source_text`: matching verse in source language  
-- `target_text`: corresponding verse in target language
-- `coverage`: ratio of query words found (0.0-1.0)
 
-**Algorithm:**
-1. Uses BM25 to score verse relevance
-2. Finds covered substrings in selected verses
-3. Splits remaining query into branches
-4. Searches branches in parallel until all examples found
-
-### Example Usage (`example.py`)
-Demonstrates finding translation context examples using English ULB and Nepali ULB:
-
+### Context Query (Advanced)
 ```python
-python example.py
+# BM25 + branching search with coverage weighting
+query = Query(method='context')
+results = query.search_by_text("faith and hope", limit=5)
 ```
+
+All methods support the same interface:
+- `search_by_text(text, limit=10)` - Search by text content
+- `search_by_line(line_number, limit=10)` - Search by line reference
+
+## Translation Quality Metrics
+
+The `metrics/` module provides comprehensive MT evaluation with professional-grade implementations:
+
+### Quick Example
+```python
+from metrics import sentence_bleu, chrF_plus, meteor_score, bert_score
+
+hypothesis = "The cat sits on the mat."
+reference = "The cat sat on the mat."
+
+print(f"BLEU: {sentence_bleu(hypothesis, reference):.4f}")
+print(f"chrF+: {chrF_plus(hypothesis, reference):.4f}")
+print(f"METEOR: {meteor_score(hypothesis, reference):.4f}")
+print(f"BERTScore: {bert_score(hypothesis, reference):.4f}")
+```
+
+### Available Metrics
+- **BLEU**: N-gram precision with SacreBLEU implementation
+- **chrF/chrF+/chrF++**: Character n-gram F-score variants
+- **METEOR**: Full implementation with stemming and synonyms
+- **ROUGE**: Multiple variants (ROUGE-1, ROUGE-2, ROUGE-L, ROUGE-W, ROUGE-S)
+- **BERTScore**: Transformer-based semantic similarity
+- **Edit Distance**: Levenshtein distance (raw and normalized)
+- **TER**: Translation Error Rate
+
+All metrics include:
+- Professional implementations using established libraries
+- Comprehensive linguistic processing (stemming, synonyms, etc.)
+- Batch processing capabilities
+- Clear error handling with fast failure
+
+See [`metrics/README.md`](metrics/README.md) for detailed documentation.
 
 ## Benchmarks
 
-The `benchmarks/` directory contains tools for evaluating translation quality using different ContextQuery configurations.
+The benchmarking system provides comprehensive translation quality evaluation with support for multiple LLM providers via liteLLM:
 
-### Translation Benchmark (`benchmarks/translation_benchmark.py`)
-Compares translation quality across different numbers of in-context examples using OpenAI's API.
-
-**Setup:**
-```bash
-# Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
-# Set up environment variables
-cp benchmarks/env.template .env
-# Edit .env to add your OpenAI API key
-```
-
-**Basic Usage:**
 ```bash
 cd benchmarks
-python translation_benchmark.py
+python translation_benchmark.py --help
+
+# Examples with different providers
+python translation_benchmark.py --query-method context --model gpt-4o --num-tests-per-file 10
+python translation_benchmark.py --query-method bm25 --model anthropic/claude-3-sonnet-20240229
+python translation_benchmark.py --query-method context --model groq/llama2-70b-4096
 ```
 
-**Advanced Configuration:**
+### LLM Provider Support
+
+The benchmark now uses liteLLM for universal LLM access. Supported providers include:
+
+- **OpenAI**: `gpt-4o`, `gpt-4-turbo`, `gpt-3.5-turbo`
+- **Anthropic**: `anthropic/claude-3-sonnet-20240229`, `anthropic/claude-3-haiku-20240307`
+- **Google**: `gemini/gemini-pro`, `gemini/gemini-pro-vision`
+- **Groq**: `groq/llama2-70b-4096`, `groq/mixtral-8x7b-32768`
+- **OpenRouter**: `openrouter/anthropic/claude-3-haiku`
+- **And 100+ more providers**
+
+Set the appropriate API keys as environment variables:
 ```bash
-# Compare different example counts
-python translation_benchmark.py --example-counts 1 3 5 10
-
-# Test with more files and examples
-python translation_benchmark.py --num-target-files 5 --num-tests-per-file 10
-
-# Use different source file
-python translation_benchmark.py --source-file your-source.txt
+export OPENAI_API_KEY="your-openai-key"
+export ANTHROPIC_API_KEY="your-anthropic-key"
+export GROQ_API_KEY="your-groq-key"
+# etc.
 ```
 
-**Output:**
-- Configuration summary
-- Progress tracking with tqdm
-- Similarity scores comparing translations to ground truth
-- Performance rankings across different example counts
+### Command Line Options
+- `--query-method`: Choose between `bm25`, `tfidf`, or `context`
+- `--model`: LLM model to use (supports any liteLLM model)
+- `--num-tests-per-file`: Number of test cases to evaluate per file
+- `--num-target-files`: Number of target language files to test
+- `--example-counts`: List of example counts to compare (e.g., 0 3 5)
+- `--corpus-dir`: Path to corpus directory
+- `--output`: Save results to JSON file
 
-See `benchmarks/README.md` for detailed documentation.
+### Quick Provider Switching Example
 
-## Installation
+```python
+from benchmarks.translation_benchmark import TranslationBenchmark
+
+# Switch between providers easily
+models_to_test = [
+    "gpt-4o",                                    # OpenAI
+    "anthropic/claude-3-sonnet-20240229",       # Anthropic  
+    "groq/llama2-70b-4096",                     # Groq
+]
+
+for model in models_to_test:
+    print(f"Testing {model}...")
+    benchmark = TranslationBenchmark(
+        api_key="your-api-key", 
+        corpus_dir="Corpus",
+        source_file="eng-engULB.txt",
+        model=model
+    )
+    # Run your benchmark...
+```
+
+See [`benchmarks/README.md`](benchmarks/README.md) for detailed usage.
+
+## Project Structure
+
+```
+ebibletools/
+├── query/                  # Query system
+│   ├── __init__.py        # Unified Query interface
+│   ├── base.py            # Base query class
+│   ├── bm25_query.py      # BM25 implementation
+│   ├── tfidf_query.py     # TF-IDF implementation
+│   └── contextquery.py    # Context-aware search
+├── metrics/               # Translation quality metrics
+│   ├── __init__.py       # Metric imports
+│   ├── bleu.py           # BLEU with SacreBLEU
+│   ├── chrf.py           # chrF variants
+│   ├── meteor.py         # METEOR with linguistics
+│   ├── rouge.py          # ROUGE variants
+│   ├── bert_score.py     # BERTScore implementation
+│   ├── edit_distance.py  # Levenshtein distance
+│   ├── ter.py            # Translation Error Rate
+│   └── README.md         # Detailed metric documentation
+├── benchmarks/           # Benchmarking framework
+│   ├── translation_benchmark.py  # Main benchmark script (liteLLM-powered)
+│   ├── litellm_example.py        # Example showing multi-provider usage
+│   └── README.md         # Benchmark documentation
+├── Corpus/               # Biblical text corpus
+├── ebible_downloader.py  # Corpus download utility
+└── requirements.txt      # Dependencies
+```
+
+## Dependencies
+
+All dependencies are **required** for proper functionality:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Use Case
+### Core Requirements
+- `requests` - HTTP requests for downloading
+- `openai` - OpenAI API integration (legacy)
+- `litellm` - Universal LLM API for multiple providers
+- `scikit-learn` - TF-IDF and similarity calculations
+- `tqdm` - Progress bars
+- `numpy` - Numerical computations
+- `faiss-cpu` - Efficient similarity search
+- `python-dotenv` - Environment variable management
 
-Generate few-shot learning examples for LLM translation training by finding verses similar to a target verse across different translations. The branching search ensures comprehensive coverage of complex queries while maintaining semantic coherence. 
+### Translation Metrics
+- `nltk` - Natural language processing for METEOR and ROUGE
+- `sacrebleu` - Professional BLEU implementation
+- `bert-score` - Transformer-based semantic evaluation
+- `torch` - Required for BERTScore
+- `transformers` - Transformer models for BERTScore
+
+The system will fail clearly if any required dependencies are missing.
+
+## Usage Examples
+
+### Basic Query Usage
+```python
+from query import Query
+
+# Initialize with your preferred method
+query = Query(method='context')
+
+# Search for verses about love
+results = query.search_by_text("love your enemies", limit=5)
+for result in results:
+    print(f"Score: {result['score']:.4f}")
+    print(f"Text: {result['text']}")
+    print(f"Reference: {result['reference']}")
+    print()
+```
+
+### Translation Evaluation
+```python
+from metrics import (
+    sentence_bleu, chrF_plus, meteor_score, 
+    rouge_l, bert_score, ter_score
+)
+
+def evaluate_translation(hypothesis, reference):
+    """Comprehensive translation evaluation"""
+    scores = {
+        'BLEU': sentence_bleu(hypothesis, reference),
+        'chrF+': chrF_plus(hypothesis, reference),
+        'METEOR': meteor_score(hypothesis, reference),
+        'ROUGE-L': rouge_l(hypothesis, reference)[2],  # F1
+        'BERTScore': bert_score(hypothesis, reference),
+        'TER': ter_score(hypothesis, reference)
+    }
+    return scores
+
+# Example evaluation
+hypothesis = "Love your neighbor as yourself."
+reference = "You shall love your neighbor as yourself."
+
+scores = evaluate_translation(hypothesis, reference)
+for metric, score in scores.items():
+    print(f"{metric}: {score:.4f}")
+```
+
+### Batch Processing
+```python
+from query import Query
+from metrics import corpus_bleu, bert_score_batch
+
+# Process multiple queries
+query = Query(method='bm25')
+texts = ["faith", "hope", "love"]
+all_results = []
+
+for text in texts:
+    results = query.search_by_text(text, limit=3)
+    all_results.extend(results)
+
+# Evaluate multiple translations
+hypotheses = ["Translation 1", "Translation 2"]
+references = ["Reference 1", "Reference 2"]
+
+bleu_score = corpus_bleu(hypotheses, references)
+_, _, bert_f1_scores = bert_score_batch(hypotheses, references)
+
+print(f"Corpus BLEU: {bleu_score:.4f}")
+print(f"BERTScore F1: {bert_f1_scores}")
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+[Add your license information here] 

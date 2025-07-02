@@ -3,9 +3,13 @@ from typing import List, Tuple, Set
 from collections import Counter
 from .base import QueryBase
 
-class ContextQuery(QueryBase):
-    def __init__(self, source_file: str, target_file: str, coverage_weight: float = 0.5, verbose: bool = True):
+class Query(QueryBase):
+    def __init__(self, source_file: str, target_file: str, method: str = "bm25", 
+                 coverage_weight: float = 0.5, k1: float = 1.5, b: float = 0.75, verbose: bool = True):
+        self.method = method.lower()
         self.coverage_weight = coverage_weight
+        self.k1 = k1
+        self.b = b
         super().__init__(source_file, target_file, verbose)
     
     def _preprocess(self):
@@ -25,7 +29,17 @@ class ContextQuery(QueryBase):
         self.avg_doc_length = sum(self.doc_lengths.values()) / len(self.doc_lengths) if self.doc_lengths else 0.0
         self.total_docs = len(self.valid_indices)
     
-    def _score_document(self, query_words: List[str], doc_idx: int, k1: float = 1.5, b: float = 0.75) -> float:
+    def _score_document(self, query_words: List[str], doc_idx: int) -> float:
+        if self.method == "bm25":
+            return self._bm25_score(query_words, doc_idx)
+        elif self.method == "tfidf":
+            return self._tfidf_score(query_words, doc_idx)
+        elif self.method == "context":
+            return self._bm25_score(query_words, doc_idx)
+        else:
+            raise ValueError(f"Unknown method: {self.method}")
+    
+    def _bm25_score(self, query_words: List[str], doc_idx: int) -> float:
         score = 0.0
         doc_length = self.doc_lengths[doc_idx]
         term_freq = self.term_freqs[doc_idx]
@@ -36,10 +50,23 @@ class ContextQuery(QueryBase):
                 df = self.doc_freqs[word]
                 idf = math.log((self.total_docs - df + 0.5) / (df + 0.5) + 1)
                 
-                numerator = tf * (k1 + 1)
-                denominator = tf + k1 * (1 - b + b * (doc_length / self.avg_doc_length))
+                numerator = tf * (self.k1 + 1)
+                denominator = tf + self.k1 * (1 - self.b + self.b * (doc_length / self.avg_doc_length))
                 
                 score += idf * (numerator / denominator)
+        
+        return score
+    
+    def _tfidf_score(self, query_words: List[str], doc_idx: int) -> float:
+        score = 0.0
+        term_freq = self.term_freqs[doc_idx]
+        doc_word_count = sum(term_freq.values())
+        
+        for word in query_words:
+            if word in term_freq and word in self.doc_freqs:
+                tf = term_freq[word] / doc_word_count
+                idf = math.log(self.total_docs / self.doc_freqs[word])
+                score += tf * idf
         
         return score
     
@@ -82,15 +109,10 @@ class ContextQuery(QueryBase):
         used_indices = {exclude_idx} if exclude_idx >= 0 else set()
         restart_count = 0
         
-        if self.verbose:
-            print(f"Starting branching search with query: {original_query}")
-        
         while len(results) < top_k and restart_count < 3:
             if not query_branches:
                 restart_count += 1
                 query_branches = [self._normalize_text(original_query)]
-                if self.verbose:
-                    print(f"All branches exhausted, restart #{restart_count}")
                 continue
             
             best_score = -1.0
@@ -107,7 +129,7 @@ class ContextQuery(QueryBase):
                     if idx in used_indices:
                         continue
                     
-                    bm25_val = self._score_document(query_words, idx)
+                    bm25_val = self._bm25_score(query_words, idx)
                     coverage = self._compute_coverage(branch_query, self.source_verses[idx])
                     
                     score = bm25_val * (1 + self.coverage_weight * coverage)
@@ -135,23 +157,20 @@ class ContextQuery(QueryBase):
             if covered_substring:
                 new_branches = self._remove_substring_and_split(current_branch, covered_substring)
                 query_branches.extend(new_branches)
-                
-                if self.verbose:
-                    print(f"Result {len(results)}: Selected verse {best_idx + 1}")
-                    print(f"  Covered substring: '{covered_substring}'")
-                    print(f"  New branches: {new_branches}")
-                    print(f"  Active branches: {len(query_branches)}")
-                    print(f"  Coverage: {coverage:.2f}")
-            else:
-                if self.verbose:
-                    print(f"Result {len(results)}: Selected verse {best_idx + 1} (no substring coverage)")
         
         return results
     
     def search_by_text(self, query_text: str, top_k: int = 5) -> List[Tuple[int, str, str, float]]:
-        return self._branching_search(query_text, top_k)
+        if self.method == "context":
+            return self._branching_search(query_text, top_k)
+        else:
+            return self._simple_search(query_text, top_k)
     
     def search_by_line(self, line_number: int, top_k: int = 5) -> List[Tuple[int, str, str, float]]:
         query_idx = line_number - 1
         query_text = self.source_verses[query_idx].strip()
-        return self._branching_search(query_text, top_k, exclude_idx=query_idx) 
+        
+        if self.method == "context":
+            return self._branching_search(query_text, top_k, exclude_idx=query_idx)
+        else:
+            return self._simple_search(query_text, top_k, exclude_idx=query_idx) 
