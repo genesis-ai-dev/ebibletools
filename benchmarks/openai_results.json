@@ -1,0 +1,143 @@
+{
+  "benchmark_config": {
+    "query_method": "context",
+    "source_file": "eng-engULB.txt",
+    "example_counts": [
+      0,
+      3
+    ],
+    "metrics": [
+      "chrF+",
+      "Edit Dist",
+      "TER"
+    ]
+  },
+  "summary_stats": {
+    "0": {
+      "chrF+": {
+        "mean": 0.14145319757074964,
+        "std": 0.015714849693176984,
+        "min": 0.12333184589825064,
+        "max": 0.15133177379846377,
+        "count": 3
+      },
+      "Edit Dist": {
+        "mean": 0.25380136729021113,
+        "std": 0.05663115696237105,
+        "min": 0.18888888888888888,
+        "max": 0.2931034482758621,
+        "count": 3
+      },
+      "TER": {
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "count": 3
+      }
+    },
+    "3": {
+      "chrF+": {
+        "mean": 0.407604851153964,
+        "std": 0.05172442787477729,
+        "min": 0.37118639558511013,
+        "max": 0.46681028009724956,
+        "count": 3
+      },
+      "Edit Dist": {
+        "mean": 0.46252737932127247,
+        "std": 0.11052906555815416,
+        "min": 0.3351648351648352,
+        "max": 0.5333333333333333,
+        "count": 3
+      },
+      "TER": {
+        "mean": 0.15142450142450145,
+        "std": 0.14506412197290694,
+        "min": 0.02777777777777779,
+        "max": 0.3111111111111111,
+        "count": 3
+      }
+    }
+  },
+  "detailed_results": [
+    {
+      "target_file": "bzj-bzj.txt",
+      "line_index": 27717,
+      "source": "But I do not consider my life is valuable to myself, if only I may finish the race and complete the ministry that I received from the Lord Jesus, to testify to the gospel of the grace of God.",
+      "reference": "Bot fi mee laif noh wot notn if Ah noh yooz it fi du di werk weh di Laad Jeezas gi mi fi du—dat da fi tel evribadi di Gud Nyooz bowt di grays a Gaad.",
+      "translation": "Pero no considero que mi vida tenga valor para mí mismo, si tan solo puedo terminar la carrera y completar el ministerio que recibí del Señor Jesús, para dar testimonio del evangelio de la gracia de Dios.",
+      "example_count": 0,
+      "scores": {
+        "chrF+": 0.15133177379846377,
+        "Edit Dist": 0.27941176470588236,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "bzj-bzj.txt",
+      "line_index": 27717,
+      "source": "But I do not consider my life is valuable to myself, if only I may finish the race and complete the ministry that I received from the Lord Jesus, to testify to the gospel of the grace of God.",
+      "reference": "Bot fi mee laif noh wot notn if Ah noh yooz it fi du di werk weh di Laad Jeezas gi mi fi du—dat da fi tel evribadi di Gud Nyooz bowt di grays a Gaad.",
+      "translation": "Bot ah noh tink seh mi laaf valyubul tu mi miself, if oanli mi kyan finish di raes ahn complete di ministry weh mi get fahn di Laad Jiizas, fi testify bout di gud nyuuz a Gaad grays.",
+      "example_count": 3,
+      "scores": {
+        "chrF+": 0.37118639558511013,
+        "Edit Dist": 0.3351648351648352,
+        "TER": 0.02777777777777779
+      }
+    },
+    {
+      "target_file": "bzj-bzj.txt",
+      "line_index": 26031,
+      "source": "But turning to them, Jesus said, “Daughters of Jerusalem, do not weep for me, but weep for yourselves and for your children.",
+      "reference": "Bot Jeezas ton rong ahn luk pahn dehn ahn tel dehn seh, “Unu laydi fahn Jeroosalem, noh krai fi mee; krai fi unuself ahn unu pikni.",
+      "translation": "Sure, here is the translation in Spanish:\n\n\"Pero volviéndose hacia ellas, Jesús dijo: 'Hijas de Jerusalén, no lloren por mí, sino lloren por ustedes mismas y por sus hijos.'\"",
+      "example_count": 0,
+      "scores": {
+        "chrF+": 0.1496959730155345,
+        "Edit Dist": 0.2931034482758621,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "bzj-bzj.txt",
+      "line_index": 26031,
+      "source": "But turning to them, Jesus said, “Daughters of Jerusalem, do not weep for me, but weep for yourselves and for your children.",
+      "reference": "Bot Jeezas ton rong ahn luk pahn dehn ahn tel dehn seh, “Unu laydi fahn Jeroosalem, noh krai fi mee; krai fi unuself ahn unu pikni.",
+      "translation": "Baat Jeezas ton roun an tel dehn, “Dawta dehn a Jeroosalem, unu noh fi baal fi mi, baal fi unu self an fi unu pikni dehn.",
+      "example_count": 3,
+      "scores": {
+        "chrF+": 0.46681028009724956,
+        "Edit Dist": 0.5190839694656488,
+        "TER": 0.11538461538461542
+      }
+    },
+    {
+      "target_file": "bzj-bzj.txt",
+      "line_index": 28196,
+      "source": "For if you live according to the flesh, you are about to die, but if by the Spirit you put to death the body's actions, you will live.",
+      "reference": "Kaa if yu jos di liv laik how yu sinful haat tel yu fi liv, yu wahn ded. Bot if yu mek Gaad Spirit gi yu di powa soh dat yu ku stap du dehn ting weh yu badi tel yu du, yu wahn liv.",
+      "translation": "Here is the translation of the text into Spanish:\n\n\"Porque si vives según la carne, estás a punto de morir, pero si por el Espíritu haces morir las acciones del cuerpo, vivirás.\"",
+      "example_count": 0,
+      "scores": {
+        "chrF+": 0.12333184589825064,
+        "Edit Dist": 0.18888888888888888,
+        "TER": 0.0
+      }
+    },
+    {
+      "target_file": "bzj-bzj.txt",
+      "line_index": 28196,
+      "source": "For if you live according to the flesh, you are about to die, but if by the Spirit you put to death the body's actions, you will live.",
+      "reference": "Kaa if yu jos di liv laik how yu sinful haat tel yu fi liv, yu wahn ded. Bot if yu mek Gaad Spirit gi yu di powa soh dat yu ku stap du dehn ting weh yu badi tel yu du, yu wahn liv.",
+      "translation": "If unu liv di way weh unu sinful haat tel unu fi liv, unu gwain ded. Bot if unu mek di Spirit help unu fi kil di bad tingz dem weh di bodi waahn fi du, unu wi liv.",
+      "example_count": 3,
+      "scores": {
+        "chrF+": 0.38481787777953236,
+        "Edit Dist": 0.5333333333333333,
+        "TER": 0.3111111111111111
+      }
+    }
+  ]
+}

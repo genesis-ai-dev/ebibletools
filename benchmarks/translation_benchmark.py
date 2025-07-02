@@ -3,7 +3,7 @@
 Enhanced Translation Benchmark with Comprehensive Metrics Evaluation
 
 Compares different numbers of examples for Query-based in-context learning
-using professional translation quality metrics.
+using professional translation quality metrics. Uses liteLLM for provider flexibility.
 """
 
 import argparse
@@ -16,7 +16,7 @@ from tqdm import tqdm
 from statistics import mean, stdev
 
 from dotenv import load_dotenv
-from openai import OpenAI
+import litellm
 
 # Add parent directory to path for imports
 import sys
@@ -26,8 +26,12 @@ from metrics import chrF_plus, normalized_edit_distance, ter_score
 
 
 class TranslationBenchmark:
-    def __init__(self, api_key, corpus_dir, source_file, query_method="context"):
-        self.client = OpenAI(api_key=api_key)
+    def __init__(self, api_key, corpus_dir, source_file, query_method="context", model="gpt-4o"):
+        # Set up liteLLM with OpenAI (can be easily changed to other providers)
+        import os
+        os.environ["OPENAI_API_KEY"] = api_key
+        
+        self.model = model
         self.corpus_dir = Path(corpus_dir)
         self.source_file = self.corpus_dir / source_file
         self.query_method = query_method
@@ -69,7 +73,7 @@ class TranslationBenchmark:
         return examples
 
     def translate(self, text, examples=None):
-        """Translate using OpenAI with optional examples"""
+        """Translate using liteLLM with optional examples"""
         if examples:
             prompt = "Translate from source to target language. Examples:\n\n"
             for src, tgt in examples:
@@ -78,8 +82,8 @@ class TranslationBenchmark:
         else:
             prompt = f"Translate this text: {text}"
         
-        response = self.client.chat.completions.create(
-            model="gpt-4o",
+        response = litellm.completion(
+            model=self.model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800,
             temperature=0.1
@@ -280,13 +284,15 @@ def main():
     
     parser = argparse.ArgumentParser(description="Comprehensive Translation Benchmark")
     parser.add_argument("--api-key", default=os.getenv("OPENAI_API_KEY"), 
-                       help="OpenAI API key (or set OPENAI_API_KEY env var)")
+                       help="API key for the model provider (or set OPENAI_API_KEY env var)")
     parser.add_argument("--corpus-dir", default="../Corpus", 
                        help="Directory containing corpus files")
     parser.add_argument("--source-file", default="eng-engULB.txt", 
                        help="Source file name")
     parser.add_argument("--query-method", default="context", choices=["bm25", "tfidf", "context"],
                        help="Query method to use")
+    parser.add_argument("--model", default="gpt-4o", 
+                       help="Model to use (supports any liteLLM model)")
     parser.add_argument("--num-target-files", type=int, default=2, 
                        help="Number of target files to test")
     parser.add_argument("--num-tests-per-file", type=int, default=5, 
@@ -299,11 +305,11 @@ def main():
     args = parser.parse_args()
     
     if not args.api_key:
-        print("❌ Error: OpenAI API key required. Set OPENAI_API_KEY env var or use --api-key")
+        print("❌ Error: API key required. Set OPENAI_API_KEY env var or use --api-key")
         return 1
     
     try:
-        benchmark = TranslationBenchmark(args.api_key, args.corpus_dir, args.source_file, args.query_method)
+        benchmark = TranslationBenchmark(args.api_key, args.corpus_dir, args.source_file, args.query_method, args.model)
         benchmark.run_benchmark(args.num_target_files, args.num_tests_per_file, args.example_counts, args.output)
         print("\n✅ Benchmark completed successfully!")
         return 0
