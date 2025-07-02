@@ -5,9 +5,11 @@ from collections import Counter
 import math
 
 class ContextQuery:
-    def __init__(self, source_file: str, target_file: str):
+    def __init__(self, source_file: str, target_file: str, coverage_weight: float = 0.5, verbose: bool = True):
         self.source_file = source_file
         self.target_file = target_file
+        self.coverage_weight = coverage_weight
+        self.verbose = verbose
         self.source_verses: List[str] = []
         self.target_verses: List[str] = []
         self.valid_indices: List[int] = []
@@ -29,11 +31,16 @@ class ContextQuery:
             if self.source_verses[i].strip() and self.target_verses[i].strip()
         ]
         
-        print(f"Loaded {len(self.source_verses)} verses total")
-        print(f"Found {len(self.valid_indices)} valid verse pairs")
+        if self.verbose:
+            print(f"Loaded {len(self.source_verses)} verses total")
+            print(f"Found {len(self.valid_indices)} valid verse pairs")
     
     def _normalize_text(self, text: str) -> str:
-        return re.sub(r'\s+', ' ', text.lower().strip())
+        # Convert to lowercase, remove punctuation, and normalize whitespace
+        text = text.lower().strip()
+        text = re.sub(r'[^\w\s]', '', text)  # Remove punctuation
+        text = re.sub(r'\s+', ' ', text)     # Normalize whitespace
+        return text
     
     def _preprocess_bm25(self):
         self.doc_lengths = {}
@@ -49,7 +56,11 @@ class ContextQuery:
             for word in set(words):
                 self.doc_freqs[word] += 1
         
-        self.avg_doc_length = sum(self.doc_lengths.values()) / len(self.doc_lengths)
+        if len(self.doc_lengths) > 0:
+            self.avg_doc_length = sum(self.doc_lengths.values()) / len(self.doc_lengths)
+        else:
+            self.avg_doc_length = 0.0  # Handle case with no valid documents
+            
         self.total_docs = len(self.valid_indices)
     
     def _bm25_score(self, query_words: List[str], doc_idx: int, k1: float = 1.5, b: float = 0.75) -> float:
@@ -61,7 +72,7 @@ class ContextQuery:
             if word in term_freq:
                 tf = term_freq[word]
                 df = self.doc_freqs[word]
-                idf = math.log((self.total_docs - df + 0.5) / (df + 0.5))
+                idf = math.log((self.total_docs - df + 0.5) / (df + 0.5) + 1)
                 
                 numerator = tf * (k1 + 1)
                 denominator = tf + k1 * (1 - b + b * (doc_length / self.avg_doc_length))
@@ -95,7 +106,7 @@ class ContextQuery:
         remaining = query_norm.replace(covered_norm, ' | ')
         parts = [part.strip() for part in remaining.split('|') if part.strip()]
         
-        return [part for part in parts if len(part.split()) >= 2]
+        return [part for part in parts if len(part.split()) >= 1]
     
     def _compute_coverage(self, original_query: str, verse_text: str) -> float:
         query_words = set(self._normalize_text(original_query).split())
@@ -109,13 +120,15 @@ class ContextQuery:
         used_indices = {exclude_idx} if exclude_idx >= 0 else set()
         restart_count = 0
         
-        print(f"Starting branching search with query: {original_query}")
+        if self.verbose:
+            print(f"Starting branching search with query: {original_query}")
         
         while len(results) < top_k and restart_count < 3:
             if not query_branches:
                 restart_count += 1
                 query_branches = [self._normalize_text(original_query)]
-                print(f"All branches exhausted, restart #{restart_count}")
+                if self.verbose:
+                    print(f"All branches exhausted, restart #{restart_count}")
                 continue
             
             best_score = -1.0
@@ -132,7 +145,11 @@ class ContextQuery:
                     if idx in used_indices:
                         continue
                     
-                    score = self._bm25_score(query_words, idx)
+                    bm25_val = self._bm25_score(query_words, idx)
+                    coverage = self._compute_coverage(branch_query, self.source_verses[idx])
+                    
+                    # Combine BM25 and coverage. The weight is configurable.
+                    score = bm25_val * (1 + self.coverage_weight * coverage)
                     
                     if score > best_score:
                         best_score = score
@@ -158,13 +175,15 @@ class ContextQuery:
                 new_branches = self._remove_substring_and_split(current_branch, covered_substring)
                 query_branches.extend(new_branches)
                 
-                print(f"Result {len(results)}: Selected verse {best_idx + 1}")
-                print(f"  Covered substring: '{covered_substring}'")
-                print(f"  New branches: {new_branches}")
-                print(f"  Active branches: {len(query_branches)}")
-                print(f"  Coverage: {coverage:.2f}")
+                if self.verbose:
+                    print(f"Result {len(results)}: Selected verse {best_idx + 1}")
+                    print(f"  Covered substring: '{covered_substring}'")
+                    print(f"  New branches: {new_branches}")
+                    print(f"  Active branches: {len(query_branches)}")
+                    print(f"  Coverage: {coverage:.2f}")
             else:
-                print(f"Result {len(results)}: Selected verse {best_idx + 1} (no substring coverage)")
+                if self.verbose:
+                    print(f"Result {len(results)}: Selected verse {best_idx + 1} (no substring coverage)")
         
         return results
     
