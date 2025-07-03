@@ -44,7 +44,7 @@ class BiblicalRecallBenchmark:
         
         return [(self.references[i], self.verses[i]) for i in test_indices]
 
-    def test_reference_recall(self, reference, expected_text, model):
+    def test_reference_recall(self, reference, model):
         base_prompt = f"What does {reference} say?"
         prompt = format_xml_prompt(base_prompt, "verse", "the biblical verse text")
         
@@ -75,7 +75,7 @@ class BiblicalRecallBenchmark:
             model_details = []
             
             for reference, expected_text in tqdm(test_cases, desc=f"Testing {model}"):
-                recalled_text = self.test_reference_recall(reference, expected_text, model)
+                recalled_text = self.test_reference_recall(reference, model)
                 
                 # Evaluate accuracy
                 chrf_score = chrF_plus(recalled_text, expected_text)
