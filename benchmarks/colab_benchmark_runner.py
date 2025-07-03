@@ -22,13 +22,13 @@ current_dir = os.getcwd()
 sys.path.insert(0, current_dir)
 sys.path.append(os.path.join(current_dir, 'benchmarks'))
 
-from metrics import chrF_plus, normalized_edit_distance
-from query import Query
-from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
-from benchmarks.biblical_recall_benchmark import BiblicalRecallBenchmark
-from benchmarks.context_corrigibility_benchmark import ContextCorrigibilityBenchmark
-from benchmarks.true_source_benchmark import TrueSourceBenchmark
-from benchmarks.power_prompt_benchmark import PowerPromptBenchmark
+from ebibletools.metrics import chrF_plus, normalized_edit_distance
+from ebibletools.query import Query
+from ebibletools.benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
+from ebibletools.benchmarks.biblical_recall_benchmark import BiblicalRecallBenchmark
+from ebibletools.benchmarks.context_corrigibility_benchmark import ContextCorrigibilityBenchmark
+from ebibletools.benchmarks.true_source_benchmark import TrueSourceBenchmark
+from ebibletools.benchmarks.power_prompt_benchmark import PowerPromptBenchmark
 
 plt.style.use('default')
 sns.set_palette("husl")
@@ -38,7 +38,7 @@ sns.set_palette("husl")
 # os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
 
 # Cell 5: Download corpus files
-from ebible_downloader import EBibleDownloader
+from ebibletools.ebible_downloader import EBibleDownloader
 
 downloader = EBibleDownloader()
 downloader.download_file("eng-engULB.txt")
@@ -88,7 +88,7 @@ def extract_performance_data():
     biblical_data = {model: biblical_results["summary"][model]["chrf_mean"] 
                     for model in biblical_results["summary"]}
     
-    context_data = {model: results["summary"]["5"]["chrf_mean"] - results["summary"]["0"]["chrf_mean"]
+    context_data = {model: results["summary"][5]["chrf_mean"] - results["summary"][0]["chrf_mean"]
                    for model, results in context_results.items()}
     
     source_data = {model: results["summary"]["with_source"]["chrf_mean"] - results["summary"]["without_source"]["chrf_mean"]

@@ -15,8 +15,8 @@ import litellm
 
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
-from metrics import chrF_plus, normalized_edit_distance
-from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
+from ebibletools.metrics import chrF_plus, normalized_edit_distance
+from ebibletools.benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class TrueSourceBenchmark:
@@ -43,12 +43,24 @@ class TrueSourceBenchmark:
             if len(source_lines[i].strip()) > 10 and len(target_lines[i].strip()) > 10
         ]
         
-        test_indices = random.sample(valid_indices, min(num_tests, len(valid_indices)))
-        return [(source_lines[i].strip(), target_lines[i].strip(), target_file.name) 
-                for i in test_indices]
+        # Need more indices to get both examples and test cases
+        selected_indices = random.sample(valid_indices, min(num_tests + 6, len(valid_indices)))
+        
+        # First 3 pairs are ICL examples, rest are test cases
+        example_pairs = [(source_lines[i].strip(), target_lines[i].strip()) 
+                        for i in selected_indices[:3]]
+        test_cases = [(source_lines[i].strip(), target_lines[i].strip(), target_file.name) 
+                     for i in selected_indices[3:3+num_tests]]
+        
+        return example_pairs, test_cases
 
-    def translate_with_source(self, source_text, target_lang):
-        base_prompt = f"Translate from source to {target_lang}: {source_text}"
+    def translate_with_source_examples(self, test_source, example_pairs, target_lang):
+        # Build prompt with source-target example pairs
+        base_prompt = f"Translate from source to {target_lang}. Examples:\n\n"
+        for src, tgt in example_pairs:
+            base_prompt += f"Source: {src}\nTarget: {tgt}\n\n"
+        base_prompt += f"Now translate:\nSource: {test_source}"
+        
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
         response = litellm.completion(
@@ -59,9 +71,13 @@ class TrueSourceBenchmark:
         )
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
 
-    def translate_without_source(self, reference_text, target_lang):
-        # Just ask to translate to target language without giving source
-        base_prompt = f"Translate this to {target_lang}: {reference_text}"
+    def translate_with_target_only_examples(self, test_source, example_pairs, target_lang):
+        # Build prompt with only target examples (no source)
+        base_prompt = f"Translate to {target_lang}. Example target language texts:\n\n"
+        for _, tgt in example_pairs:
+            base_prompt += f"{tgt}\n"
+        base_prompt += f"\nNow translate this to {target_lang}:\n{test_source}"
+        
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
         response = litellm.completion(
@@ -79,25 +95,26 @@ class TrueSourceBenchmark:
         }
 
     def run_benchmark(self, num_tests=15, output_file=None):
-        test_cases = self.get_test_cases(num_tests)
+        example_pairs, test_cases = self.get_test_cases(num_tests)
         target_lang = test_cases[0][2].split('-')[0] if test_cases else "target language"
         
         print(f"🎯 True Source Benchmark")
         print(f"Model: {self.model}")
         print(f"Target Language: {target_lang}")
+        print(f"ICL Examples: {len(example_pairs)}")
         print(f"Tests: {len(test_cases)}")
         print()
         
         results = {"with_source": [], "without_source": []}
         detailed_results = []
         
-        for source_text, reference, _ in tqdm(test_cases, desc="Testing source effects"):
-            # Test 1: With correct source
-            trans_with_source = self.translate_with_source(source_text, target_lang)
+        for source_text, reference, _ in tqdm(test_cases, desc="Testing ICL source effects"):
+            # Test 1: With source-target example pairs
+            trans_with_source = self.translate_with_source_examples(source_text, example_pairs, target_lang)
             scores_with = self.evaluate_translation(trans_with_source, reference)
             
-            # Test 2: Without source (asking model to translate the reference back)
-            trans_without_source = self.translate_without_source(reference, target_lang)
+            # Test 2: With target-only examples  
+            trans_without_source = self.translate_with_target_only_examples(source_text, example_pairs, target_lang)
             scores_without = self.evaluate_translation(trans_without_source, reference)
             
             results["with_source"].append(scores_with)
