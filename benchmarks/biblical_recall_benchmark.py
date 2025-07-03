@@ -15,8 +15,8 @@ import litellm
 
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
-from ebibletools.metrics import chrF_plus, normalized_edit_distance
-from ebibletools.benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
+from metrics import chrF_plus, normalized_edit_distance
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class BiblicalRecallBenchmark:
