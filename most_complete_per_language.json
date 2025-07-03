@@ -1,0 +1,4888 @@
+{
+  "eng": {
+    "filename": "eng-engwyc2018.txt",
+    "size_mb": 7.77,
+    "alternatives": [
+      {
+        "filename": "eng-engasvbt.txt",
+        "size_mb": 4.8
+      },
+      {
+        "filename": "eng-engwyc2017.txt",
+        "size_mb": 4.73
+      },
+      {
+        "filename": "eng-engkjvcpb.txt",
+        "size_mb": 4.65
+      },
+      {
+        "filename": "eng-engwebu.txt",
+        "size_mb": 4.63
+      },
+      {
+        "filename": "eng-engDRA.txt",
+        "size_mb": 4.28
+      },
+      {
+        "filename": "eng-enggnv.txt",
+        "size_mb": 3.98
+      },
+      {
+        "filename": "eng-engylt.txt",
+        "size_mb": 3.97
+      },
+      {
+        "filename": "eng-engBBE.txt",
+        "size_mb": 3.97
+      },
+      {
+        "filename": "eng-englsv.txt",
+        "size_mb": 3.96
+      },
+      {
+        "filename": "eng-engwebster.txt",
+        "size_mb": 3.92
+      },
+      {
+        "filename": "eng-engDBY.txt",
+        "size_mb": 3.91
+      },
+      {
+        "filename": "eng-engULB.txt",
+        "size_mb": 3.89
+      },
+      {
+        "filename": "eng-engwmbb.txt",
+        "size_mb": 3.85
+      },
+      {
+        "filename": "eng-engwebpb.txt",
+        "size_mb": 3.84
+      },
+      {
+        "filename": "eng-engwmb.txt",
+        "size_mb": 3.84
+      },
+      {
+        "filename": "eng-engwebp.txt",
+        "size_mb": 3.84
+      },
+      {
+        "filename": "eng-engfbv.txt",
+        "size_mb": 3.79
+      },
+      {
+        "filename": "eng-engbsb.txt",
+        "size_mb": 3.69
+      },
+      {
+        "filename": "eng-englxxup.txt",
+        "size_mb": 3.53
+      },
+      {
+        "filename": "eng-englee.txt",
+        "size_mb": 3.19
+      },
+      {
+        "filename": "eng-engjps.txt",
+        "size_mb": 3.08
+      },
+      {
+        "filename": "eng-engnoy.txt",
+        "size_mb": 2.14
+      },
+      {
+        "filename": "eng-engourb.txt",
+        "size_mb": 1.99
+      },
+      {
+        "filename": "eng-engPEV.txt",
+        "size_mb": 1.52
+      },
+      {
+        "filename": "eng-engoebcw.txt",
+        "size_mb": 1.36
+      },
+      {
+        "filename": "eng-engoebus.txt",
+        "size_mb": 1.36
+      },
+      {
+        "filename": "eng-engWycliffe.txt",
+        "size_mb": 1.19
+      },
+      {
+        "filename": "eng-engemtv.txt",
+        "size_mb": 0.95
+      },
+      {
+        "filename": "eng-engtcent.txt",
+        "size_mb": 0.95
+      },
+      {
+        "filename": "eng-engf35.txt",
+        "size_mb": 0.94
+      },
+      {
+        "filename": "eng-engtnt.txt",
+        "size_mb": 0.94
+      },
+      {
+        "filename": "eng-engoke.txt",
+        "size_mb": 0.81
+      },
+      {
+        "filename": "eng-engaoi.txt",
+        "size_mb": 0.52
+      },
+      {
+        "filename": "eng-engnna.txt",
+        "size_mb": 0.28
+      },
+      {
+        "filename": "eng-eng_lxx2012.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_kjv.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_t4t.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_web.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_webbe.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_kjv2006.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_glw.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_Brenton.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_asv.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_web_c.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_rv.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "eng-eng_uk_lxx2012.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "kpx": {
+    "filename": "kpx-kpx.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "okv": {
+    "filename": "okv-okvh.txt",
+    "size_mb": 1.11,
+    "alternatives": [
+      {
+        "filename": "okv-okv.txt",
+        "size_mb": 1.11
+      }
+    ]
+  },
+  "tbo": {
+    "filename": "tbo-tbo.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "mal": {
+    "filename": "mal-malc.txt",
+    "size_mb": 11.48,
+    "alternatives": [
+      {
+        "filename": "mal-mal.txt",
+        "size_mb": 10.56
+      },
+      {
+        "filename": "mal-mal2015.txt",
+        "size_mb": 10.38
+      }
+    ]
+  },
+  "grc": {
+    "filename": "grc-grcbrent.txt",
+    "size_mb": 6.24,
+    "alternatives": [
+      {
+        "filename": "grc-grcsr.txt",
+        "size_mb": 1.68
+      },
+      {
+        "filename": "grc-grcf35.txt",
+        "size_mb": 1.65
+      },
+      {
+        "filename": "grc-grctr.txt",
+        "size_mb": 1.64
+      },
+      {
+        "filename": "grc-grcbyz.txt",
+        "size_mb": 1.64
+      },
+      {
+        "filename": "grc-grctcgnt.txt",
+        "size_mb": 1.63
+      },
+      {
+        "filename": "grc-grcmt.txt",
+        "size_mb": 1.48
+      },
+      {
+        "filename": "grc-grc_tisch.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "bgc": {
+    "filename": "bgc-bgc.txt",
+    "size_mb": 2.51,
+    "alternatives": []
+  },
+  "khz": {
+    "filename": "khz-khz.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "deu": {
+    "filename": "deu-deutkw.txt",
+    "size_mb": 4.13,
+    "alternatives": [
+      {
+        "filename": "deu-deuelo.txt",
+        "size_mb": 4.13
+      },
+      {
+        "filename": "deu-deuelbbk.txt",
+        "size_mb": 4.11
+      },
+      {
+        "filename": "deu-deu1951.txt",
+        "size_mb": 4.04
+      },
+      {
+        "filename": "deu-deu1912.txt",
+        "size_mb": 3.9
+      }
+    ]
+  },
+  "lin": {
+    "filename": "lin-lin.txt",
+    "size_mb": 4.43,
+    "alternatives": []
+  },
+  "hns": {
+    "filename": "hns-hnsNT.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "noa": {
+    "filename": "noa-noaH.txt",
+    "size_mb": 1.97,
+    "alternatives": [
+      {
+        "filename": "noa-noaE.txt",
+        "size_mb": 1.88
+      }
+    ]
+  },
+  "mib": {
+    "filename": "mib-mibNT.txt",
+    "size_mb": 1.45,
+    "alternatives": []
+  },
+  "bea": {
+    "filename": "bea-bea.txt",
+    "size_mb": 0.12,
+    "alternatives": []
+  },
+  "lif": {
+    "filename": "lif-lifNT2.txt",
+    "size_mb": 4.01,
+    "alternatives": [
+      {
+        "filename": "lif-lifNT.txt",
+        "size_mb": 3.08
+      }
+    ]
+  },
+  "mmx": {
+    "filename": "mmx-mmx.txt",
+    "size_mb": 1.63,
+    "alternatives": []
+  },
+  "cbr": {
+    "filename": "cbr-cbrNT.txt",
+    "size_mb": 1.9,
+    "alternatives": []
+  },
+  "tee": {
+    "filename": "tee-teeNT.txt",
+    "size_mb": 1.66,
+    "alternatives": []
+  },
+  "cak": {
+    "filename": "cak-cakWNT.txt",
+    "size_mb": 1.73,
+    "alternatives": [
+      {
+        "filename": "cak-cakCNT.txt",
+        "size_mb": 1.7
+      },
+      {
+        "filename": "cak-cakENT.txt",
+        "size_mb": 1.68
+      },
+      {
+        "filename": "cak-cakYNT.txt",
+        "size_mb": 1.65
+      },
+      {
+        "filename": "cak-cakNT.txt",
+        "size_mb": 1.55
+      },
+      {
+        "filename": "cak-cakSNT.txt",
+        "size_mb": 1.55
+      },
+      {
+        "filename": "cak-cak.txt",
+        "size_mb": 1.43
+      }
+    ]
+  },
+  "pah": {
+    "filename": "pah-pahNT.txt",
+    "size_mb": 1.91,
+    "alternatives": []
+  },
+  "sja": {
+    "filename": "sja-sjaNT.txt",
+    "size_mb": 1.46,
+    "alternatives": []
+  },
+  "glk": {
+    "filename": "glk-glk.txt",
+    "size_mb": 0.19,
+    "alternatives": []
+  },
+  "mks": {
+    "filename": "mks-mksNT.txt",
+    "size_mb": 1.99,
+    "alternatives": []
+  },
+  "gfk": {
+    "filename": "gfk-gfk.txt",
+    "size_mb": 1.65,
+    "alternatives": [
+      {
+        "filename": "gfk-gfkh.txt",
+        "size_mb": 1.38
+      },
+      {
+        "filename": "gfk-gfks.txt",
+        "size_mb": 1.34
+      }
+    ]
+  },
+  "bmu": {
+    "filename": "bmu-bmu.txt",
+    "size_mb": 2.06,
+    "alternatives": []
+  },
+  "dgz": {
+    "filename": "dgz-dgz.txt",
+    "size_mb": 1.2,
+    "alternatives": []
+  },
+  "guh": {
+    "filename": "guh-guh.txt",
+    "size_mb": 2.44,
+    "alternatives": []
+  },
+  "bon": {
+    "filename": "bon-bon.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "nhw": {
+    "filename": "nhw-nhwBl.txt",
+    "size_mb": 5.84,
+    "alternatives": []
+  },
+  "mgw": {
+    "filename": "mgw-mgw.txt",
+    "size_mb": 0.3,
+    "alternatives": []
+  },
+  "swh": {
+    "filename": "swh-swhulb.txt",
+    "size_mb": 3.8,
+    "alternatives": [
+      {
+        "filename": "swh-swhonen.txt",
+        "size_mb": 3.77
+      },
+      {
+        "filename": "swh-swh1850.txt",
+        "size_mb": 0.94
+      }
+    ]
+  },
+  "wbi": {
+    "filename": "wbi-wbi.txt",
+    "size_mb": 1.05,
+    "alternatives": []
+  },
+  "bba": {
+    "filename": "bba-bba.txt",
+    "size_mb": 4.31,
+    "alternatives": []
+  },
+  "kgk": {
+    "filename": "kgk-kgkNT.txt",
+    "size_mb": 1.8,
+    "alternatives": []
+  },
+  "waj": {
+    "filename": "waj-waj.txt",
+    "size_mb": 1.72,
+    "alternatives": []
+  },
+  "cpy": {
+    "filename": "cpy-cpy.txt",
+    "size_mb": 1.73,
+    "alternatives": []
+  },
+  "ekk": {
+    "filename": "ekk-ekkpkp.txt",
+    "size_mb": 0.5,
+    "alternatives": []
+  },
+  "mpx": {
+    "filename": "mpx-mpx.txt",
+    "size_mb": 1.85,
+    "alternatives": []
+  },
+  "abt": {
+    "filename": "abt-abt_wosera.txt",
+    "size_mb": 0.04,
+    "alternatives": [
+      {
+        "filename": "abt-abt_maprik.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "wbp": {
+    "filename": "wbp-wbp.txt",
+    "size_mb": 3.06,
+    "alternatives": []
+  },
+  "luo": {
+    "filename": "luo-luo.txt",
+    "size_mb": 3.6,
+    "alternatives": []
+  },
+  "nhe": {
+    "filename": "nhe-nheBl.txt",
+    "size_mb": 5.78,
+    "alternatives": [
+      {
+        "filename": "nhe-nheNT.txt",
+        "size_mb": 1.51
+      }
+    ]
+  },
+  "aii": {
+    "filename": "aii-aii.txt",
+    "size_mb": 2.12,
+    "alternatives": []
+  },
+  "esk": {
+    "filename": "esk-eskNT.txt",
+    "size_mb": 1.2,
+    "alternatives": []
+  },
+  "msb": {
+    "filename": "msb-msb.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "cpa": {
+    "filename": "cpa-cpaNT.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "dso": {
+    "filename": "dso-dso.txt",
+    "size_mb": 2.97,
+    "alternatives": []
+  },
+  "meu": {
+    "filename": "meu-meu.txt",
+    "size_mb": 4.16,
+    "alternatives": []
+  },
+  "dgc": {
+    "filename": "dgc-dgc.txt",
+    "size_mb": 1.2,
+    "alternatives": []
+  },
+  "hix": {
+    "filename": "hix-hixNT.txt",
+    "size_mb": 2.12,
+    "alternatives": []
+  },
+  "sim": {
+    "filename": "sim-sim.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "npi": {
+    "filename": "npi-npiulb.txt",
+    "size_mb": 10.09,
+    "alternatives": []
+  },
+  "cgc": {
+    "filename": "cgc-cgc.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "tim": {
+    "filename": "tim-tim.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "emp": {
+    "filename": "emp-empNTpo.txt",
+    "size_mb": 2.28,
+    "alternatives": []
+  },
+  "tuc": {
+    "filename": "tuc-tuc_o.txt",
+    "size_mb": 0.04,
+    "alternatives": [
+      {
+        "filename": "tuc-tuc_t.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "ind": {
+    "filename": "ind-indayt.txt",
+    "size_mb": 4.37,
+    "alternatives": [
+      {
+        "filename": "ind-ind.txt",
+        "size_mb": 2.74
+      },
+      {
+        "filename": "ind-indags.txt",
+        "size_mb": 1.19
+      }
+    ]
+  },
+  "pes": {
+    "filename": "pes-pesopcb.txt",
+    "size_mb": 5.89,
+    "alternatives": [
+      {
+        "filename": "pes-pesOPV.txt",
+        "size_mb": 5.41
+      }
+    ]
+  },
+  "mpt": {
+    "filename": "mpt-mpt.txt",
+    "size_mb": 1.55,
+    "alternatives": []
+  },
+  "bla": {
+    "filename": "bla-bla.txt",
+    "size_mb": 0.17,
+    "alternatives": []
+  },
+  "ssx": {
+    "filename": "ssx-ssx.txt",
+    "size_mb": 2.07,
+    "alternatives": []
+  },
+  "mkl": {
+    "filename": "mkl-mkl.txt",
+    "size_mb": 1.2,
+    "alternatives": []
+  },
+  "gaq": {
+    "filename": "gaq-gaq.txt",
+    "size_mb": 3.12,
+    "alternatives": []
+  },
+  "gof": {
+    "filename": "gof-gofENT.txt",
+    "size_mb": 1.26,
+    "alternatives": [
+      {
+        "filename": "gof-gofwftw.txt",
+        "size_mb": 0.92
+      },
+      {
+        "filename": "gof-gofRNT.txt",
+        "size_mb": 0.92
+      }
+    ]
+  },
+  "unx": {
+    "filename": "unx-unx.txt",
+    "size_mb": 3.18,
+    "alternatives": []
+  },
+  "gah": {
+    "filename": "gah-gah.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "lcm": {
+    "filename": "lcm-lcm.txt",
+    "size_mb": 1.41,
+    "alternatives": []
+  },
+  "aer": {
+    "filename": "aer-aer.txt",
+    "size_mb": 2.88,
+    "alternatives": []
+  },
+  "qvc": {
+    "filename": "qvc-qvcNT.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "tgl": {
+    "filename": "tgl-tglulb.txt",
+    "size_mb": 4.71,
+    "alternatives": []
+  },
+  "pon": {
+    "filename": "pon-pon2006a.txt",
+    "size_mb": 4.45,
+    "alternatives": [
+      {
+        "filename": "pon-pon2006.txt",
+        "size_mb": 4.16
+      },
+      {
+        "filename": "pon-pon.txt",
+        "size_mb": 1.01
+      },
+      {
+        "filename": "pon-pon_pdn.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "cbs": {
+    "filename": "cbs-cbsNT.txt",
+    "size_mb": 1.43,
+    "alternatives": []
+  },
+  "nnq": {
+    "filename": "nnq-nnq.txt",
+    "size_mb": 1.0,
+    "alternatives": []
+  },
+  "bao": {
+    "filename": "bao-baoNT.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "san": {
+    "filename": "san-santam.txt",
+    "size_mb": 2.55,
+    "alternatives": [
+      {
+        "filename": "san-sansin.txt",
+        "size_mb": 2.36
+      },
+      {
+        "filename": "san-sanpun.txt",
+        "size_mb": 2.31
+      },
+      {
+        "filename": "san-santha.txt",
+        "size_mb": 2.28
+      },
+      {
+        "filename": "san-sankhm.txt",
+        "size_mb": 2.28
+      },
+      {
+        "filename": "san-sandev.txt",
+        "size_mb": 2.28
+      },
+      {
+        "filename": "san-sanori.txt",
+        "size_mb": 2.26
+      },
+      {
+        "filename": "san-sanguj.txt",
+        "size_mb": 2.26
+      },
+      {
+        "filename": "san-santel.txt",
+        "size_mb": 2.26
+      },
+      {
+        "filename": "san-sanben.txt",
+        "size_mb": 2.24
+      },
+      {
+        "filename": "san-sanasm.txt",
+        "size_mb": 2.24
+      },
+      {
+        "filename": "san-sanmal.txt",
+        "size_mb": 2.22
+      },
+      {
+        "filename": "san-sanbur.txt",
+        "size_mb": 2.19
+      },
+      {
+        "filename": "san-santib.txt",
+        "size_mb": 2.05
+      },
+      {
+        "filename": "san-sanurd.txt",
+        "size_mb": 1.95
+      },
+      {
+        "filename": "san-saniso.txt",
+        "size_mb": 1.15
+      },
+      {
+        "filename": "san-sanias.txt",
+        "size_mb": 1.12
+      },
+      {
+        "filename": "san-sanvel.txt",
+        "size_mb": 1.07
+      },
+      {
+        "filename": "san-sanitr.txt",
+        "size_mb": 0.97
+      },
+      {
+        "filename": "san-sanhk.txt",
+        "size_mb": 0.92
+      }
+    ]
+  },
+  "rmn": {
+    "filename": "rmn-rmn.txt",
+    "size_mb": 0.48,
+    "alternatives": []
+  },
+  "huv": {
+    "filename": "huv-huvNT.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "otn": {
+    "filename": "otn-otnNT.txt",
+    "size_mb": 1.71,
+    "alternatives": []
+  },
+  "nop": {
+    "filename": "nop-nop.txt",
+    "size_mb": 1.84,
+    "alternatives": []
+  },
+  "obo": {
+    "filename": "obo-oboNT.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "kca": {
+    "filename": "kca-kca.txt",
+    "size_mb": 0.76,
+    "alternatives": []
+  },
+  "snx": {
+    "filename": "snx-snx.txt",
+    "size_mb": 0.12,
+    "alternatives": []
+  },
+  "kql": {
+    "filename": "kql-kql.txt",
+    "size_mb": 0.15,
+    "alternatives": []
+  },
+  "mie": {
+    "filename": "mie-mieNT.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "qve": {
+    "filename": "qve-qveNT.txt",
+    "size_mb": 1.63,
+    "alternatives": []
+  },
+  "pao": {
+    "filename": "pao-paoNT.txt",
+    "size_mb": 1.13,
+    "alternatives": []
+  },
+  "cbu": {
+    "filename": "cbu-cbuNT.txt",
+    "size_mb": 3.28,
+    "alternatives": []
+  },
+  "usa": {
+    "filename": "usa-usa.txt",
+    "size_mb": 1.66,
+    "alternatives": []
+  },
+  "soy": {
+    "filename": "soy-soy.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "bkx": {
+    "filename": "bkx-bkx.txt",
+    "size_mb": 0.16,
+    "alternatives": []
+  },
+  "hui": {
+    "filename": "hui-hui.txt",
+    "size_mb": 6.99,
+    "alternatives": []
+  },
+  "amf": {
+    "filename": "amf-amf.txt",
+    "size_mb": 1.1,
+    "alternatives": []
+  },
+  "quc": {
+    "filename": "quc-qucNNT.txt",
+    "size_mb": 1.43,
+    "alternatives": [
+      {
+        "filename": "quc-qucTNT.txt",
+        "size_mb": 1.43
+      },
+      {
+        "filename": "quc-quctt.txt",
+        "size_mb": 1.24
+      }
+    ]
+  },
+  "dob": {
+    "filename": "dob-dob.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "mca": {
+    "filename": "mca-mca.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  },
+  "kiw": {
+    "filename": "kiw-kiw.txt",
+    "size_mb": 0.21,
+    "alternatives": []
+  },
+  "tzo": {
+    "filename": "tzo-tzoSA.txt",
+    "size_mb": 1.63,
+    "alternatives": [
+      {
+        "filename": "tzo-tzotzc.txt",
+        "size_mb": 1.47
+      },
+      {
+        "filename": "tzo-tzoNT.txt",
+        "size_mb": 1.45
+      },
+      {
+        "filename": "tzo-tzotze.txt",
+        "size_mb": 1.44
+      },
+      {
+        "filename": "tzo-tzoZNT.txt",
+        "size_mb": 1.44
+      }
+    ]
+  },
+  "jao": {
+    "filename": "jao-jao.txt",
+    "size_mb": 0.31,
+    "alternatives": []
+  },
+  "mya": {
+    "filename": "mya-mya.txt",
+    "size_mb": 16.03,
+    "alternatives": [
+      {
+        "filename": "mya-myajvb.txt",
+        "size_mb": 11.45
+      }
+    ]
+  },
+  "gng": {
+    "filename": "gng-gngNT.txt",
+    "size_mb": 1.14,
+    "alternatives": []
+  },
+  "cbi": {
+    "filename": "cbi-cbiNTpo.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "ikk": {
+    "filename": "ikk-ikkNT.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "leu": {
+    "filename": "leu-leu.txt",
+    "size_mb": 1.23,
+    "alternatives": []
+  },
+  "maz": {
+    "filename": "maz-mazNT.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "bod": {
+    "filename": "bod-bodn.txt",
+    "size_mb": 12.56,
+    "alternatives": []
+  },
+  "tca": {
+    "filename": "tca-tcaNT.txt",
+    "size_mb": 1.96,
+    "alternatives": []
+  },
+  "mbc": {
+    "filename": "mbc-mbcNT.txt",
+    "size_mb": 1.81,
+    "alternatives": []
+  },
+  "ndg": {
+    "filename": "ndg-ndg.txt",
+    "size_mb": 0.92,
+    "alternatives": []
+  },
+  "toj": {
+    "filename": "toj-tojNT.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "dwy": {
+    "filename": "dwy-dwy.txt",
+    "size_mb": 0.22,
+    "alternatives": []
+  },
+  "kkl": {
+    "filename": "kkl-kkl.txt",
+    "size_mb": 0.83,
+    "alternatives": []
+  },
+  "tbc": {
+    "filename": "tbc-tbc.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "amn": {
+    "filename": "amn-amn_n.txt",
+    "size_mb": 0.04,
+    "alternatives": [
+      {
+        "filename": "amn-amn_amanab.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "sna": {
+    "filename": "sna-sna.txt",
+    "size_mb": 3.77,
+    "alternatives": []
+  },
+  "smk": {
+    "filename": "smk-smkNT.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "mzz": {
+    "filename": "mzz-mzz.txt",
+    "size_mb": 0.14,
+    "alternatives": []
+  },
+  "spa": {
+    "filename": "spa-spablm.txt",
+    "size_mb": 4.61,
+    "alternatives": [
+      {
+        "filename": "spa-spavbl.txt",
+        "size_mb": 3.99
+      },
+      {
+        "filename": "spa-spabes.txt",
+        "size_mb": 3.96
+      },
+      {
+        "filename": "spa-spaRV1909.txt",
+        "size_mb": 3.75
+      },
+      {
+        "filename": "spa-spapddpt.txt",
+        "size_mb": 3.62
+      }
+    ]
+  },
+  "kyz": {
+    "filename": "kyz-kyzNT.txt",
+    "size_mb": 2.09,
+    "alternatives": []
+  },
+  "dao": {
+    "filename": "dao-dao.txt",
+    "size_mb": 1.01,
+    "alternatives": []
+  },
+  "cya": {
+    "filename": "cya-cya.txt",
+    "size_mb": 1.24,
+    "alternatives": []
+  },
+  "beu": {
+    "filename": "beu-beu.txt",
+    "size_mb": 0.66,
+    "alternatives": []
+  },
+  "nii": {
+    "filename": "nii-nii.txt",
+    "size_mb": 1.58,
+    "alternatives": []
+  },
+  "ign": {
+    "filename": "ign-ignNT.txt",
+    "size_mb": 1.81,
+    "alternatives": []
+  },
+  "dik": {
+    "filename": "dik-dikNT.txt",
+    "size_mb": 1.1,
+    "alternatives": []
+  },
+  "cac": {
+    "filename": "cac-cac.txt",
+    "size_mb": 5.01,
+    "alternatives": []
+  },
+  "tzj": {
+    "filename": "tzj-tzjNT.txt",
+    "size_mb": 1.59,
+    "alternatives": [
+      {
+        "filename": "tzj-tzjE.txt",
+        "size_mb": 1.45
+      }
+    ]
+  },
+  "bpx": {
+    "filename": "bpx-bpx.txt",
+    "size_mb": 0.35,
+    "alternatives": []
+  },
+  "cab": {
+    "filename": "cab-cabNT.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "clu": {
+    "filename": "clu-clu.txt",
+    "size_mb": 1.28,
+    "alternatives": []
+  },
+  "tpt": {
+    "filename": "tpt-tptNT.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "aai": {
+    "filename": "aai-aai.txt",
+    "size_mb": 1.14,
+    "alternatives": []
+  },
+  "sny": {
+    "filename": "sny-sny.txt",
+    "size_mb": 1.94,
+    "alternatives": []
+  },
+  "myy": {
+    "filename": "myy-myy.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "trc": {
+    "filename": "trc-trcNT.txt",
+    "size_mb": 2.39,
+    "alternatives": []
+  },
+  "cut": {
+    "filename": "cut-cutNT.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "bel": {
+    "filename": "bel-bel.txt",
+    "size_mb": 5.63,
+    "alternatives": [
+      {
+        "filename": "bel-beln.txt",
+        "size_mb": 2.16
+      }
+    ]
+  },
+  "gdr": {
+    "filename": "gdr-gdr.txt",
+    "size_mb": 1.66,
+    "alternatives": []
+  },
+  "vmy": {
+    "filename": "vmy-vmyNT.txt",
+    "size_mb": 1.26,
+    "alternatives": []
+  },
+  "cmn": {
+    "filename": "cmn-cmnfeb.txt",
+    "size_mb": 0.85,
+    "alternatives": [
+      {
+        "filename": "cmn-cmn_cu89t.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "cmn-cmn_cu89s.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "gmv": {
+    "filename": "gmv-gmvNT.txt",
+    "size_mb": 1.32,
+    "alternatives": [
+      {
+        "filename": "gmv-gmvRNT.txt",
+        "size_mb": 0.93
+      },
+      {
+        "filename": "gmv-gmvggm.txt",
+        "size_mb": 0.92
+      }
+    ]
+  },
+  "ncl": {
+    "filename": "ncl-nclNT.txt",
+    "size_mb": 1.81,
+    "alternatives": []
+  },
+  "wed": {
+    "filename": "wed-wed.txt",
+    "size_mb": 0.57,
+    "alternatives": [
+      {
+        "filename": "wed-wed_topura.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "sua": {
+    "filename": "sua-sua.txt",
+    "size_mb": 2.02,
+    "alternatives": []
+  },
+  "klt": {
+    "filename": "klt-klt.txt",
+    "size_mb": 0.77,
+    "alternatives": []
+  },
+  "are": {
+    "filename": "are-are.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "gai": {
+    "filename": "gai-gai.txt",
+    "size_mb": 1.67,
+    "alternatives": []
+  },
+  "qvm": {
+    "filename": "qvm-qvmNT.txt",
+    "size_mb": 1.3,
+    "alternatives": []
+  },
+  "chz": {
+    "filename": "chz-chzNTps.txt",
+    "size_mb": 1.84,
+    "alternatives": []
+  },
+  "kmu": {
+    "filename": "kmu-kmu.txt",
+    "size_mb": 1.62,
+    "alternatives": []
+  },
+  "ood": {
+    "filename": "ood-oodNT.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "lbm": {
+    "filename": "lbm-lbm.txt",
+    "size_mb": 2.22,
+    "alternatives": []
+  },
+  "ncj": {
+    "filename": "ncj-ncjNT.txt",
+    "size_mb": 1.27,
+    "alternatives": []
+  },
+  "kto": {
+    "filename": "kto-kto.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "por": {
+    "filename": "por-porbrbsl.txt",
+    "size_mb": 3.85,
+    "alternatives": [
+      {
+        "filename": "por-porbr2018.txt",
+        "size_mb": 3.7
+      },
+      {
+        "filename": "por-portft.txt",
+        "size_mb": 1.69
+      },
+      {
+        "filename": "por-porblt.txt",
+        "size_mb": 1.06
+      }
+    ]
+  },
+  "stp": {
+    "filename": "stp-stpNT.txt",
+    "size_mb": 2.34,
+    "alternatives": []
+  },
+  "mgc": {
+    "filename": "mgc-mgc.txt",
+    "size_mb": 0.52,
+    "alternatives": []
+  },
+  "ame": {
+    "filename": "ame-ameNT.txt",
+    "size_mb": 2.19,
+    "alternatives": []
+  },
+  "mgh": {
+    "filename": "mgh-mgh2016.txt",
+    "size_mb": 1.11,
+    "alternatives": [
+      {
+        "filename": "mgh-mgh.txt",
+        "size_mb": 0.3
+      }
+    ]
+  },
+  "kmh": {
+    "filename": "kmh-kmh.txt",
+    "size_mb": 1.24,
+    "alternatives": [
+      {
+        "filename": "kmh-kmh_m.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "kvn": {
+    "filename": "kvn-kvnNT.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "gvf": {
+    "filename": "gvf-gvf.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "mcb": {
+    "filename": "mcb-mcbNT.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "mbb": {
+    "filename": "mbb-mbbOT.txt",
+    "size_mb": 3.62,
+    "alternatives": []
+  },
+  "msc": {
+    "filename": "msc-msc.txt",
+    "size_mb": 0.42,
+    "alternatives": []
+  },
+  "ese": {
+    "filename": "ese-eseNT.txt",
+    "size_mb": 2.08,
+    "alternatives": []
+  },
+  "jac": {
+    "filename": "jac-jacNT.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "tuo": {
+    "filename": "tuo-tuoNT.txt",
+    "size_mb": 2.29,
+    "alternatives": []
+  },
+  "mbl": {
+    "filename": "mbl-mblNT.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "gul": {
+    "filename": "gul-gulNT.txt",
+    "size_mb": 1.17,
+    "alternatives": []
+  },
+  "arp": {
+    "filename": "arp-arp.txt",
+    "size_mb": 0.18,
+    "alternatives": []
+  },
+  "mau": {
+    "filename": "mau-mauNT.txt",
+    "size_mb": 1.67,
+    "alternatives": []
+  },
+  "ubu": {
+    "filename": "ubu-ubu_andelale.txt",
+    "size_mb": 0.04,
+    "alternatives": [
+      {
+        "filename": "ubu-ubu_kala.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "ubu-ubu_nopenge.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "gup": {
+    "filename": "gup-gup.txt",
+    "size_mb": 2.94,
+    "alternatives": [
+      {
+        "filename": "gup-gupmay.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "bss": {
+    "filename": "bss-bssNT.txt",
+    "size_mb": 1.61,
+    "alternatives": []
+  },
+  "met": {
+    "filename": "met-met.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "nys": {
+    "filename": "nys-nys.txt",
+    "size_mb": 0.23,
+    "alternatives": []
+  },
+  "kpj": {
+    "filename": "kpj-kpjNT.txt",
+    "size_mb": 1.13,
+    "alternatives": []
+  },
+  "byx": {
+    "filename": "byx-byx.txt",
+    "size_mb": 1.79,
+    "alternatives": []
+  },
+  "ctu": {
+    "filename": "ctu-ctucti.txt",
+    "size_mb": 1.59,
+    "alternatives": [
+      {
+        "filename": "ctu-ctu76.txt",
+        "size_mb": 1.53
+      },
+      {
+        "filename": "ctu-ctuBl.txt",
+        "size_mb": 1.19
+      }
+    ]
+  },
+  "gvs": {
+    "filename": "gvs-gvs.txt",
+    "size_mb": 1.77,
+    "alternatives": []
+  },
+  "kbm": {
+    "filename": "kbm-kbm.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "tew": {
+    "filename": "tew-tew.txt",
+    "size_mb": 1.07,
+    "alternatives": []
+  },
+  "rmc": {
+    "filename": "rmc-rmc.txt",
+    "size_mb": 3.93,
+    "alternatives": [
+      {
+        "filename": "rmc-rmczrb.txt",
+        "size_mb": 0.26
+      }
+    ]
+  },
+  "apr": {
+    "filename": "apr-apr.txt",
+    "size_mb": 1.77,
+    "alternatives": []
+  },
+  "tiy": {
+    "filename": "tiy-tiy.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "nlg": {
+    "filename": "nlg-nlg.txt",
+    "size_mb": 2.19,
+    "alternatives": []
+  },
+  "dgr": {
+    "filename": "dgr-dgrDOGNT.txt",
+    "size_mb": 1.69,
+    "alternatives": []
+  },
+  "ron": {
+    "filename": "ron-ron1924.txt",
+    "size_mb": 6.53,
+    "alternatives": [
+      {
+        "filename": "ron-ronbtf.txt",
+        "size_mb": 4.08
+      },
+      {
+        "filename": "ron-ronlsb.txt",
+        "size_mb": 0.98
+      },
+      {
+        "filename": "ron-ronludari.txt",
+        "size_mb": 0.18
+      },
+      {
+        "filename": "ron-ronBayash.txt",
+        "size_mb": 0.18
+      }
+    ]
+  },
+  "tpz": {
+    "filename": "tpz-tpz.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "agd": {
+    "filename": "agd-agd.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "rkb": {
+    "filename": "rkb-rkbNT.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "iws": {
+    "filename": "iws-iws.txt",
+    "size_mb": 2.23,
+    "alternatives": []
+  },
+  "pol": {
+    "filename": "pol-polubg.txt",
+    "size_mb": 3.71,
+    "alternatives": [
+      {
+        "filename": "pol-polsz.txt",
+        "size_mb": 0.98
+      }
+    ]
+  },
+  "kqa": {
+    "filename": "kqa-kqa.txt",
+    "size_mb": 0.25,
+    "alternatives": []
+  },
+  "upv": {
+    "filename": "upv-upv.txt",
+    "size_mb": 1.3,
+    "alternatives": []
+  },
+  "aui": {
+    "filename": "aui-aui.txt",
+    "size_mb": 0.69,
+    "alternatives": []
+  },
+  "wap": {
+    "filename": "wap-wapNT.txt",
+    "size_mb": 1.63,
+    "alternatives": []
+  },
+  "mva": {
+    "filename": "mva-mva.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "dwr": {
+    "filename": "dwr-dwrENT.txt",
+    "size_mb": 1.4,
+    "alternatives": [
+      {
+        "filename": "dwr-dwrNT.txt",
+        "size_mb": 1.1
+      }
+    ]
+  },
+  "kfw": {
+    "filename": "kfw-kfw.txt",
+    "size_mb": 1.13,
+    "alternatives": []
+  },
+  "bfz": {
+    "filename": "bfz-bfz.txt",
+    "size_mb": 2.38,
+    "alternatives": []
+  },
+  "cuk": {
+    "filename": "cuk-cuk.txt",
+    "size_mb": 4.79,
+    "alternatives": [
+      {
+        "filename": "cuk-cuk09.txt",
+        "size_mb": 1.27
+      }
+    ]
+  },
+  "ben": {
+    "filename": "ben-benobcv.txt",
+    "size_mb": 9.89,
+    "alternatives": [
+      {
+        "filename": "ben-benirv.txt",
+        "size_mb": 9.38
+      }
+    ]
+  },
+  "mil": {
+    "filename": "mil-milNT.txt",
+    "size_mb": 2.26,
+    "alternatives": []
+  },
+  "myu": {
+    "filename": "myu-myu.txt",
+    "size_mb": 1.65,
+    "alternatives": []
+  },
+  "fue": {
+    "filename": "fue-fue.txt",
+    "size_mb": 0.55,
+    "alternatives": []
+  },
+  "amk": {
+    "filename": "amk-amk.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "fai": {
+    "filename": "fai-fai.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "ura": {
+    "filename": "ura-uraNT.txt",
+    "size_mb": 1.58,
+    "alternatives": []
+  },
+  "mcd": {
+    "filename": "mcd-mcdNT.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "urt": {
+    "filename": "urt-urt.txt",
+    "size_mb": 1.55,
+    "alternatives": []
+  },
+  "awk": {
+    "filename": "awk-awk.txt",
+    "size_mb": 0.2,
+    "alternatives": []
+  },
+  "knv": {
+    "filename": "knv-knv_fly_river.txt",
+    "size_mb": 0.04,
+    "alternatives": [
+      {
+        "filename": "knv-knv_aramia.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "kiz": {
+    "filename": "kiz-kiz.txt",
+    "size_mb": 1.04,
+    "alternatives": []
+  },
+  "lex": {
+    "filename": "lex-lex.txt",
+    "size_mb": 1.84,
+    "alternatives": []
+  },
+  "dov": {
+    "filename": "dov-dov.txt",
+    "size_mb": 0.94,
+    "alternatives": []
+  },
+  "rgu": {
+    "filename": "rgu-rgu.txt",
+    "size_mb": 1.65,
+    "alternatives": []
+  },
+  "toc": {
+    "filename": "toc-tocNT.txt",
+    "size_mb": 2.45,
+    "alternatives": []
+  },
+  "ulk": {
+    "filename": "ulk-ulk1902.txt",
+    "size_mb": 0.43,
+    "alternatives": [
+      {
+        "filename": "ulk-ulk.txt",
+        "size_mb": 0.19
+      }
+    ]
+  },
+  "som": {
+    "filename": "som-som.txt",
+    "size_mb": 4.35,
+    "alternatives": []
+  },
+  "anh": {
+    "filename": "anh-anh.txt",
+    "size_mb": 0.17,
+    "alternatives": []
+  },
+  "mam": {
+    "filename": "mam-mamNT.txt",
+    "size_mb": 1.46,
+    "alternatives": [
+      {
+        "filename": "mam-mamC.txt",
+        "size_mb": 1.29
+      }
+    ]
+  },
+  "ndj": {
+    "filename": "ndj-ndj.txt",
+    "size_mb": 1.02,
+    "alternatives": []
+  },
+  "mbj": {
+    "filename": "mbj-mbjNT.txt",
+    "size_mb": 1.61,
+    "alternatives": []
+  },
+  "lat": {
+    "filename": "lat-latVUC.txt",
+    "size_mb": 3.73,
+    "alternatives": []
+  },
+  "ngp": {
+    "filename": "ngp-ngp.txt",
+    "size_mb": 1.01,
+    "alternatives": []
+  },
+  "aoi": {
+    "filename": "aoi-aoi.txt",
+    "size_mb": 1.29,
+    "alternatives": []
+  },
+  "enq": {
+    "filename": "enq-enq2.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "mna": {
+    "filename": "mna-mna.txt",
+    "size_mb": 2.14,
+    "alternatives": []
+  },
+  "rmy": {
+    "filename": "rmy-rmyservi.txt",
+    "size_mb": 0.49,
+    "alternatives": [
+      {
+        "filename": "rmy-rmyvlakh.txt",
+        "size_mb": 0.48
+      },
+      {
+        "filename": "rmy-rmyChergash.txt",
+        "size_mb": 0.18
+      },
+      {
+        "filename": "rmy-rmyArli.txt",
+        "size_mb": 0.17
+      },
+      {
+        "filename": "rmy-rmyGurbet.txt",
+        "size_mb": 0.17
+      },
+      {
+        "filename": "rmy-rmylovari.txt",
+        "size_mb": 0.07
+      }
+    ]
+  },
+  "myw": {
+    "filename": "myw-myw.txt",
+    "size_mb": 1.08,
+    "alternatives": []
+  },
+  "sby": {
+    "filename": "sby-sby.txt",
+    "size_mb": 1.06,
+    "alternatives": []
+  },
+  "sll": {
+    "filename": "sll-sll.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "uro": {
+    "filename": "uro-uro.txt",
+    "size_mb": 1.73,
+    "alternatives": []
+  },
+  "ita": {
+    "filename": "ita-ita1885.txt",
+    "size_mb": 4.07,
+    "alternatives": [
+      {
+        "filename": "ita-ita1927.txt",
+        "size_mb": 3.99
+      }
+    ]
+  },
+  "muy": {
+    "filename": "muy-muy.txt",
+    "size_mb": 1.51,
+    "alternatives": []
+  },
+  "kqc": {
+    "filename": "kqc-kqc.txt",
+    "size_mb": 1.06,
+    "alternatives": []
+  },
+  "tav": {
+    "filename": "tav-tav.txt",
+    "size_mb": 1.77,
+    "alternatives": []
+  },
+  "fra": {
+    "filename": "fra-frasbl.txt",
+    "size_mb": 4.93,
+    "alternatives": [
+      {
+        "filename": "fra-francl.txt",
+        "size_mb": 4.77
+      },
+      {
+        "filename": "fra-fraLSG.txt",
+        "size_mb": 4.11
+      },
+      {
+        "filename": "fra-fra_fob.txt",
+        "size_mb": 4.09
+      }
+    ]
+  },
+  "hau": {
+    "filename": "hau-hausa.txt",
+    "size_mb": 3.75,
+    "alternatives": [
+      {
+        "filename": "hau-hauulb.txt",
+        "size_mb": 0.92
+      }
+    ]
+  },
+  "kkc": {
+    "filename": "kkc-kkc.txt",
+    "size_mb": 1.07,
+    "alternatives": []
+  },
+  "lit": {
+    "filename": "lit-lit.txt",
+    "size_mb": 0.82,
+    "alternatives": []
+  },
+  "urd": {
+    "filename": "urd-urdgvh.txt",
+    "size_mb": 9.52,
+    "alternatives": [
+      {
+        "filename": "urd-urd.txt",
+        "size_mb": 9.04
+      },
+      {
+        "filename": "urd-urdgvu.txt",
+        "size_mb": 6.55
+      },
+      {
+        "filename": "urd-urdgvr.txt",
+        "size_mb": 4.81
+      }
+    ]
+  },
+  "far": {
+    "filename": "far-far.txt",
+    "size_mb": 1.38,
+    "alternatives": []
+  },
+  "suz": {
+    "filename": "suz-suzBl.txt",
+    "size_mb": 11.35,
+    "alternatives": []
+  },
+  "car": {
+    "filename": "car-carNT.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "amp": {
+    "filename": "amp-amp.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "bht": {
+    "filename": "bht-bht.txt",
+    "size_mb": 2.76,
+    "alternatives": []
+  },
+  "cub": {
+    "filename": "cub-cubNT.txt",
+    "size_mb": 1.87,
+    "alternatives": []
+  },
+  "lww": {
+    "filename": "lww-lww.txt",
+    "size_mb": 1.87,
+    "alternatives": []
+  },
+  "ckb": {
+    "filename": "ckb-ckb.txt",
+    "size_mb": 5.98,
+    "alternatives": []
+  },
+  "spm": {
+    "filename": "spm-spm.txt",
+    "size_mb": 0.37,
+    "alternatives": []
+  },
+  "nas": {
+    "filename": "nas-nas.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "uvl": {
+    "filename": "uvl-uvl.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "tpa": {
+    "filename": "tpa-tpa.txt",
+    "size_mb": 0.13,
+    "alternatives": []
+  },
+  "ixl": {
+    "filename": "ixl-ixlNNT.txt",
+    "size_mb": 1.84,
+    "alternatives": [
+      {
+        "filename": "ixl-ixlCNT.txt",
+        "size_mb": 1.45
+      }
+    ]
+  },
+  "tbg": {
+    "filename": "tbg-tbg.txt",
+    "size_mb": 3.79,
+    "alternatives": [
+      {
+        "filename": "tbg-tbg_a.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "crx": {
+    "filename": "crx-crxNTpo.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "kan": {
+    "filename": "kan-kanokcv.txt",
+    "size_mb": 10.09,
+    "alternatives": [
+      {
+        "filename": "kan-kan2017.txt",
+        "size_mb": 9.96
+      }
+    ]
+  },
+  "bbb": {
+    "filename": "bbb-bbb.txt",
+    "size_mb": 2.06,
+    "alternatives": []
+  },
+  "blw": {
+    "filename": "blw-blw.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "tam": {
+    "filename": "tam-tamtcv.txt",
+    "size_mb": 12.65,
+    "alternatives": [
+      {
+        "filename": "tam-tam2017.txt",
+        "size_mb": 11.88
+      }
+    ]
+  },
+  "app": {
+    "filename": "app-app.txt",
+    "size_mb": 0.05,
+    "alternatives": []
+  },
+  "azz": {
+    "filename": "azz-azzNT.txt",
+    "size_mb": 1.96,
+    "alternatives": []
+  },
+  "csy": {
+    "filename": "csy-csy.txt",
+    "size_mb": 1.01,
+    "alternatives": []
+  },
+  "mxq": {
+    "filename": "mxq-mxqNT.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "tdt": {
+    "filename": "tdt-tdt.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "nld": {
+    "filename": "nld-nld1939.txt",
+    "size_mb": 4.26,
+    "alternatives": []
+  },
+  "bwo": {
+    "filename": "bwo-bwo.txt",
+    "size_mb": 0.95,
+    "alternatives": []
+  },
+  "nch": {
+    "filename": "nch-nchBl.txt",
+    "size_mb": 5.65,
+    "alternatives": []
+  },
+  "tfr": {
+    "filename": "tfr-tfrNTpo.txt",
+    "size_mb": 1.64,
+    "alternatives": []
+  },
+  "kaq": {
+    "filename": "kaq-kaqNT.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "ahr": {
+    "filename": "ahr-ahr.txt",
+    "size_mb": 0.5,
+    "alternatives": []
+  },
+  "sgb": {
+    "filename": "sgb-sgb.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "vie": {
+    "filename": "vie-vie1934.txt",
+    "size_mb": 4.87,
+    "alternatives": [
+      {
+        "filename": "vie-vieovcb.txt",
+        "size_mb": 4.54
+      }
+    ]
+  },
+  "kxv": {
+    "filename": "kxv-kxv.txt",
+    "size_mb": 2.78,
+    "alternatives": []
+  },
+  "cha": {
+    "filename": "cha-cha.txt",
+    "size_mb": 0.79,
+    "alternatives": []
+  },
+  "amu": {
+    "filename": "amu-amuNT.txt",
+    "size_mb": 1.81,
+    "alternatives": []
+  },
+  "hin": {
+    "filename": "hin-hincv.txt",
+    "size_mb": 9.84,
+    "alternatives": [
+      {
+        "filename": "hin-hin2017.txt",
+        "size_mb": 9.06
+      }
+    ]
+  },
+  "tdx": {
+    "filename": "tdx-tdx.txt",
+    "size_mb": 3.94,
+    "alternatives": []
+  },
+  "naf": {
+    "filename": "naf-naf.txt",
+    "size_mb": 1.48,
+    "alternatives": []
+  },
+  "vid": {
+    "filename": "vid-vid.txt",
+    "size_mb": 1.81,
+    "alternatives": []
+  },
+  "pio": {
+    "filename": "pio-pioNT.txt",
+    "size_mb": 2.25,
+    "alternatives": []
+  },
+  "tsn": {
+    "filename": "tsn-tsn.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "amr": {
+    "filename": "amr-amrNT.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "pwg": {
+    "filename": "pwg-pwg.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  },
+  "cjv": {
+    "filename": "cjv-cjv.txt",
+    "size_mb": 1.56,
+    "alternatives": []
+  },
+  "tiw": {
+    "filename": "tiw-tiw.txt",
+    "size_mb": 0.62,
+    "alternatives": []
+  },
+  "tha": {
+    "filename": "tha-thaKJV.txt",
+    "size_mb": 11.0,
+    "alternatives": []
+  },
+  "mhl": {
+    "filename": "mhl-mhl.txt",
+    "size_mb": 1.56,
+    "alternatives": []
+  },
+  "klv": {
+    "filename": "klv-klv.txt",
+    "size_mb": 1.24,
+    "alternatives": []
+  },
+  "bco": {
+    "filename": "bco-bco.txt",
+    "size_mb": 2.39,
+    "alternatives": []
+  },
+  "kdl": {
+    "filename": "kdl-kdlNT.txt",
+    "size_mb": 1.2,
+    "alternatives": []
+  },
+  "apu": {
+    "filename": "apu-apuNT.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "roo": {
+    "filename": "roo-roo.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "miz": {
+    "filename": "miz-mizNT.txt",
+    "size_mb": 1.45,
+    "alternatives": []
+  },
+  "qvz": {
+    "filename": "qvz-qvzNT.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "mjc": {
+    "filename": "mjc-mjcNT.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "ktm": {
+    "filename": "ktm-ktm.txt",
+    "size_mb": 0.39,
+    "alternatives": []
+  },
+  "caa": {
+    "filename": "caa-caa.txt",
+    "size_mb": 2.24,
+    "alternatives": []
+  },
+  "pls": {
+    "filename": "pls-plsNT.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "bdv": {
+    "filename": "bdv-bdv.txt",
+    "size_mb": 2.97,
+    "alternatives": []
+  },
+  "kjn": {
+    "filename": "kjn-kjn.txt",
+    "size_mb": 0.06,
+    "alternatives": []
+  },
+  "otq": {
+    "filename": "otq-otqNT.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "cuc": {
+    "filename": "cuc-cucNT.txt",
+    "size_mb": 1.67,
+    "alternatives": []
+  },
+  "kpw": {
+    "filename": "kpw-kpw.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "ong": {
+    "filename": "ong-ong.txt",
+    "size_mb": 1.46,
+    "alternatives": []
+  },
+  "tnn": {
+    "filename": "tnn-tnn.txt",
+    "size_mb": 1.57,
+    "alternatives": []
+  },
+  "hch": {
+    "filename": "hch-hchNT.txt",
+    "size_mb": 1.24,
+    "alternatives": []
+  },
+  "crn": {
+    "filename": "crn-crnNT.txt",
+    "size_mb": 2.53,
+    "alternatives": []
+  },
+  "juy": {
+    "filename": "juy-juy.txt",
+    "size_mb": 3.4,
+    "alternatives": []
+  },
+  "for": {
+    "filename": "for-for.txt",
+    "size_mb": 1.22,
+    "alternatives": []
+  },
+  "epo": {
+    "filename": "epo-epo.txt",
+    "size_mb": 3.66,
+    "alternatives": []
+  },
+  "rwo": {
+    "filename": "rwo-rwo_rawa.txt",
+    "size_mb": 0.04,
+    "alternatives": [
+      {
+        "filename": "rwo-rwo_karo.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "bjz": {
+    "filename": "bjz-bjz.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "atg": {
+    "filename": "atg-atgNT.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "bjv": {
+    "filename": "bjv-bjvNT.txt",
+    "size_mb": 1.27,
+    "alternatives": []
+  },
+  "tos": {
+    "filename": "tos-tosNT.txt",
+    "size_mb": 2.32,
+    "alternatives": []
+  },
+  "rro": {
+    "filename": "rro-rro.txt",
+    "size_mb": 1.12,
+    "alternatives": []
+  },
+  "mxp": {
+    "filename": "mxp-mxpNT.txt",
+    "size_mb": 1.73,
+    "alternatives": []
+  },
+  "aak": {
+    "filename": "aak-aak.txt",
+    "size_mb": 2.34,
+    "alternatives": []
+  },
+  "chd": {
+    "filename": "chd-chdNT.txt",
+    "size_mb": 1.43,
+    "alternatives": []
+  },
+  "kdc": {
+    "filename": "kdc-kdc.txt",
+    "size_mb": 0.98,
+    "alternatives": []
+  },
+  "nhr": {
+    "filename": "nhr-nhr.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "uig": {
+    "filename": "uig-uigara.txt",
+    "size_mb": 7.86,
+    "alternatives": [
+      {
+        "filename": "uig-uigcyr.txt",
+        "size_mb": 7.34
+      },
+      {
+        "filename": "uig-uigpin.txt",
+        "size_mb": 4.86
+      },
+      {
+        "filename": "uig-uiglat.txt",
+        "size_mb": 4.48
+      }
+    ]
+  },
+  "beo": {
+    "filename": "beo-beo.txt",
+    "size_mb": 4.71,
+    "alternatives": []
+  },
+  "acf": {
+    "filename": "acf-acfNT.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "tpi": {
+    "filename": "tpi-tpi.txt",
+    "size_mb": 6.2,
+    "alternatives": [
+      {
+        "filename": "tpi-tpiOTNT.txt",
+        "size_mb": 5.47
+      }
+    ]
+  },
+  "mbt": {
+    "filename": "mbt-mbtNT.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "udu": {
+    "filename": "udu-udu.txt",
+    "size_mb": 2.23,
+    "alternatives": []
+  },
+  "tvt": {
+    "filename": "tvt-tvt.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "bgt": {
+    "filename": "bgt-bgt.txt",
+    "size_mb": 1.43,
+    "alternatives": []
+  },
+  "mvn": {
+    "filename": "mvn-mvn.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "djk": {
+    "filename": "djk-djkNT.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "nde": {
+    "filename": "nde-nde.txt",
+    "size_mb": 3.79,
+    "alternatives": []
+  },
+  "ton": {
+    "filename": "ton-ton.txt",
+    "size_mb": 5.02,
+    "alternatives": []
+  },
+  "mir": {
+    "filename": "mir-mirNT.txt",
+    "size_mb": 1.8,
+    "alternatives": []
+  },
+  "ces": {
+    "filename": "ces-ces1613.txt",
+    "size_mb": 3.7,
+    "alternatives": [
+      {
+        "filename": "ces-ceslb.txt",
+        "size_mb": 0.9
+      },
+      {
+        "filename": "ces-cesnkb.txt",
+        "size_mb": 0.89
+      }
+    ]
+  },
+  "nab": {
+    "filename": "nab-nabNT.txt",
+    "size_mb": 3.19,
+    "alternatives": []
+  },
+  "eko": {
+    "filename": "eko-eko.txt",
+    "size_mb": 0.8,
+    "alternatives": []
+  },
+  "qxn": {
+    "filename": "qxn-qxnNT.txt",
+    "size_mb": 1.45,
+    "alternatives": []
+  },
+  "kqw": {
+    "filename": "kqw-kqw.txt",
+    "size_mb": 0.47,
+    "alternatives": []
+  },
+  "nss": {
+    "filename": "nss-nss.txt",
+    "size_mb": 1.13,
+    "alternatives": []
+  },
+  "snc": {
+    "filename": "snc-snc.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "lgl": {
+    "filename": "lgl-lgl.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "mmo": {
+    "filename": "mmo-mmo.txt",
+    "size_mb": 1.46,
+    "alternatives": []
+  },
+  "ncu": {
+    "filename": "ncu-ncuNT.txt",
+    "size_mb": 1.88,
+    "alternatives": []
+  },
+  "cni": {
+    "filename": "cni-cniNT.txt",
+    "size_mb": 1.39,
+    "alternatives": []
+  },
+  "mit": {
+    "filename": "mit-mitNT.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "ceb": {
+    "filename": "ceb-cebulb.txt",
+    "size_mb": 4.73,
+    "alternatives": []
+  },
+  "mkn": {
+    "filename": "mkn-mkn.txt",
+    "size_mb": 1.85,
+    "alternatives": []
+  },
+  "nce": {
+    "filename": "nce-nce.txt",
+    "size_mb": 0.75,
+    "alternatives": []
+  },
+  "qxh": {
+    "filename": "qxh-qxhNT.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "nwi": {
+    "filename": "nwi-nwi.txt",
+    "size_mb": 1.59,
+    "alternatives": []
+  },
+  "kmo": {
+    "filename": "kmo-kmo.txt",
+    "size_mb": 1.23,
+    "alternatives": []
+  },
+  "agr": {
+    "filename": "agr-agr.txt",
+    "size_mb": 2.68,
+    "alternatives": []
+  },
+  "kyc": {
+    "filename": "kyc-kyc.txt",
+    "size_mb": 2.93,
+    "alternatives": []
+  },
+  "fuh": {
+    "filename": "fuh-fuhbkf.txt",
+    "size_mb": 0.98,
+    "alternatives": []
+  },
+  "arl": {
+    "filename": "arl-arlNT.txt",
+    "size_mb": 1.89,
+    "alternatives": []
+  },
+  "dhg": {
+    "filename": "dhg-dhg.txt",
+    "size_mb": 0.23,
+    "alternatives": [
+      {
+        "filename": "dhg-dhgduwadha.txt",
+        "size_mb": 0.22
+      }
+    ]
+  },
+  "nag": {
+    "filename": "nag-nag.txt",
+    "size_mb": 1.11,
+    "alternatives": []
+  },
+  "knj": {
+    "filename": "knj-knjNT.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "nob": {
+    "filename": "nob-noblb.txt",
+    "size_mb": 1.12,
+    "alternatives": []
+  },
+  "ntj": {
+    "filename": "ntj-ntj.txt",
+    "size_mb": 2.37,
+    "alternatives": []
+  },
+  "sxb": {
+    "filename": "sxb-sxbNT.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "nhu": {
+    "filename": "nhu-nhuNT.txt",
+    "size_mb": 1.31,
+    "alternatives": []
+  },
+  "row": {
+    "filename": "row-row.txt",
+    "size_mb": 1.72,
+    "alternatives": []
+  },
+  "msy": {
+    "filename": "msy-msy2020.txt",
+    "size_mb": 5.85,
+    "alternatives": [
+      {
+        "filename": "msy-msy.txt",
+        "size_mb": 1.43
+      }
+    ]
+  },
+  "agg": {
+    "filename": "agg-agg.txt",
+    "size_mb": 1.84,
+    "alternatives": []
+  },
+  "ptp": {
+    "filename": "ptp-ptp.txt",
+    "size_mb": 1.39,
+    "alternatives": []
+  },
+  "nak": {
+    "filename": "nak-nak.txt",
+    "size_mb": 1.69,
+    "alternatives": []
+  },
+  "lbb": {
+    "filename": "lbb-lbb.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "cso": {
+    "filename": "cso-csoNT.txt",
+    "size_mb": 2.23,
+    "alternatives": []
+  },
+  "ena": {
+    "filename": "ena-ena.txt",
+    "size_mb": 2.99,
+    "alternatives": []
+  },
+  "nbq": {
+    "filename": "nbq-nbq.txt",
+    "size_mb": 0.78,
+    "alternatives": []
+  },
+  "tgo": {
+    "filename": "tgo-tgo.txt",
+    "size_mb": 1.73,
+    "alternatives": []
+  },
+  "mop": {
+    "filename": "mop-mopNT.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "tet": {
+    "filename": "tet-tet.txt",
+    "size_mb": 1.58,
+    "alternatives": []
+  },
+  "hlt": {
+    "filename": "hlt-hltmcsb.txt",
+    "size_mb": 4.62,
+    "alternatives": [
+      {
+        "filename": "hlt-hlt.txt",
+        "size_mb": 3.86
+      },
+      {
+        "filename": "hlt-hltthb.txt",
+        "size_mb": 1.39
+      }
+    ]
+  },
+  "mdy": {
+    "filename": "mdy-mdyeth.txt",
+    "size_mb": 6.25,
+    "alternatives": []
+  },
+  "spl": {
+    "filename": "spl-spl.txt",
+    "size_mb": 1.81,
+    "alternatives": []
+  },
+  "usp": {
+    "filename": "usp-uspNT.txt",
+    "size_mb": 1.38,
+    "alternatives": []
+  },
+  "sgz": {
+    "filename": "sgz-sgz.txt",
+    "size_mb": 1.61,
+    "alternatives": []
+  },
+  "kek": {
+    "filename": "kek-kekNT.txt",
+    "size_mb": 1.41,
+    "alternatives": []
+  },
+  "blz": {
+    "filename": "blz-blzNT.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "poe": {
+    "filename": "poe-poeNT.txt",
+    "size_mb": 1.62,
+    "alternatives": []
+  },
+  "cof": {
+    "filename": "cof-cofNT.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "srm": {
+    "filename": "srm-srmNT.txt",
+    "size_mb": 1.63,
+    "alternatives": []
+  },
+  "qvs": {
+    "filename": "qvs-qvsNT.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "cbc": {
+    "filename": "cbc-cbcNT.txt",
+    "size_mb": 2.14,
+    "alternatives": []
+  },
+  "qxo": {
+    "filename": "qxo-qxoNT.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "mox": {
+    "filename": "mox-mox.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  },
+  "kew": {
+    "filename": "kew-kew.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  },
+  "dww": {
+    "filename": "dww-dww.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "nif": {
+    "filename": "nif-nif.txt",
+    "size_mb": 0.68,
+    "alternatives": []
+  },
+  "twi": {
+    "filename": "twi-twi.txt",
+    "size_mb": 4.28,
+    "alternatives": [
+      {
+        "filename": "twi-twiasante.txt",
+        "size_mb": 3.74
+      }
+    ]
+  },
+  "aoj": {
+    "filename": "aoj-aoj.txt",
+    "size_mb": 1.61,
+    "alternatives": [
+      {
+        "filename": "aoj-aoj_filifita.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "cbv": {
+    "filename": "cbv-cbv.txt",
+    "size_mb": 1.89,
+    "alternatives": []
+  },
+  "taw": {
+    "filename": "taw-taw.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "jic": {
+    "filename": "jic-jicNT.txt",
+    "size_mb": 1.67,
+    "alternatives": []
+  },
+  "wer": {
+    "filename": "wer-wer.txt",
+    "size_mb": 1.29,
+    "alternatives": []
+  },
+  "ipi": {
+    "filename": "ipi-ipi.txt",
+    "size_mb": 1.98,
+    "alternatives": []
+  },
+  "qul": {
+    "filename": "qul-qulNT.txt",
+    "size_mb": 1.03,
+    "alternatives": []
+  },
+  "urw": {
+    "filename": "urw-urw.txt",
+    "size_mb": 0.23,
+    "alternatives": []
+  },
+  "tnc": {
+    "filename": "tnc-tnc.txt",
+    "size_mb": 0.82,
+    "alternatives": []
+  },
+  "ter": {
+    "filename": "ter-terNT.txt",
+    "size_mb": 1.56,
+    "alternatives": []
+  },
+  "bmr": {
+    "filename": "bmr-bmrNT.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "fuf": {
+    "filename": "fuf-fuf.txt",
+    "size_mb": 1.0,
+    "alternatives": []
+  },
+  "mwc": {
+    "filename": "mwc-mwc.txt",
+    "size_mb": 0.61,
+    "alternatives": []
+  },
+  "bhl": {
+    "filename": "bhl-bhl.txt",
+    "size_mb": 2.21,
+    "alternatives": []
+  },
+  "ons": {
+    "filename": "ons-ons.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "byr": {
+    "filename": "byr-byr.txt",
+    "size_mb": 2.06,
+    "alternatives": [
+      {
+        "filename": "byr-byr_w.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "con": {
+    "filename": "con-conNTpo.txt",
+    "size_mb": 1.48,
+    "alternatives": []
+  },
+  "ghs": {
+    "filename": "ghs-ghs.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "peg": {
+    "filename": "peg-peg.txt",
+    "size_mb": 2.93,
+    "alternatives": []
+  },
+  "txu": {
+    "filename": "txu-txuNT.txt",
+    "size_mb": 2.06,
+    "alternatives": []
+  },
+  "gnw": {
+    "filename": "gnw-gnwNT.txt",
+    "size_mb": 1.24,
+    "alternatives": []
+  },
+  "mux": {
+    "filename": "mux-mux.txt",
+    "size_mb": 2.09,
+    "alternatives": []
+  },
+  "maj": {
+    "filename": "maj-majNT.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "bkq": {
+    "filename": "bkq-bkqNT.txt",
+    "size_mb": 1.65,
+    "alternatives": []
+  },
+  "kue": {
+    "filename": "kue-kue.txt",
+    "size_mb": 1.27,
+    "alternatives": []
+  },
+  "cot": {
+    "filename": "cot-cotNT.txt",
+    "size_mb": 1.75,
+    "alternatives": []
+  },
+  "bnp": {
+    "filename": "bnp-bnp.txt",
+    "size_mb": 2.05,
+    "alternatives": []
+  },
+  "apn": {
+    "filename": "apn-apnNT.txt",
+    "size_mb": 2.49,
+    "alternatives": []
+  },
+  "ctp": {
+    "filename": "ctp-ctpNT.txt",
+    "size_mb": 2.15,
+    "alternatives": []
+  },
+  "bre": {
+    "filename": "bre-breBRG.txt",
+    "size_mb": 0.45,
+    "alternatives": []
+  },
+  "opm": {
+    "filename": "opm-opm.txt",
+    "size_mb": 1.78,
+    "alternatives": []
+  },
+  "bvr": {
+    "filename": "bvr-bvr.txt",
+    "size_mb": 2.15,
+    "alternatives": []
+  },
+  "wal": {
+    "filename": "wal-wal.txt",
+    "size_mb": 3.68,
+    "alternatives": []
+  },
+  "shj": {
+    "filename": "shj-shj.txt",
+    "size_mb": 0.18,
+    "alternatives": []
+  },
+  "kmg": {
+    "filename": "kmg-kmg.txt",
+    "size_mb": 0.84,
+    "alternatives": []
+  },
+  "aso": {
+    "filename": "aso-aso.txt",
+    "size_mb": 2.0,
+    "alternatives": []
+  },
+  "uli": {
+    "filename": "uli-uli.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "dwu": {
+    "filename": "dwu-dwuliv.txt",
+    "size_mb": 0.04,
+    "alternatives": []
+  },
+  "nin": {
+    "filename": "nin-ninNT.txt",
+    "size_mb": 1.16,
+    "alternatives": []
+  },
+  "tgk": {
+    "filename": "tgk-tgk.txt",
+    "size_mb": 0.96,
+    "alternatives": []
+  },
+  "acu": {
+    "filename": "acu-acuNT.txt",
+    "size_mb": 1.89,
+    "alternatives": []
+  },
+  "ebk": {
+    "filename": "ebk-ebk.txt",
+    "size_mb": 1.32,
+    "alternatives": []
+  },
+  "tke": {
+    "filename": "tke-tke.txt",
+    "size_mb": 0.17,
+    "alternatives": []
+  },
+  "ruf": {
+    "filename": "ruf-ruf.txt",
+    "size_mb": 1.0,
+    "alternatives": []
+  },
+  "gun": {
+    "filename": "gun-gun.txt",
+    "size_mb": 4.39,
+    "alternatives": []
+  },
+  "agu": {
+    "filename": "agu-aguBl.txt",
+    "size_mb": 3.42,
+    "alternatives": []
+  },
+  "isn": {
+    "filename": "isn-isn.txt",
+    "size_mb": 0.96,
+    "alternatives": []
+  },
+  "ilo": {
+    "filename": "ilo-iloulb.txt",
+    "size_mb": 4.58,
+    "alternatives": []
+  },
+  "pir": {
+    "filename": "pir-pirNT.txt",
+    "size_mb": 1.69,
+    "alternatives": []
+  },
+  "anv": {
+    "filename": "anv-anvNT.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "sab": {
+    "filename": "sab-sabNT.txt",
+    "size_mb": 2.15,
+    "alternatives": []
+  },
+  "tmd": {
+    "filename": "tmd-tmd.txt",
+    "size_mb": 1.71,
+    "alternatives": []
+  },
+  "acr": {
+    "filename": "acr-acrNNT.txt",
+    "size_mb": 1.51,
+    "alternatives": [
+      {
+        "filename": "acr-acrTNT.txt",
+        "size_mb": 1.47
+      },
+      {
+        "filename": "acr-acr_acc.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "kpg": {
+    "filename": "kpg-kpg.txt",
+    "size_mb": 5.2,
+    "alternatives": []
+  },
+  "taj": {
+    "filename": "taj-taj.txt",
+    "size_mb": 3.09,
+    "alternatives": []
+  },
+  "avt": {
+    "filename": "avt-avt.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  },
+  "cbk": {
+    "filename": "cbk-cbk.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "tuf": {
+    "filename": "tuf-tuf.txt",
+    "size_mb": 1.55,
+    "alternatives": []
+  },
+  "abx": {
+    "filename": "abx-abx.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "mco": {
+    "filename": "mco-mcoNT.txt",
+    "size_mb": 1.61,
+    "alternatives": []
+  },
+  "bsp": {
+    "filename": "bsp-bsp.txt",
+    "size_mb": 0.65,
+    "alternatives": []
+  },
+  "kqf": {
+    "filename": "kqf-kqf.txt",
+    "size_mb": 0.7,
+    "alternatives": []
+  },
+  "cpb": {
+    "filename": "cpb-cpbNT.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "aon": {
+    "filename": "aon-aon.txt",
+    "size_mb": 1.79,
+    "alternatives": []
+  },
+  "hus": {
+    "filename": "hus-husNT1971.txt",
+    "size_mb": 1.56,
+    "alternatives": [
+      {
+        "filename": "hus-husNT2005.txt",
+        "size_mb": 1.48
+      }
+    ]
+  },
+  "mig": {
+    "filename": "mig-migNT.txt",
+    "size_mb": 1.46,
+    "alternatives": []
+  },
+  "bps": {
+    "filename": "bps-bps.txt",
+    "size_mb": 1.51,
+    "alternatives": []
+  },
+  "mbs": {
+    "filename": "mbs-mbs.txt",
+    "size_mb": 1.56,
+    "alternatives": []
+  },
+  "tof": {
+    "filename": "tof-tof.txt",
+    "size_mb": 1.62,
+    "alternatives": []
+  },
+  "cme": {
+    "filename": "cme-cmeNT.txt",
+    "size_mb": 1.22,
+    "alternatives": []
+  },
+  "sus": {
+    "filename": "sus-susa.txt",
+    "size_mb": 6.59,
+    "alternatives": [
+      {
+        "filename": "sus-sus.txt",
+        "size_mb": 3.71
+      }
+    ]
+  },
+  "dad": {
+    "filename": "dad-dad.txt",
+    "size_mb": 1.04,
+    "alternatives": []
+  },
+  "jae": {
+    "filename": "jae-jae.txt",
+    "size_mb": 2.63,
+    "alternatives": []
+  },
+  "ksd": {
+    "filename": "ksd-ksd.txt",
+    "size_mb": 4.27,
+    "alternatives": []
+  },
+  "msm": {
+    "filename": "msm-msmNT.txt",
+    "size_mb": 1.23,
+    "alternatives": []
+  },
+  "myk": {
+    "filename": "myk-myk.txt",
+    "size_mb": 1.28,
+    "alternatives": []
+  },
+  "sbe": {
+    "filename": "sbe-sbe.txt",
+    "size_mb": 1.29,
+    "alternatives": []
+  },
+  "mcr": {
+    "filename": "mcr-mcr.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "cux": {
+    "filename": "cux-cuxNT.txt",
+    "size_mb": 1.97,
+    "alternatives": []
+  },
+  "tur": {
+    "filename": "tur-turytc.txt",
+    "size_mb": 3.44,
+    "alternatives": []
+  },
+  "sch": {
+    "filename": "sch-sch.txt",
+    "size_mb": 1.08,
+    "alternatives": []
+  },
+  "mic": {
+    "filename": "mic-micMIQNT.txt",
+    "size_mb": 1.32,
+    "alternatives": []
+  },
+  "huu": {
+    "filename": "huu-huuNT.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "jiv": {
+    "filename": "jiv-jivNT.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "otm": {
+    "filename": "otm-otmNT.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "dah": {
+    "filename": "dah-dah.txt",
+    "size_mb": 1.63,
+    "alternatives": []
+  },
+  "tnk": {
+    "filename": "tnk-tnk.txt",
+    "size_mb": 1.59,
+    "alternatives": []
+  },
+  "kpr": {
+    "filename": "kpr-kpr.txt",
+    "size_mb": 1.84,
+    "alternatives": []
+  },
+  "nho": {
+    "filename": "nho-nho.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "gym": {
+    "filename": "gym-gymNT.txt",
+    "size_mb": 1.83,
+    "alternatives": []
+  },
+  "azg": {
+    "filename": "azg-azgNT.txt",
+    "size_mb": 2.03,
+    "alternatives": []
+  },
+  "bhd": {
+    "filename": "bhd-bhd.txt",
+    "size_mb": 2.57,
+    "alternatives": []
+  },
+  "too": {
+    "filename": "too-tooNT.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "snp": {
+    "filename": "snp-snp.txt",
+    "size_mb": 1.37,
+    "alternatives": [
+      {
+        "filename": "snp-snp_lambau.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "cjo": {
+    "filename": "cjo-cjoNT.txt",
+    "size_mb": 1.61,
+    "alternatives": []
+  },
+  "nsn": {
+    "filename": "nsn-nsn.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "tna": {
+    "filename": "tna-tnaNT.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "lid": {
+    "filename": "lid-lid.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "wim": {
+    "filename": "wim-wim.txt",
+    "size_mb": 2.12,
+    "alternatives": []
+  },
+  "tbl": {
+    "filename": "tbl-tblNT.txt",
+    "size_mb": 0.2,
+    "alternatives": []
+  },
+  "cpc": {
+    "filename": "cpc-cpcNT.txt",
+    "size_mb": 1.23,
+    "alternatives": []
+  },
+  "nhg": {
+    "filename": "nhg-nhgNT.txt",
+    "size_mb": 1.31,
+    "alternatives": []
+  },
+  "nya": {
+    "filename": "nya-nya.txt",
+    "size_mb": 4.01,
+    "alternatives": []
+  },
+  "ngu": {
+    "filename": "ngu-nguNT.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "kup": {
+    "filename": "kup-kup.txt",
+    "size_mb": 1.61,
+    "alternatives": []
+  },
+  "jid": {
+    "filename": "jid-jid.txt",
+    "size_mb": 0.79,
+    "alternatives": []
+  },
+  "ssg": {
+    "filename": "ssg-ssg.txt",
+    "size_mb": 1.16,
+    "alternatives": []
+  },
+  "poy": {
+    "filename": "poy-poy.txt",
+    "size_mb": 1.08,
+    "alternatives": []
+  },
+  "qwh": {
+    "filename": "qwh-qwhNT.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "gaw": {
+    "filename": "gaw-gaw.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "nca": {
+    "filename": "nca-nca.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "mkj": {
+    "filename": "mkj-mkj.txt",
+    "size_mb": 0.81,
+    "alternatives": []
+  },
+  "kyg": {
+    "filename": "kyg-kyg.txt",
+    "size_mb": 2.06,
+    "alternatives": []
+  },
+  "kmk": {
+    "filename": "kmk-kmk.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "cao": {
+    "filename": "cao-caoNT.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "bbr": {
+    "filename": "bbr-bbr.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "inb": {
+    "filename": "inb-inb.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "hrv": {
+    "filename": "hrv-hrv.txt",
+    "size_mb": 3.68,
+    "alternatives": []
+  },
+  "box": {
+    "filename": "box-boxNT.txt",
+    "size_mb": 1.57,
+    "alternatives": []
+  },
+  "ote": {
+    "filename": "ote-oteNT.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  },
+  "sey": {
+    "filename": "sey-seyNT.txt",
+    "size_mb": 1.48,
+    "alternatives": []
+  },
+  "nvm": {
+    "filename": "nvm-nvm.txt",
+    "size_mb": 1.46,
+    "alternatives": []
+  },
+  "mps": {
+    "filename": "mps-mps.txt",
+    "size_mb": 6.69,
+    "alternatives": []
+  },
+  "seh": {
+    "filename": "seh-seh.txt",
+    "size_mb": 0.29,
+    "alternatives": []
+  },
+  "pab": {
+    "filename": "pab-pabNT.txt",
+    "size_mb": 1.3,
+    "alternatives": []
+  },
+  "llg": {
+    "filename": "llg-llg.txt",
+    "size_mb": 1.78,
+    "alternatives": []
+  },
+  "kyf": {
+    "filename": "kyf-kyf.txt",
+    "size_mb": 1.24,
+    "alternatives": []
+  },
+  "mih": {
+    "filename": "mih-mihNT.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "qvh": {
+    "filename": "qvh-qvhNT.txt",
+    "size_mb": 1.26,
+    "alternatives": []
+  },
+  "kms": {
+    "filename": "kms-kms.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "agn": {
+    "filename": "agn-agn.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "nhi": {
+    "filename": "nhi-nhiNT.txt",
+    "size_mb": 1.27,
+    "alternatives": []
+  },
+  "ttc": {
+    "filename": "ttc-ttcNT.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "dan": {
+    "filename": "dan-dan1931.txt",
+    "size_mb": 3.55,
+    "alternatives": []
+  },
+  "kwj": {
+    "filename": "kwj-kwj.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "kze": {
+    "filename": "kze-kze.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "mpj": {
+    "filename": "mpj-mpj.txt",
+    "size_mb": 1.23,
+    "alternatives": []
+  },
+  "lbk": {
+    "filename": "lbk-lbk.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "mto": {
+    "filename": "mto-mtoNT.txt",
+    "size_mb": 2.07,
+    "alternatives": []
+  },
+  "bzh": {
+    "filename": "bzh-bzh.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "guj": {
+    "filename": "guj-guj2017.txt",
+    "size_mb": 9.12,
+    "alternatives": []
+  },
+  "jvn": {
+    "filename": "jvn-jvnNT.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "ian": {
+    "filename": "ian-ian.txt",
+    "size_mb": 1.45,
+    "alternatives": []
+  },
+  "awx": {
+    "filename": "awx-awx.txt",
+    "size_mb": 0.28,
+    "alternatives": []
+  },
+  "hun": {
+    "filename": "hun-hun.txt",
+    "size_mb": 0.97,
+    "alternatives": []
+  },
+  "mcf": {
+    "filename": "mcf-mcfNT.txt",
+    "size_mb": 1.64,
+    "alternatives": []
+  },
+  "kjs": {
+    "filename": "kjs-kjs.txt",
+    "size_mb": 1.32,
+    "alternatives": []
+  },
+  "mni": {
+    "filename": "mni-mni.txt",
+    "size_mb": 1.22,
+    "alternatives": []
+  },
+  "mxb": {
+    "filename": "mxb-mxbNT.txt",
+    "size_mb": 1.83,
+    "alternatives": []
+  },
+  "maq": {
+    "filename": "maq-maqNT.txt",
+    "size_mb": 1.55,
+    "alternatives": []
+  },
+  "hto": {
+    "filename": "hto-hto.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "cui": {
+    "filename": "cui-cui.txt",
+    "size_mb": 2.17,
+    "alternatives": []
+  },
+  "boj": {
+    "filename": "boj-boj2014.txt",
+    "size_mb": 1.48,
+    "alternatives": [
+      {
+        "filename": "boj-boj.txt",
+        "size_mb": 1.48
+      }
+    ]
+  },
+  "eri": {
+    "filename": "eri-eri.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "aly": {
+    "filename": "aly-aly.txt",
+    "size_mb": 1.62,
+    "alternatives": []
+  },
+  "swe": {
+    "filename": "swe-swe.txt",
+    "size_mb": 3.09,
+    "alternatives": []
+  },
+  "cth": {
+    "filename": "cth-cth.txt",
+    "size_mb": 4.02,
+    "alternatives": []
+  },
+  "mti": {
+    "filename": "mti-mti.txt",
+    "size_mb": 0.98,
+    "alternatives": []
+  },
+  "pad": {
+    "filename": "pad-padNT.txt",
+    "size_mb": 1.91,
+    "alternatives": []
+  },
+  "tbz": {
+    "filename": "tbz-tbzsim.txt",
+    "size_mb": 5.07,
+    "alternatives": []
+  },
+  "amx": {
+    "filename": "amx-amx.txt",
+    "size_mb": 0.84,
+    "alternatives": []
+  },
+  "ake": {
+    "filename": "ake-akeNT.txt",
+    "size_mb": 1.29,
+    "alternatives": []
+  },
+  "qvn": {
+    "filename": "qvn-qvnNT.txt",
+    "size_mb": 1.31,
+    "alternatives": []
+  },
+  "tku": {
+    "filename": "tku-tkuNT.txt",
+    "size_mb": 1.38,
+    "alternatives": []
+  },
+  "bjk": {
+    "filename": "bjk-bjk.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "bpr": {
+    "filename": "bpr-bpr.txt",
+    "size_mb": 1.03,
+    "alternatives": []
+  },
+  "cle": {
+    "filename": "cle-cleNT.txt",
+    "size_mb": 2.14,
+    "alternatives": []
+  },
+  "txq": {
+    "filename": "txq-txq.txt",
+    "size_mb": 1.85,
+    "alternatives": []
+  },
+  "aaz": {
+    "filename": "aaz-aaz.txt",
+    "size_mb": 1.92,
+    "alternatives": []
+  },
+  "qup": {
+    "filename": "qup-qupNT.txt",
+    "size_mb": 1.63,
+    "alternatives": []
+  },
+  "dop": {
+    "filename": "dop-dop.txt",
+    "size_mb": 3.9,
+    "alternatives": []
+  },
+  "azb": {
+    "filename": "azb-azb.txt",
+    "size_mb": 3.93,
+    "alternatives": []
+  },
+  "guo": {
+    "filename": "guo-guoNT.txt",
+    "size_mb": 1.65,
+    "alternatives": []
+  },
+  "hla": {
+    "filename": "hla-hla.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "mav": {
+    "filename": "mav-mavNT.txt",
+    "size_mb": 2.44,
+    "alternatives": []
+  },
+  "kpf": {
+    "filename": "kpf-kpf.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "ppo": {
+    "filename": "ppo-ppo.txt",
+    "size_mb": 1.71,
+    "alternatives": []
+  },
+  "bef": {
+    "filename": "bef-bef.txt",
+    "size_mb": 1.67,
+    "alternatives": []
+  },
+  "amm": {
+    "filename": "amm-amm.txt",
+    "size_mb": 1.51,
+    "alternatives": []
+  },
+  "chq": {
+    "filename": "chq-chqNT.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "swp": {
+    "filename": "swp-swp.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "bjr": {
+    "filename": "bjr-bjr.txt",
+    "size_mb": 2.63,
+    "alternatives": []
+  },
+  "aby": {
+    "filename": "aby-aby.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "jni": {
+    "filename": "jni-jni.txt",
+    "size_mb": 0.88,
+    "alternatives": []
+  },
+  "kne": {
+    "filename": "kne-kne.txt",
+    "size_mb": 2.36,
+    "alternatives": []
+  },
+  "tgj": {
+    "filename": "tgj-tgj.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "wat": {
+    "filename": "wat-wat.txt",
+    "size_mb": 0.47,
+    "alternatives": []
+  },
+  "gui": {
+    "filename": "gui-guiNT.txt",
+    "size_mb": 1.23,
+    "alternatives": []
+  },
+  "heg": {
+    "filename": "heg-hegNTpo.txt",
+    "size_mb": 1.72,
+    "alternatives": []
+  },
+  "ptu": {
+    "filename": "ptu-ptu.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "bzd": {
+    "filename": "bzd-bzdNTpo.txt",
+    "size_mb": 1.66,
+    "alternatives": []
+  },
+  "kwf": {
+    "filename": "kwf-kwf.txt",
+    "size_mb": 2.4,
+    "alternatives": []
+  },
+  "spp": {
+    "filename": "spp-spp.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "mek": {
+    "filename": "mek-mek.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "aey": {
+    "filename": "aey-aey.txt",
+    "size_mb": 1.38,
+    "alternatives": []
+  },
+  "djr": {
+    "filename": "djr-djr.txt",
+    "size_mb": 2.68,
+    "alternatives": []
+  },
+  "kvg": {
+    "filename": "kvg-kvg.txt",
+    "size_mb": 1.56,
+    "alternatives": []
+  },
+  "rug": {
+    "filename": "rug-rug.txt",
+    "size_mb": 4.88,
+    "alternatives": []
+  },
+  "hop": {
+    "filename": "hop-hopNT.txt",
+    "size_mb": 1.17,
+    "alternatives": []
+  },
+  "heb": {
+    "filename": "heb-heb.txt",
+    "size_mb": 3.55,
+    "alternatives": [
+      {
+        "filename": "heb-heblb.txt",
+        "size_mb": 1.26
+      }
+    ]
+  },
+  "caf": {
+    "filename": "caf-cafNT.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "mio": {
+    "filename": "mio-mioNT.txt",
+    "size_mb": 1.39,
+    "alternatives": []
+  },
+  "srq": {
+    "filename": "srq-srqNT.txt",
+    "size_mb": 1.32,
+    "alternatives": []
+  },
+  "kje": {
+    "filename": "kje-kjeNT.txt",
+    "size_mb": 1.38,
+    "alternatives": []
+  },
+  "bmk": {
+    "filename": "bmk-bmk.txt",
+    "size_mb": 0.13,
+    "alternatives": []
+  },
+  "gaz": {
+    "filename": "gaz-gaz.txt",
+    "size_mb": 4.19,
+    "alternatives": []
+  },
+  "kud": {
+    "filename": "kud-kud.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "urb": {
+    "filename": "urb-urbNT.txt",
+    "size_mb": 1.87,
+    "alternatives": []
+  },
+  "uvh": {
+    "filename": "uvh-uvh.txt",
+    "size_mb": 2.09,
+    "alternatives": []
+  },
+  "ino": {
+    "filename": "ino-ino.txt",
+    "size_mb": 1.69,
+    "alternatives": []
+  },
+  "gnn": {
+    "filename": "gnn-gnn.txt",
+    "size_mb": 4.84,
+    "alternatives": []
+  },
+  "cnt": {
+    "filename": "cnt-cntNT.txt",
+    "size_mb": 1.95,
+    "alternatives": []
+  },
+  "tif": {
+    "filename": "tif-tif.txt",
+    "size_mb": 2.17,
+    "alternatives": []
+  },
+  "nlx": {
+    "filename": "nlx-nlx.txt",
+    "size_mb": 2.33,
+    "alternatives": []
+  },
+  "apw": {
+    "filename": "apw-apwNT.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "gum": {
+    "filename": "gum-gum.txt",
+    "size_mb": 1.72,
+    "alternatives": []
+  },
+  "not": {
+    "filename": "not-notNT.txt",
+    "size_mb": 1.41,
+    "alternatives": []
+  },
+  "plu": {
+    "filename": "plu-plu.txt",
+    "size_mb": 1.6,
+    "alternatives": []
+  },
+  "iou": {
+    "filename": "iou-iou.txt",
+    "size_mb": 2.42,
+    "alternatives": []
+  },
+  "ntp": {
+    "filename": "ntp-ntpNT.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "rai": {
+    "filename": "rai-rai.txt",
+    "size_mb": 1.26,
+    "alternatives": []
+  },
+  "haw": {
+    "filename": "haw-haw1868.txt",
+    "size_mb": 4.23,
+    "alternatives": []
+  },
+  "ffm": {
+    "filename": "ffm-ffm.txt",
+    "size_mb": 0.95,
+    "alternatives": []
+  },
+  "arb": {
+    "filename": "arb-arbnav.txt",
+    "size_mb": 7.59,
+    "alternatives": [
+      {
+        "filename": "arb-arb_vd.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "bbd": {
+    "filename": "bbd-bbd.txt",
+    "size_mb": 0.04,
+    "alternatives": []
+  },
+  "cop": {
+    "filename": "cop-copcnt.txt",
+    "size_mb": 2.15,
+    "alternatives": [
+      {
+        "filename": "cop-copbhc.txt",
+        "size_mb": 1.99
+      }
+    ]
+  },
+  "adz": {
+    "filename": "adz-adz.txt",
+    "size_mb": 0.59,
+    "alternatives": []
+  },
+  "sri": {
+    "filename": "sri-sri.txt",
+    "size_mb": 1.64,
+    "alternatives": []
+  },
+  "nal": {
+    "filename": "nal-nal.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "kyq": {
+    "filename": "kyq-kyq.txt",
+    "size_mb": 1.41,
+    "alternatives": []
+  },
+  "kwd": {
+    "filename": "kwd-kwd.txt",
+    "size_mb": 1.57,
+    "alternatives": []
+  },
+  "ded": {
+    "filename": "ded-ded.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "ewe": {
+    "filename": "ewe-ewe.txt",
+    "size_mb": 3.93,
+    "alternatives": []
+  },
+  "nuy": {
+    "filename": "nuy-nuy.txt",
+    "size_mb": 2.22,
+    "alternatives": []
+  },
+  "buk": {
+    "filename": "buk-buk.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "pri": {
+    "filename": "pri-priNT.txt",
+    "size_mb": 1.43,
+    "alternatives": []
+  },
+  "gwi": {
+    "filename": "gwi-gwiNT.txt",
+    "size_mb": 1.54,
+    "alternatives": []
+  },
+  "dji": {
+    "filename": "dji-dji.txt",
+    "size_mb": 0.27,
+    "alternatives": []
+  },
+  "gvn": {
+    "filename": "gvn-gvn.txt",
+    "size_mb": 1.77,
+    "alternatives": []
+  },
+  "nna": {
+    "filename": "nna-nna.txt",
+    "size_mb": 0.47,
+    "alternatives": []
+  },
+  "nhy": {
+    "filename": "nhy-nhyNT.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "asm": {
+    "filename": "asm-asmfb.txt",
+    "size_mb": 9.92,
+    "alternatives": []
+  },
+  "mxt": {
+    "filename": "mxt-mxtNT.txt",
+    "size_mb": 1.43,
+    "alternatives": []
+  },
+  "omw": {
+    "filename": "omw-omw.txt",
+    "size_mb": 1.75,
+    "alternatives": [
+      {
+        "filename": "omw-omw_v.txt",
+        "size_mb": 0.04
+      },
+      {
+        "filename": "omw-omw_a.txt",
+        "size_mb": 0.04
+      }
+    ]
+  },
+  "maa": {
+    "filename": "maa-maaNT.txt",
+    "size_mb": 1.62,
+    "alternatives": []
+  },
+  "mcq": {
+    "filename": "mcq-mcq.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "jpn": {
+    "filename": "jpn-jpn1965.txt",
+    "size_mb": 1.35,
+    "alternatives": []
+  },
+  "hbo": {
+    "filename": "hbo-hbo.txt",
+    "size_mb": 5.19,
+    "alternatives": [
+      {
+        "filename": "hbo-hboWLC.txt",
+        "size_mb": 5.14
+      }
+    ]
+  },
+  "mle": {
+    "filename": "mle-mle.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "shp": {
+    "filename": "shp-shpNTpo.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "aom": {
+    "filename": "aom-aom.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "geb": {
+    "filename": "geb-geb.txt",
+    "size_mb": 1.72,
+    "alternatives": []
+  },
+  "bsj": {
+    "filename": "bsj-bsj.txt",
+    "size_mb": 0.81,
+    "alternatives": []
+  },
+  "chf": {
+    "filename": "chf-chfNT.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "tlf": {
+    "filename": "tlf-tlf.txt",
+    "size_mb": 2.13,
+    "alternatives": []
+  },
+  "piu": {
+    "filename": "piu-piu2006.txt",
+    "size_mb": 2.89,
+    "alternatives": []
+  },
+  "poh": {
+    "filename": "poh-pohNT.txt",
+    "size_mb": 2.8,
+    "alternatives": []
+  },
+  "tue": {
+    "filename": "tue-tue.txt",
+    "size_mb": 1.43,
+    "alternatives": []
+  },
+  "bjp": {
+    "filename": "bjp-bjp.txt",
+    "size_mb": 1.11,
+    "alternatives": []
+  },
+  "mpm": {
+    "filename": "mpm-mpmNT.txt",
+    "size_mb": 1.67,
+    "alternatives": []
+  },
+  "ots": {
+    "filename": "ots-otsNT.txt",
+    "size_mb": 1.93,
+    "alternatives": []
+  },
+  "hoy": {
+    "filename": "hoy-hoy.txt",
+    "size_mb": 2.44,
+    "alternatives": []
+  },
+  "uri": {
+    "filename": "uri-uri.txt",
+    "size_mb": 0.52,
+    "alternatives": []
+  },
+  "amo": {
+    "filename": "amo-amo.txt",
+    "size_mb": 0.92,
+    "alternatives": []
+  },
+  "pjt": {
+    "filename": "pjt-pjt.txt",
+    "size_mb": 3.12,
+    "alternatives": []
+  },
+  "cwe": {
+    "filename": "cwe-cwe.txt",
+    "size_mb": 1.75,
+    "alternatives": []
+  },
+  "daa": {
+    "filename": "daa-daaNT.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "mlp": {
+    "filename": "mlp-mlp.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "ape": {
+    "filename": "ape-apec.txt",
+    "size_mb": 1.79,
+    "alternatives": [
+      {
+        "filename": "ape-apeB.txt",
+        "size_mb": 1.74
+      }
+    ]
+  },
+  "bgs": {
+    "filename": "bgs-bgs.txt",
+    "size_mb": 1.68,
+    "alternatives": []
+  },
+  "faa": {
+    "filename": "faa-faa.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "kik": {
+    "filename": "kik-kik.txt",
+    "size_mb": 4.69,
+    "alternatives": []
+  },
+  "cap": {
+    "filename": "cap-capNT.txt",
+    "size_mb": 1.65,
+    "alternatives": []
+  },
+  "ksr": {
+    "filename": "ksr-ksr.txt",
+    "size_mb": 1.96,
+    "alternatives": []
+  },
+  "sbs": {
+    "filename": "sbs-sbs.txt",
+    "size_mb": 0.93,
+    "alternatives": []
+  },
+  "omb": {
+    "filename": "omb-omb.txt",
+    "size_mb": 0.21,
+    "alternatives": []
+  },
+  "sue": {
+    "filename": "sue-sue.txt",
+    "size_mb": 1.22,
+    "alternatives": []
+  },
+  "bhg": {
+    "filename": "bhg-bhg.txt",
+    "size_mb": 0.9,
+    "alternatives": []
+  },
+  "snn": {
+    "filename": "snn-snnNT.txt",
+    "size_mb": 1.75,
+    "alternatives": []
+  },
+  "atb": {
+    "filename": "atb-atbNT.txt",
+    "size_mb": 1.44,
+    "alternatives": []
+  },
+  "cek": {
+    "filename": "cek-cekak.txt",
+    "size_mb": 4.32,
+    "alternatives": []
+  },
+  "bkd": {
+    "filename": "bkd-bkd.txt",
+    "size_mb": 1.14,
+    "alternatives": []
+  },
+  "lac": {
+    "filename": "lac-lacNT.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "tbf": {
+    "filename": "tbf-tbf.txt",
+    "size_mb": 1.27,
+    "alternatives": []
+  },
+  "ikw": {
+    "filename": "ikw-ikwNT.txt",
+    "size_mb": 1.05,
+    "alternatives": []
+  },
+  "khs": {
+    "filename": "khs-khs.txt",
+    "size_mb": 1.77,
+    "alternatives": []
+  },
+  "pma": {
+    "filename": "pma-pma.txt",
+    "size_mb": 1.82,
+    "alternatives": []
+  },
+  "atd": {
+    "filename": "atd-atdNT.txt",
+    "size_mb": 1.55,
+    "alternatives": []
+  },
+  "tel": {
+    "filename": "tel-tel2017.txt",
+    "size_mb": 9.68,
+    "alternatives": []
+  },
+  "hat": {
+    "filename": "hat-hat.txt",
+    "size_mb": 4.14,
+    "alternatives": [
+      {
+        "filename": "hat-hatbsa.txt",
+        "size_mb": 3.72
+      }
+    ]
+  },
+  "bxh": {
+    "filename": "bxh-bxh.txt",
+    "size_mb": 0.63,
+    "alternatives": []
+  },
+  "top": {
+    "filename": "top-topNT.txt",
+    "size_mb": 1.59,
+    "alternatives": []
+  },
+  "msk": {
+    "filename": "msk-msk.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "gyr": {
+    "filename": "gyr-gyrNT.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "ukr": {
+    "filename": "ukr-ukr1871.txt",
+    "size_mb": 5.73,
+    "alternatives": [
+      {
+        "filename": "ukr-ukronpu.txt",
+        "size_mb": 1.63
+      }
+    ]
+  },
+  "emi": {
+    "filename": "emi-emi.txt",
+    "size_mb": 1.29,
+    "alternatives": []
+  },
+  "nay": {
+    "filename": "nay-nay.txt",
+    "size_mb": 0.09,
+    "alternatives": []
+  },
+  "gux": {
+    "filename": "gux-gux.txt",
+    "size_mb": 0.97,
+    "alternatives": [
+      {
+        "filename": "gux-guxg.txt",
+        "size_mb": 0.92
+      }
+    ]
+  },
+  "kos": {
+    "filename": "kos-kos.txt",
+    "size_mb": 3.87,
+    "alternatives": []
+  },
+  "ibo": {
+    "filename": "ibo-ibo.txt",
+    "size_mb": 4.8,
+    "alternatives": []
+  },
+  "ory": {
+    "filename": "ory-ory.txt",
+    "size_mb": 10.17,
+    "alternatives": []
+  },
+  "bzj": {
+    "filename": "bzj-bzj.txt",
+    "size_mb": 1.1,
+    "alternatives": []
+  },
+  "chk": {
+    "filename": "chk-chk.txt",
+    "size_mb": 4.33,
+    "alternatives": []
+  },
+  "ssd": {
+    "filename": "ssd-ssd.txt",
+    "size_mb": 1.7,
+    "alternatives": []
+  },
+  "rop": {
+    "filename": "rop-rop.txt",
+    "size_mb": 5.23,
+    "alternatives": []
+  },
+  "mee": {
+    "filename": "mee-mee.txt",
+    "size_mb": 1.55,
+    "alternatives": []
+  },
+  "mwf": {
+    "filename": "mwf-mwf2018.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "dif": {
+    "filename": "dif-dif.txt",
+    "size_mb": 1.13,
+    "alternatives": []
+  },
+  "gam": {
+    "filename": "gam-gam.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "nou": {
+    "filename": "nou-nou.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "mqb": {
+    "filename": "mqb-mqbNT.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "cav": {
+    "filename": "cav-cavNT.txt",
+    "size_mb": 1.83,
+    "alternatives": []
+  },
+  "kgp": {
+    "filename": "kgp-kgpNT.txt",
+    "size_mb": 1.79,
+    "alternatives": []
+  },
+  "bvd": {
+    "filename": "bvd-bvd.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "apz": {
+    "filename": "apz-apz.txt",
+    "size_mb": 2.04,
+    "alternatives": []
+  },
+  "poi": {
+    "filename": "poi-poiNT.txt",
+    "size_mb": 1.46,
+    "alternatives": []
+  },
+  "quf": {
+    "filename": "quf-qufNT.txt",
+    "size_mb": 1.49,
+    "alternatives": []
+  },
+  "mph": {
+    "filename": "mph-mph.txt",
+    "size_mb": 0.19,
+    "alternatives": []
+  },
+  "med": {
+    "filename": "med-med.txt",
+    "size_mb": 1.45,
+    "alternatives": []
+  },
+  "bch": {
+    "filename": "bch-bch.txt",
+    "size_mb": 1.73,
+    "alternatives": []
+  },
+  "cco": {
+    "filename": "cco-ccoNT.txt",
+    "size_mb": 2.56,
+    "alternatives": []
+  },
+  "alq": {
+    "filename": "alq-alqALGNT.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  },
+  "boa": {
+    "filename": "boa-boaNT.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "etr": {
+    "filename": "etr-etr.txt",
+    "size_mb": 0.74,
+    "alternatives": []
+  },
+  "quh": {
+    "filename": "quh-quhNT.txt",
+    "size_mb": 1.23,
+    "alternatives": []
+  },
+  "kwi": {
+    "filename": "kwi-kwi.txt",
+    "size_mb": 1.21,
+    "alternatives": []
+  },
+  "agm": {
+    "filename": "agm-agm.txt",
+    "size_mb": 3.24,
+    "alternatives": []
+  },
+  "ubr": {
+    "filename": "ubr-ubr.txt",
+    "size_mb": 1.45,
+    "alternatives": []
+  },
+  "tsw": {
+    "filename": "tsw-tswNT.txt",
+    "size_mb": 1.27,
+    "alternatives": []
+  },
+  "cax": {
+    "filename": "cax-caxNT.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "aia": {
+    "filename": "aia-aia.txt",
+    "size_mb": 1.33,
+    "alternatives": []
+  },
+  "srp": {
+    "filename": "srp-srp1865.txt",
+    "size_mb": 3.2,
+    "alternatives": []
+  },
+  "agt": {
+    "filename": "agt-agt.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "lug": {
+    "filename": "lug-lug.txt",
+    "size_mb": 4.05,
+    "alternatives": []
+  },
+  "mpp": {
+    "filename": "mpp-mpp.txt",
+    "size_mb": 1.37,
+    "alternatives": []
+  },
+  "apb": {
+    "filename": "apb-apb.txt",
+    "size_mb": 1.52,
+    "alternatives": []
+  },
+  "ntu": {
+    "filename": "ntu-ntu.txt",
+    "size_mb": 1.46,
+    "alternatives": []
+  },
+  "pan": {
+    "filename": "pan-pan.txt",
+    "size_mb": 9.28,
+    "alternatives": []
+  },
+  "tkr": {
+    "filename": "tkr-tkr.txt",
+    "size_mb": 0.88,
+    "alternatives": []
+  },
+  "gvc": {
+    "filename": "gvc-gvc.txt",
+    "size_mb": 1.58,
+    "alternatives": []
+  },
+  "mwp": {
+    "filename": "mwp-mwp.txt",
+    "size_mb": 1.05,
+    "alternatives": []
+  },
+  "ksj": {
+    "filename": "ksj-ksj.txt",
+    "size_mb": 0.71,
+    "alternatives": []
+  },
+  "sbk": {
+    "filename": "sbk-sbk.txt",
+    "size_mb": 0.88,
+    "alternatives": []
+  },
+  "kgf": {
+    "filename": "kgf-kgf.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "awb": {
+    "filename": "awb-awb.txt",
+    "size_mb": 1.38,
+    "alternatives": []
+  },
+  "gdn": {
+    "filename": "gdn-gdn.txt",
+    "size_mb": 1.76,
+    "alternatives": []
+  },
+  "hvn": {
+    "filename": "hvn-hvn.txt",
+    "size_mb": 0.16,
+    "alternatives": []
+  },
+  "lrg": {
+    "filename": "lrg-lrg.txt",
+    "size_mb": 0.04,
+    "alternatives": []
+  },
+  "nko": {
+    "filename": "nko-nkoNT.txt",
+    "size_mb": 1.32,
+    "alternatives": []
+  },
+  "bsn": {
+    "filename": "bsn-bsnNT.txt",
+    "size_mb": 1.81,
+    "alternatives": []
+  },
+  "pib": {
+    "filename": "pib-pibNT.txt",
+    "size_mb": 1.0,
+    "alternatives": []
+  },
+  "reg": {
+    "filename": "reg-reg.txt",
+    "size_mb": 1.01,
+    "alternatives": []
+  },
+  "mlh": {
+    "filename": "mlh-mlh.txt",
+    "size_mb": 1.56,
+    "alternatives": []
+  },
+  "tte": {
+    "filename": "tte-tte.txt",
+    "size_mb": 1.35,
+    "alternatives": [
+      {
+        "filename": "tte-tteo.txt",
+        "size_mb": 0.99
+      }
+    ]
+  },
+  "aau": {
+    "filename": "aau-aau.txt",
+    "size_mb": 1.48,
+    "alternatives": []
+  },
+  "tvk": {
+    "filename": "tvk-tvk.txt",
+    "size_mb": 1.42,
+    "alternatives": []
+  },
+  "prf": {
+    "filename": "prf-prfNT.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "auy": {
+    "filename": "auy-auy.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "hub": {
+    "filename": "hub-hubNT.txt",
+    "size_mb": 1.28,
+    "alternatives": []
+  },
+  "hmo": {
+    "filename": "hmo-hmo.txt",
+    "size_mb": 5.32,
+    "alternatives": []
+  },
+  "big": {
+    "filename": "big-big.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "cnl": {
+    "filename": "cnl-cnlNT.txt",
+    "size_mb": 2.14,
+    "alternatives": []
+  },
+  "kde": {
+    "filename": "kde-kde.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "ata": {
+    "filename": "ata-ata.txt",
+    "size_mb": 1.78,
+    "alternatives": []
+  },
+  "qvw": {
+    "filename": "qvw-qvwNT.txt",
+    "size_mb": 1.15,
+    "alternatives": []
+  },
+  "nfa": {
+    "filename": "nfa-nfa.txt",
+    "size_mb": 1.88,
+    "alternatives": []
+  },
+  "tnp": {
+    "filename": "tnp-tnp.txt",
+    "size_mb": 1.72,
+    "alternatives": []
+  },
+  "hot": {
+    "filename": "hot-hot.txt",
+    "size_mb": 1.27,
+    "alternatives": []
+  },
+  "mqj": {
+    "filename": "mqj-mqjNT.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "rus": {
+    "filename": "rus-russyn.txt",
+    "size_mb": 5.68,
+    "alternatives": []
+  },
+  "mbh": {
+    "filename": "mbh-mbh.txt",
+    "size_mb": 1.4,
+    "alternatives": []
+  },
+  "bdd": {
+    "filename": "bdd-bdd.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "cbt": {
+    "filename": "cbt-cbtNTpo.txt",
+    "size_mb": 1.78,
+    "alternatives": []
+  },
+  "srn": {
+    "filename": "srn-srnNT.txt",
+    "size_mb": 1.02,
+    "alternatives": []
+  },
+  "cta": {
+    "filename": "cta-ctaNT.txt",
+    "size_mb": 2.31,
+    "alternatives": []
+  },
+  "bqc": {
+    "filename": "bqc-bqcsim.txt",
+    "size_mb": 3.62,
+    "alternatives": []
+  },
+  "tcz": {
+    "filename": "tcz-tczchongthu.txt",
+    "size_mb": 4.39,
+    "alternatives": []
+  },
+  "mar": {
+    "filename": "mar-mar.txt",
+    "size_mb": 9.9,
+    "alternatives": []
+  },
+  "isl": {
+    "filename": "isl-isl.txt",
+    "size_mb": 1.34,
+    "alternatives": []
+  },
+  "spy": {
+    "filename": "spy-spyNT.txt",
+    "size_mb": 1.26,
+    "alternatives": []
+  },
+  "mwe": {
+    "filename": "mwe-mwe.txt",
+    "size_mb": 1.11,
+    "alternatives": []
+  },
+  "tcs": {
+    "filename": "tcs-tcs.txt",
+    "size_mb": 1.53,
+    "alternatives": []
+  },
+  "soq": {
+    "filename": "soq-soq.txt",
+    "size_mb": 1.74,
+    "alternatives": []
+  },
+  "qub": {
+    "filename": "qub-qub.txt",
+    "size_mb": 4.38,
+    "alternatives": []
+  },
+  "att": {
+    "filename": "att-att.txt",
+    "size_mb": 1.65,
+    "alternatives": []
+  },
+  "bki": {
+    "filename": "bki-bki.txt",
+    "size_mb": 1.92,
+    "alternatives": []
+  },
+  "bqp": {
+    "filename": "bqp-bqp.txt",
+    "size_mb": 3.28,
+    "alternatives": []
+  },
+  "mcp": {
+    "filename": "mcp-mcp.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "npl": {
+    "filename": "npl-nplNT.txt",
+    "size_mb": 1.12,
+    "alternatives": []
+  },
+  "bgg": {
+    "filename": "bgg-bgg.txt",
+    "size_mb": 1.2,
+    "alternatives": []
+  },
+  "cpu": {
+    "filename": "cpu-cpuNT.txt",
+    "size_mb": 1.28,
+    "alternatives": []
+  },
+  "tod": {
+    "filename": "tod-tod.txt",
+    "size_mb": 1.7,
+    "alternatives": []
+  },
+  "tac": {
+    "filename": "tac-tacNT.txt",
+    "size_mb": 1.78,
+    "alternatives": []
+  },
+  "viv": {
+    "filename": "viv-viv.txt",
+    "size_mb": 1.62,
+    "alternatives": []
+  },
+  "tgp": {
+    "filename": "tgp-tgp.txt",
+    "size_mb": 1.19,
+    "alternatives": []
+  },
+  "auc": {
+    "filename": "auc-aucNT.txt",
+    "size_mb": 2.28,
+    "alternatives": []
+  },
+  "kbc": {
+    "filename": "kbc-kbcNT.txt",
+    "size_mb": 1.79,
+    "alternatives": []
+  },
+  "bmh": {
+    "filename": "bmh-bmh.txt",
+    "size_mb": 1.36,
+    "alternatives": []
+  },
+  "meq": {
+    "filename": "meq-meq.txt",
+    "size_mb": 1.5,
+    "alternatives": []
+  },
+  "thd": {
+    "filename": "thd-thd.txt",
+    "size_mb": 0.07,
+    "alternatives": []
+  },
+  "alp": {
+    "filename": "alp-alpNT.txt",
+    "size_mb": 1.25,
+    "alternatives": []
+  },
+  "kbq": {
+    "filename": "kbq-kbq.txt",
+    "size_mb": 5.11,
+    "alternatives": []
+  },
+  "kbh": {
+    "filename": "kbh-kbh.txt",
+    "size_mb": 1.78,
+    "alternatives": []
+  },
+  "sps": {
+    "filename": "sps-sps.txt",
+    "size_mb": 1.56,
+    "alternatives": []
+  },
+  "nmw": {
+    "filename": "nmw-nmws.txt",
+    "size_mb": 0.21,
+    "alternatives": []
+  },
+  "bus": {
+    "filename": "bus-bus.txt",
+    "size_mb": 2.34,
+    "alternatives": []
+  },
+  "gub": {
+    "filename": "gub-gubBl.txt",
+    "size_mb": 5.66,
+    "alternatives": []
+  },
+  "imo": {
+    "filename": "imo-imo.txt",
+    "size_mb": 1.67,
+    "alternatives": []
+  },
+  "knf": {
+    "filename": "knf-knf.txt",
+    "size_mb": 1.18,
+    "alternatives": []
+  },
+  "arn": {
+    "filename": "arn-arnNT.txt",
+    "size_mb": 1.31,
+    "alternatives": []
+  },
+  "ken": {
+    "filename": "ken-kenNT.txt",
+    "size_mb": 1.47,
+    "alternatives": []
+  }
+}
