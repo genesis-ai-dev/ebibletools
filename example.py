@@ -2,7 +2,7 @@
 
 import os
 from ebible_downloader import EBibleDownloader
-from contextquery import ContextQuery
+from query.contextquery import ContextQuery
 
 def format_examples(results, show_coverage=True):
     """Format search results nicely"""
