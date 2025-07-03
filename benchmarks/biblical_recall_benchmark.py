@@ -16,7 +16,7 @@ import litellm
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from metrics import chrF_plus, normalized_edit_distance
-from benchmark_utils import extract_xml_content, format_xml_prompt
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class BiblicalRecallBenchmark:
@@ -74,27 +74,27 @@ class BiblicalRecallBenchmark:
         
         for model in self.models:
             print(f"\n🤖 Testing model: {model}")
-        results = []
+            results = []
             model_details = []
         
             for reference, expected_text in tqdm(test_cases, desc=f"Testing {model}"):
                 recalled_text = self.test_reference_recall(reference, model)
             
-            # Evaluate accuracy
-            chrf_score = chrF_plus(recalled_text, expected_text)
-            edit_score = 1.0 - normalized_edit_distance(recalled_text, expected_text)
+                # Evaluate accuracy
+                chrf_score = chrF_plus(recalled_text, expected_text)
+                edit_score = 1.0 - normalized_edit_distance(recalled_text, expected_text)
             
-            results.append({"chrf": chrf_score, "edit": edit_score})
+                results.append({"chrf": chrf_score, "edit": edit_score})
             
                 model_details.append({
-                "reference": reference,
-                "expected": expected_text,
-                "recalled": recalled_text,
-                "scores": {
-                    "chrf": chrf_score,
-                    "edit": edit_score
-                }
-            })
+                    "reference": reference,
+                    "expected": expected_text,
+                    "recalled": recalled_text,
+                    "scores": {
+                        "chrf": chrf_score,
+                        "edit": edit_score
+                    }
+                })
         
             all_results[model] = results
             detailed_results[model] = model_details

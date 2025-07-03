@@ -16,7 +16,7 @@ import litellm
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
 from metrics import chrF_plus, normalized_edit_distance
-from benchmark_utils import extract_xml_content, format_xml_prompt
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class TrueSourceBenchmark:
