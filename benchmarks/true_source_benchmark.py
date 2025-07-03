@@ -118,8 +118,30 @@ class TrueSourceBenchmark:
         
         self.print_results(results)
         
+        # Create the data structure (same as what gets saved to JSON)
+        summary_stats = {}
+        for condition in ["with_source", "without_source"]:
+            chrf_scores = [r["chrf"] for r in results[condition]]
+            edit_scores = [r["edit"] for r in results[condition]]
+            
+            summary_stats[condition] = {
+                "chrf_mean": mean(chrf_scores),
+                "chrf_std": stdev(chrf_scores) if len(chrf_scores) > 1 else 0.0,
+                "edit_mean": mean(edit_scores),
+                "edit_std": stdev(edit_scores) if len(edit_scores) > 1 else 0.0
+            }
+        
+        output_data = {
+            "benchmark": "true_source",
+            "model": self.model,
+            "summary": summary_stats,
+            "detailed_results": detailed_results
+        }
+        
         if output_file:
             self.save_results(results, detailed_results, output_file)
+        
+        return output_data
 
     def print_results(self, results):
         print(f"\n{'='*60}")

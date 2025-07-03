@@ -112,8 +112,32 @@ class PowerPromptBenchmark:
         
         self.print_results(results)
         
+        # Create the data structure (same as what gets saved to JSON)
+        summary_stats = {}
+        for prompt_name in self.prompt_templates.keys():
+            chrf_scores = [r["chrf"] for r in results[prompt_name]]
+            edit_scores = [r["edit"] for r in results[prompt_name]]
+            
+            summary_stats[prompt_name] = {
+                "chrf_mean": mean(chrf_scores),
+                "chrf_std": stdev(chrf_scores) if len(chrf_scores) > 1 else 0.0,
+                "edit_mean": mean(edit_scores),
+                "edit_std": stdev(edit_scores) if len(edit_scores) > 1 else 0.0,
+                "overall": mean([mean(chrf_scores), mean(edit_scores)])
+            }
+        
+        output_data = {
+            "benchmark": "power_prompt",
+            "model": self.model,
+            "prompt_templates": self.prompt_templates,
+            "summary": summary_stats,
+            "detailed_results": detailed_results
+        }
+        
         if output_file:
             self.save_results(results, detailed_results, output_file)
+        
+        return output_data
 
     def print_results(self, results):
         print(f"\n{'='*60}")

@@ -127,16 +127,9 @@ print("\n🔍 Running Biblical Recall Benchmark...")
 
 # Biblical Recall Benchmark can test multiple models at once
 benchmark = BiblicalRecallBenchmark(corpus_dir, source_file, models=models_to_test)
-benchmark.run_benchmark(num_tests=test_count)
+biblical_results = benchmark.run_benchmark(num_tests=test_count)
 
-# Extract results from the benchmark's internal data
-biblical_results = {}
-if hasattr(benchmark, 'last_results'):
-    biblical_results = benchmark.last_results
-else:
-    # Parse from the printed output or extract manually
-    # For now, we'll collect the results after the benchmark runs
-    print("⚠️  Biblical results stored internally - extracting manually from output")
+print("✅ Biblical Recall Benchmark completed with real data!")
 
 # Cell 9: Run Context Corrigibility Benchmark
 print("\n📚 Running Context Corrigibility Benchmark...")
@@ -145,8 +138,9 @@ context_results = {}
 for model in models_to_test:
     print(f"\nTesting {model}...")
     benchmark = ContextCorrigibilityBenchmark(corpus_dir, source_file, model=model)
-    results = benchmark.run_benchmark(num_tests=test_count, example_counts=[0, 3, 5])
-    context_results[model] = results
+    context_results[model] = benchmark.run_benchmark(num_tests=test_count, example_counts=[0, 3, 5])
+
+print("✅ Context Corrigibility Benchmark completed with real data!")
 
 # Cell 10: Run True Source Benchmark
 print("\n🎯 Running True Source Benchmark...")
@@ -155,8 +149,9 @@ true_source_results = {}
 for model in models_to_test:
     print(f"\nTesting {model}...")
     benchmark = TrueSourceBenchmark(corpus_dir, source_file, model=model)
-    results = benchmark.run_benchmark(num_tests=test_count)
-    true_source_results[model] = results
+    true_source_results[model] = benchmark.run_benchmark(num_tests=test_count)
+
+print("✅ True Source Benchmark completed with real data!")
 
 # Cell 11: Run Power Prompt Benchmark
 print("\n⚡ Running Power Prompt Benchmark...")
@@ -165,54 +160,40 @@ power_prompt_results = {}
 for model in models_to_test:
     print(f"\nTesting {model}...")
     benchmark = PowerPromptBenchmark(corpus_dir, source_file, model=model)
-    results = benchmark.run_benchmark(num_tests=test_count)
-    power_prompt_results[model] = results
+    power_prompt_results[model] = benchmark.run_benchmark(num_tests=test_count)
+
+print("✅ Power Prompt Benchmark completed with real data!")
 
 # Cell 12: Performance Visualizations from Real Data
 print("\n📊 Creating performance visualizations from benchmark results...")
 
 def extract_performance_data():
-    """Extract performance data from benchmark results"""
+    """Extract performance data from real benchmark results"""
     
     # Extract Biblical Recall scores (chrF+ scores for each model)
     biblical_data = {}
-    for model in models_to_test[:3]:  # Only first 3 models were tested based on output
-        if model == "gpt-3.5-turbo":
-            biblical_data[model] = 0.787
-        elif model == "gpt-4o-mini": 
-            biblical_data[model] = 0.688
-        elif model == "gpt-4o":
-            biblical_data[model] = 0.671
+    for model in biblical_results["summary"]:
+        biblical_data[model] = biblical_results["summary"][model]["chrf_mean"]
     
     # Extract Context Learning improvements (5 examples vs 0 examples)
     context_data = {}
-    for model in models_to_test[:3]:
-        if model == "gpt-3.5-turbo":
-            context_data[model] = 0.414  # +0.414 improvement from output
-        elif model == "gpt-4o-mini":
-            context_data[model] = 0.270  # +0.270 improvement  
-        elif model == "gpt-4o":
-            context_data[model] = 0.336  # +0.336 improvement
+    for model, results in context_results.items():
+        baseline = results["summary"]["0"]["chrf_mean"]
+        with_context = results["summary"]["5"]["chrf_mean"]
+        context_data[model] = with_context - baseline
     
     # Extract True Source effects (with source - without source)
     source_data = {}
-    for model in models_to_test[:3]:
-        if model == "gpt-3.5-turbo":
-            source_data[model] = -0.757  # Negative effect
-        elif model == "gpt-4o-mini":
-            source_data[model] = -0.899  # Strong negative effect
-        elif model == "gpt-4o":
-            source_data[model] = -0.022  # Small negative effect
+    for model, results in true_source_results.items():
+        with_source = results["summary"]["with_source"]["chrf_mean"]
+        without_source = results["summary"]["without_source"]["chrf_mean"]
+        source_data[model] = with_source - without_source
     
     # Extract Power Prompt sensitivity (best - worst prompt)
     prompt_data = {}
-    for model in models_to_test[:3]:
-        if model == "gpt-3.5-turbo":
-            prompt_data[model] = 0.013  # 0.184 - 0.171 range
-        elif model == "gpt-4o-mini":
-            prompt_data[model] = 0.007  # 0.076 - 0.070 range  
-        elif model == "gpt-4o":
-            prompt_data[model] = 0.009  # 0.167 - 0.158 range
+    for model, results in power_prompt_results.items():
+        prompt_scores = [results["summary"][prompt]["overall"] for prompt in results["summary"]]
+        prompt_data[model] = max(prompt_scores) - min(prompt_scores)
     
     return biblical_data, context_data, source_data, prompt_data
 
@@ -222,10 +203,10 @@ biblical_data, context_data, source_data, prompt_data = extract_performance_data
 # Create performance-focused visualizations
 fig = plt.figure(figsize=(16, 10))
 
-# Only show models that were actually tested
+# Get models that were actually tested (use biblical_data as reference since it's run first)
 tested_models = list(biblical_data.keys())
 model_names = [m.split('/')[-1] if '/' in m else m for m in tested_models]
-colors = ['#e74c3c', '#3498db', '#2ecc71'][:len(tested_models)]
+colors = ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6'][:len(tested_models)]
 
 # 1. Biblical Recall Performance Comparison
 ax1 = plt.subplot(2, 2, 1)

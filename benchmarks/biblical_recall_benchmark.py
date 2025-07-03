@@ -102,8 +102,31 @@ class BiblicalRecallBenchmark:
         # Print comparative results
         self.print_comparative_results(all_results)
         
+        # Create the data structure (same as what gets saved to JSON)
+        model_stats = {}
+        for model, results in all_results.items():
+            chrf_scores = [r["chrf"] for r in results]
+            edit_scores = [r["edit"] for r in results]
+            
+            model_stats[model] = {
+                "chrf_mean": mean(chrf_scores),
+                "chrf_std": stdev(chrf_scores) if len(chrf_scores) > 1 else 0.0,
+                "edit_mean": mean(edit_scores),
+                "edit_std": stdev(edit_scores) if len(edit_scores) > 1 else 0.0,
+                "total_tests": len(results)
+            }
+        
+        output_data = {
+            "benchmark": "biblical_recall",
+            "models": self.models,
+            "summary": model_stats,
+            "detailed_results": detailed_results
+        }
+        
         if output_file:
             self.save_comparative_results(all_results, detailed_results, output_file)
+        
+        return output_data
 
     def print_comparative_results(self, all_results):
         print(f"\n{'='*60}")
