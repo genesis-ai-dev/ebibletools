@@ -88,14 +88,15 @@ def extract_performance_data():
     biblical_data = {model: biblical_results["summary"][model]["chrf_mean"] 
                     for model in biblical_results["summary"]}
     
-    context_data = {model: results["summary"][5]["chrf_mean"] - results["summary"][0]["chrf_mean"]
+    # Updated to handle new multi-language structure - use overall aggregated results
+    context_data = {model: results["summary"]["overall"][5]["chrf_mean"] - results["summary"]["overall"][0]["chrf_mean"]
                    for model, results in context_results.items()}
     
-    source_data = {model: results["summary"]["with_source"]["chrf_mean"] - results["summary"]["without_source"]["chrf_mean"]
+    source_data = {model: results["summary"]["overall"]["with_source"]["chrf_mean"] - results["summary"]["overall"]["without_source"]["chrf_mean"]
                   for model, results in true_source_results.items()}
     
-    prompt_data = {model: max(results["summary"][prompt]["overall"] for prompt in results["summary"]) - 
-                           min(results["summary"][prompt]["overall"] for prompt in results["summary"])
+    prompt_data = {model: max(results["summary"]["overall"][prompt]["overall"] for prompt in results["summary"]["overall"]) - 
+                           min(results["summary"]["overall"][prompt]["overall"] for prompt in results["summary"]["overall"])
                   for model, results in power_prompt_results.items()}
     
     return biblical_data, context_data, source_data, prompt_data

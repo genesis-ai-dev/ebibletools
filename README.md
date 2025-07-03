@@ -7,6 +7,7 @@ A comprehensive toolkit for biblical text processing, translation benchmarking, 
 - **Unified Query Interface**: Switch between BM25, TF-IDF, and context-aware search methods
 - **Four Specialized Benchmarks**: Biblical recall, translation corrigibility, source effects, and prompt optimization
 - **Multi-Model Comparison**: Compare multiple LLM models side-by-side on the same benchmarks
+- **Multi-Language Testing**: Test translation benchmarks across ALL downloaded target languages
 - **Multi-Provider LLM Support**: Use 100+ LLM providers (OpenAI, Anthropic, Google, Groq, etc.) via liteLLM
 - **Professional MT Metrics**: Industry-standard evaluation including chrF+, Edit Distance, TER
 - **Semantic Search**: Advanced context-aware search with coverage weighting and branching
@@ -30,13 +31,12 @@ cp benchmarks/env.template .env
 # Download some biblical texts
 python ebible_downloader.py
 
-# Run benchmarks
+# Run benchmarks (from benchmarks directory)
 cd benchmarks
 python biblical_recall_benchmark.py --num-tests 20
 python context_corrigibility_benchmark.py --model gpt-4o --example-counts 0 3 5
 python true_source_benchmark.py --num-tests 15
 python power_prompt_benchmark.py --num-tests 12
-
 ```
 
 ## Benchmarks
@@ -59,52 +59,145 @@ python biblical_recall_benchmark.py --models gpt-4o claude-3-opus gemini-pro --n
 - Tests pure recall ability without completion hints
 - **Multi-model support**: Compare recall abilities across different models
 
+**Target Text**: Uses the verses from the **source file itself** (`eng-engULB.txt`)
+
 **Metrics**: chrF+, Edit Distance similarity
 
 ### 🔄 **Context Corrigibility Benchmark** 
-Tests how in-context examples improve translation accuracy.
+Tests how in-context examples improve translation accuracy across ALL target languages.
 
 ```bash
+# Single model - tests on ALL downloaded languages
 python context_corrigibility_benchmark.py --model gpt-4o --example-counts 0 3 5 --num-tests 10
+
+# Multi-model comparison
+python context_corrigibility_benchmark.py --models gpt-4o claude-3-haiku --example-counts 0 3 --num-tests 5
 ```
 
 **What it tests:**
-- Translation quality with 0, 3, 5 examples
-- How much context examples improve performance
+- Translation quality with 0, 3, 5 examples across ALL target languages
+- How much context examples improve performance per language
 - Corrigibility analysis (improvement measurement)
+- **NEW**: Tests on every downloaded target language file, not just one random language
 
-**Metrics**: chrF+, Edit Distance with improvement tracking
+**Target Text**: Uses **ALL available target language files** in the corpus (except source language)
+
+**Metrics**: chrF+, Edit Distance with improvement tracking, organized by language
 
 ### 🎯 **True Source Benchmark**
-Tests how having source text affects translation accuracy and memorization.
+Tests how having source text affects translation accuracy across ALL target languages.
 
 ```bash
+# Single model - tests on ALL downloaded languages
 python true_source_benchmark.py --num-tests 15 --model gpt-4o --output source_results.json
+
+# Multi-model comparison
+python true_source_benchmark.py --models gpt-4o claude-3-haiku --num-tests 10
 ```
 
 **What it tests:**
 - **With source**: Normal translation with correct source text
 - **Without source**: Translation from memory (tests memorization vs. bias)
-- Measures the impact of source text availability
+- Measures the impact of source text availability across all languages
 - Reveals whether source text biases translation output
+- **NEW**: Tests on every downloaded target language file, not just one random language
 
-**Metrics**: chrF+, Edit Distance with source effect analysis
+**Target Text**: Uses **ALL available target language files** in the corpus (except source language)
+
+**Metrics**: chrF+, Edit Distance with source effect analysis, organized by language
 
 ### 💪 **Power Prompt Benchmark**
-Tests effectiveness of different prompt styles for translation.
+Tests effectiveness of different prompt styles for translation across ALL target languages.
 
 ```bash
+# Single model - tests on ALL downloaded languages
 python power_prompt_benchmark.py --num-tests 12 --model gpt-4o --output prompt_results.json
+
+# Multi-model comparison
+python power_prompt_benchmark.py --models gpt-4o claude-3-haiku --num-tests 8
 ```
 
 **What it tests:**
-- 4 key prompt styles (basic, expert, biblical scholar, direct)
-- Prompt effectiveness ranking
+- 4 key prompt styles (basic, expert, biblical scholar, direct) across all languages
+- Prompt effectiveness ranking per language and overall
 - Statistical comparison of prompt impact
+- **NEW**: Tests on every downloaded target language file, not just one random language
 
-**Metrics**: chrF+, Edit Distance with overall ranking
+**Target Text**: Uses **ALL available target language files** in the corpus (except source language)
 
+**Metrics**: chrF+, Edit Distance with overall ranking, organized by language
 
+## Recommended Model Testing Configuration
+
+For comprehensive benchmarking, we recommend testing on this set of models covering different providers and capabilities:
+
+```bash
+# Recommended models for comprehensive testing
+models_to_test = [
+    "gpt-3.5-turbo",                    # OpenAI - Fast, cost-effective
+    "claude-3-haiku-20240307",          # Anthropic - Fast, efficient  
+    "gpt-4o-mini",                      # OpenAI - Balanced performance
+    "gpt-4o",                           # OpenAI - High performance
+    "claude-3-5-sonnet-20240620",       # Anthropic - Advanced reasoning
+    "anthropic/claude-sonnet-4-20250514", # Anthropic - Latest model
+]
+```
+
+### Running Multi-Model Benchmarks
+
+```bash
+# Biblical Recall (multi-model)
+python biblical_recall_benchmark.py \
+  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 \
+  --num-tests 20 \
+  --output multi_model_recall.json
+
+# Context Corrigibility (run separately for each model due to multi-language complexity)
+for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620"; do
+  python context_corrigibility_benchmark.py \
+    --model "$model" \
+    --example-counts 0 3 5 \
+    --num-tests 10 \
+    --output "context_${model//\//_}.json"
+done
+
+# True Source (run separately for each model)
+for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620"; do
+  python true_source_benchmark.py \
+    --model "$model" \
+    --num-tests 15 \
+    --output "source_${model//\//_}.json"
+done
+
+# Power Prompt (run separately for each model)
+for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620"; do
+  python power_prompt_benchmark.py \
+    --model "$model" \
+    --num-tests 12 \
+    --output "prompt_${model//\//_}.json"
+done
+```
+
+**Important Notes:**
+- **Biblical Recall** supports multi-model comparison in a single run
+- **Translation benchmarks** (Context, True Source, Power Prompt) now test on ALL target languages, making them computationally intensive
+- For translation benchmarks, run each model separately to avoid timeouts
+- Results are organized by language with overall aggregated statistics
+
+## Multi-Language Testing
+
+The translation benchmarks now test on **ALL downloaded target language files** instead of just one random language. This provides comprehensive coverage but requires more time and API calls.
+
+**What this means:**
+- If you have 50 language files downloaded, each translation benchmark will test on all 50 languages
+- Results include both per-language detailed results and overall aggregated statistics
+- Much more comprehensive evaluation of model translation capabilities
+- Significantly longer runtime (plan accordingly)
+
+**Performance Considerations:**
+- Start with smaller `--num-tests` values (5-10) when testing multiple models
+- Consider running benchmarks overnight for comprehensive results
+- Monitor API usage and costs when testing multiple models on all languages
 
 ## Query System
 
@@ -197,28 +290,50 @@ python biblical_recall_benchmark.py \
 
 ### Context Corrigibility Options
 ```bash
+# Single model - tests ALL target languages
 python context_corrigibility_benchmark.py \
   --model gpt-4o \
   --query-method context \
   --num-tests 10 \
   --example-counts 0 3 5 \
   --output context_results.json
+
+# Multi-model comparison (separate runs recommended)
+python context_corrigibility_benchmark.py \
+  --models gpt-4o claude-3-haiku \
+  --num-tests 5 \
+  --example-counts 0 3 \
+  --output multi_context_results.json
 ```
 
 ### True Source Options
 ```bash
+# Single model - tests ALL target languages
 python true_source_benchmark.py \
   --num-tests 15 \
   --model gpt-4o \
   --output source_results.json
+
+# Multi-model comparison (separate runs recommended)
+python true_source_benchmark.py \
+  --models gpt-4o claude-3-haiku \
+  --num-tests 10 \
+  --output multi_source_results.json
 ```
 
 ### Power Prompt Options
 ```bash
+# Single model - tests ALL target languages
 python power_prompt_benchmark.py \
   --num-tests 12 \
   --model gpt-4o \
   --output prompt_results.json
+
+# Multi-model comparison (separate runs recommended)
+python power_prompt_benchmark.py \
+  --models gpt-4o claude-3-haiku \
+  --num-tests 8 \
+  --output multi_prompt_results.json
 ```
 
 

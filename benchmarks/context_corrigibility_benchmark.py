@@ -15,9 +15,9 @@ import litellm
 
 import sys
 sys.path.append(str(Path(__file__).parent.parent))
-from ebibletools.query import Query
-from ebibletools.metrics import chrF_plus, normalized_edit_distance
-from ebibletools.benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
+from query import Query
+from metrics import chrF_plus, normalized_edit_distance
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class ContextCorrigibilityBenchmark:
@@ -36,18 +36,39 @@ class ContextCorrigibilityBenchmark:
             target_lines = f.readlines()
         return source_lines, target_lines
 
-    def get_test_cases(self, num_tests):
-        target_file = random.choice(self.target_files)
-        source_lines, target_lines = self.load_file_pair(target_file)
+
+
+    def get_test_cases_per_language(self, num_tests_per_language):
+        """Get test cases for each target language"""
+        all_language_tests = {}
         
-        valid_indices = [
-            i for i in range(min(len(source_lines), len(target_lines)))
-            if len(source_lines[i].strip()) > 10 and len(target_lines[i].strip()) > 10
-        ]
+        for target_file in self.target_files:
+            try:
+                source_lines, target_lines = self.load_file_pair(target_file)
+                
+                valid_indices = [
+                    i for i in range(min(len(source_lines), len(target_lines)))
+                    if len(source_lines[i].strip()) > 10 and len(target_lines[i].strip()) > 10
+                ]
+                
+                if len(valid_indices) < num_tests_per_language:
+                    print(f"⚠️  Skipping {target_file.name} - only {len(valid_indices)} valid lines (need {num_tests_per_language})")
+                    continue
+                
+                test_indices = random.sample(valid_indices, num_tests_per_language)
+                test_cases = [(source_lines[i].strip(), target_lines[i].strip()) 
+                             for i in test_indices]
+                
+                all_language_tests[target_file.name] = {
+                    'test_cases': test_cases,
+                    'target_file': target_file
+                }
+                
+            except Exception as e:
+                print(f"⚠️  Error loading {target_file.name}: {e}")
+                continue
         
-        test_indices = random.sample(valid_indices, min(num_tests, len(valid_indices)))
-        return [(source_lines[i].strip(), target_lines[i].strip(), target_file.name) 
-                for i in test_indices], target_file
+        return all_language_tests
 
     def get_examples(self, query_obj, query_text, num_examples):
         results = query_obj.search_by_text(query_text, top_k=num_examples * 2)
@@ -89,117 +110,180 @@ class ContextCorrigibilityBenchmark:
 
     def run_benchmark(self, num_tests=10, example_counts=None, output_file=None):
         example_counts = example_counts or [0, 3, 5]
-        test_cases, target_file = self.get_test_cases(num_tests)
+        
+        # Get test cases for all languages
+        all_language_tests = self.get_test_cases_per_language(num_tests)
+        
+        if not all_language_tests:
+            print("❌ No valid target languages found!")
+            return None
         
         print(f"🔄 Context Corrigibility Benchmark")
         print(f"Model: {self.model}")
         print(f"Query method: {self.query_method}")
-        print(f"Target file: {target_file.name}")
-        print(f"Tests: {len(test_cases)}")
+        print(f"Target languages: {len(all_language_tests)} languages")
+        print(f"Tests per language: {num_tests}")
         print(f"Example counts: {example_counts}")
+        print(f"Languages: {', '.join(all_language_tests.keys())}")
         print()
         
-        results = {count: [] for count in example_counts}
+        # Results structure: {language: {count: [scores]}}
+        results_by_language = {}
         detailed_results = []
         
-        query_obj = Query(str(self.source_file), str(target_file), method=self.query_method)
+        total_tests = len(all_language_tests) * num_tests * len(example_counts)
         
-        total_tests = len(test_cases) * len(example_counts)
-        
-        with tqdm(total=total_tests, desc="Testing context corrigibility") as pbar:
-            for source_text, reference, _ in test_cases:
-                test_result = {
-                    "source": source_text,
-                    "reference": reference,
-                    "results": {}
-                }
+        with tqdm(total=total_tests, desc="Testing context corrigibility across languages") as pbar:
+            for lang_name, lang_data in all_language_tests.items():
+                target_file = lang_data['target_file']
+                test_cases = lang_data['test_cases']
                 
-                for count in example_counts:
-                    examples = self.get_examples(query_obj, source_text, count) if count > 0 else []
-                    translation = self.translate(source_text, examples)
-                    scores = self.evaluate_translation(translation, reference)
-                    
-                    results[count].append(scores)
-                    test_result["results"][count] = {
-                        "translation": translation,
-                        "scores": scores,
-                        "num_examples": len(examples)
+                # Initialize results for this language
+                results_by_language[lang_name] = {count: [] for count in example_counts}
+                
+                # Create query object for this language pair
+                query_obj = Query(str(self.source_file), str(target_file), method=self.query_method)
+                
+                for source_text, reference in test_cases:
+                    test_result = {
+                        "language": lang_name,
+                        "source": source_text,
+                        "reference": reference,
+                        "results": {}
                     }
                     
-                    pbar.update(1)
-                
-                detailed_results.append(test_result)
+                    for count in example_counts:
+                        examples = self.get_examples(query_obj, source_text, count) if count > 0 else []
+                        translation = self.translate(source_text, examples)
+                        scores = self.evaluate_translation(translation, reference)
+                        
+                        results_by_language[lang_name][count].append(scores)
+                        test_result["results"][count] = {
+                            "translation": translation,
+                            "scores": scores,
+                            "num_examples": len(examples)
+                        }
+                        
+                        pbar.update(1)
+                    
+                    detailed_results.append(test_result)
         
-        self.print_results(results, example_counts)
+        self.print_results(results_by_language, example_counts)
         
-        # Create the data structure (same as what gets saved to JSON)
-        summary_stats = {}
-        for count in example_counts:
-            chrf_scores = [r["chrf"] for r in results[count]]
-            edit_scores = [r["edit"] for r in results[count]]
-            
-            summary_stats[count] = {
-                "chrf_mean": mean(chrf_scores),
-                "chrf_std": stdev(chrf_scores) if len(chrf_scores) > 1 else 0.0,
-                "edit_mean": mean(edit_scores),
-                "edit_std": stdev(edit_scores) if len(edit_scores) > 1 else 0.0
-            }
+        # Create aggregated summary statistics
+        summary_stats = self.compute_summary_stats(results_by_language, example_counts)
         
         output_data = {
             "benchmark": "context_corrigibility",
             "model": self.model,
             "query_method": self.query_method,
             "example_counts": example_counts,
+            "languages_tested": list(all_language_tests.keys()),
             "summary": summary_stats,
             "detailed_results": detailed_results
         }
         
         if output_file:
-            self.save_results(results, detailed_results, example_counts, output_file)
+            self.save_results(results_by_language, detailed_results, example_counts, output_file)
         
         return output_data
 
-    def print_results(self, results, example_counts):
-        print(f"\n{'='*60}")
-        print("CONTEXT CORRIGIBILITY RESULTS")
-        print(f"{'='*60}")
+    def compute_summary_stats(self, results_by_language, example_counts):
+        """Compute both per-language and overall aggregated statistics"""
+        summary_stats = {
+            "per_language": {},
+            "overall": {}
+        }
         
+        # Per-language stats
+        for lang_name, lang_results in results_by_language.items():
+            summary_stats["per_language"][lang_name] = {}
+            for count in example_counts:
+                chrf_scores = [r["chrf"] for r in lang_results[count]]
+                edit_scores = [r["edit"] for r in lang_results[count]]
+                
+                summary_stats["per_language"][lang_name][count] = {
+                    "chrf_mean": mean(chrf_scores),
+                    "chrf_std": stdev(chrf_scores) if len(chrf_scores) > 1 else 0.0,
+                    "edit_mean": mean(edit_scores),
+                    "edit_std": stdev(edit_scores) if len(edit_scores) > 1 else 0.0,
+                    "num_tests": len(chrf_scores)
+                }
+        
+        # Overall aggregated stats (combining all languages)
         for count in example_counts:
-            chrf_scores = [r["chrf"] for r in results[count]]
-            edit_scores = [r["edit"] for r in results[count]]
+            all_chrf_scores = []
+            all_edit_scores = []
             
-            print(f"\n{count} examples:")
-            print(f"  chrF+: {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}")
-            print(f"  Edit: {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}")
+            for lang_results in results_by_language.values():
+                all_chrf_scores.extend([r["chrf"] for r in lang_results[count]])
+                all_edit_scores.extend([r["edit"] for r in lang_results[count]])
+            
+            summary_stats["overall"][count] = {
+                "chrf_mean": mean(all_chrf_scores),
+                "chrf_std": stdev(all_chrf_scores) if len(all_chrf_scores) > 1 else 0.0,
+                "edit_mean": mean(all_edit_scores),
+                "edit_std": stdev(all_edit_scores) if len(all_edit_scores) > 1 else 0.0,
+                "num_tests": len(all_chrf_scores),
+                "num_languages": len(results_by_language)
+            }
         
-        print(f"\nCORRIGIBILITY ANALYSIS:")
-        print("-" * 25)
-        baseline_scores = [r["chrf"] for r in results[0]]
+        return summary_stats
+
+    def print_results(self, results_by_language, example_counts):
+        print(f"\n{'='*70}")
+        print("CONTEXT CORRIGIBILITY RESULTS - ALL LANGUAGES")
+        print(f"{'='*70}")
+        
+        # Print per-language results
+        for lang_name, lang_results in results_by_language.items():
+            print(f"\n📍 {lang_name}:")
+            for count in example_counts:
+                chrf_scores = [r["chrf"] for r in lang_results[count]]
+                edit_scores = [r["edit"] for r in lang_results[count]]
+                
+                print(f"  {count} examples: chrF+ {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}, "
+                      f"Edit {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}")
+        
+        # Print overall aggregated results
+        print(f"\n🌍 OVERALL AGGREGATED RESULTS:")
+        print("-" * 40)
+        
+        overall_results = {}
+        for count in example_counts:
+            all_chrf = []
+            all_edit = []
+            for lang_results in results_by_language.values():
+                all_chrf.extend([r["chrf"] for r in lang_results[count]])
+                all_edit.extend([r["edit"] for r in lang_results[count]])
+            
+            overall_results[count] = {"chrf": all_chrf, "edit": all_edit}
+            print(f"{count} examples: chrF+ {mean(all_chrf):.3f}±{stdev(all_chrf):.3f}, "
+                  f"Edit {mean(all_edit):.3f}±{stdev(all_edit):.3f} "
+                  f"({len(all_chrf)} tests across {len(results_by_language)} languages)")
+        
+        # Print corrigibility analysis
+        print(f"\n📈 CORRIGIBILITY ANALYSIS (Overall):")
+        print("-" * 35)
+        baseline_scores = overall_results[0]["chrf"]
         for count in example_counts[1:]:
-            context_scores = [r["chrf"] for r in results[count]]
+            context_scores = overall_results[count]["chrf"]
             improvement = mean(context_scores) - mean(baseline_scores)
             print(f"{count} examples: {improvement:+.3f} chrF+ improvement")
 
-    def save_results(self, results, detailed_results, example_counts, output_file):
+    def save_results(self, results_by_language, detailed_results, example_counts, output_file):
+        # Compute summary statistics
+        summary_stats = self.compute_summary_stats(results_by_language, example_counts)
+        
         output_data = {
             "benchmark": "context_corrigibility",
             "model": self.model,
             "query_method": self.query_method,
             "example_counts": example_counts,
-            "summary": {},
+            "languages_tested": list(results_by_language.keys()),
+            "summary": summary_stats,
             "detailed_results": detailed_results
         }
-        
-        for count in example_counts:
-            chrf_scores = [r["chrf"] for r in results[count]]
-            edit_scores = [r["edit"] for r in results[count]]
-            
-            output_data["summary"][count] = {
-                "chrf_mean": mean(chrf_scores),
-                "chrf_std": stdev(chrf_scores) if len(chrf_scores) > 1 else 0.0,
-                "edit_mean": mean(edit_scores),
-                "edit_std": stdev(edit_scores) if len(edit_scores) > 1 else 0.0
-            }
         
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
