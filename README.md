@@ -5,7 +5,7 @@ A comprehensive toolkit for biblical text processing, translation benchmarking, 
 ## Features
 
 - **Unified Query Interface**: Switch between BM25, TF-IDF, and context-aware search methods
-- **Five Specialized Benchmarks**: Biblical recall, translation corrigibility, source effects, prompt optimization, and simplified translation
+- **Four Specialized Benchmarks**: Biblical recall, translation corrigibility, source effects, and prompt optimization
 - **Multi-Model Comparison**: Compare multiple LLM models side-by-side on the same benchmarks
 - **Multi-Provider LLM Support**: Use 100+ LLM providers (OpenAI, Anthropic, Google, Groq, etc.) via liteLLM
 - **Professional MT Metrics**: Industry-standard evaluation including chrF+, Edit Distance, TER
@@ -36,7 +36,7 @@ python biblical_recall_benchmark.py --num-tests 20
 python context_corrigibility_benchmark.py --model gpt-4o --example-counts 0 3 5
 python true_source_benchmark.py --num-tests 15
 python power_prompt_benchmark.py --num-tests 12
-python translation_benchmark_simple.py --num-tests 10
+
 ```
 
 ## Benchmarks
@@ -104,19 +104,7 @@ python power_prompt_benchmark.py --num-tests 12 --model gpt-4o --output prompt_r
 
 **Metrics**: chrF+, Edit Distance with overall ranking
 
-### 🌍 **Simple Translation Benchmark**
-Streamlined translation testing with context examples.
 
-```bash
-python translation_benchmark_simple.py --model gpt-4o --num-tests 10 --example-counts 0 3 5
-```
-
-**What it tests:**
-- Translation quality improvement with context examples
-- Simplified, focused testing (202 lines vs 323 in original)
-- Single target language per run for cleaner results
-
-**Metrics**: chrF+, Edit Distance with improvement analysis
 
 ## Query System
 
@@ -233,15 +221,7 @@ python power_prompt_benchmark.py \
   --output prompt_results.json
 ```
 
-### Simple Translation Options
-```bash
-python translation_benchmark_simple.py \
-  --model gpt-4o \
-  --query-method context \
-  --num-tests 10 \
-  --example-counts 0 3 5 \
-  --output simple_translation_results.json
-```
+
 
 ## LLM Provider Support
 
@@ -334,8 +314,7 @@ ebibletools/
 │   ├── context_corrigibility_benchmark.py  # Context learning analysis
 │   ├── true_source_benchmark.py      # Source text effect analysis
 │   ├── power_prompt_benchmark.py     # Prompt optimization testing
-│   ├── translation_benchmark_simple.py     # Simplified translation benchmark
-│   ├── translation_benchmark.py     # Original comprehensive benchmark
+│   ├── translation_benchmark.py     # Comprehensive translation benchmark
 │   ├── data/
 │   │   └── vref.txt      # Biblical verse references (41,900+ verses)
 │   └── env.template      # Environment variable template
@@ -407,23 +386,7 @@ benchmark.run_benchmark(
 )
 ```
 
-### Simplified Translation Testing
-```python
-from benchmarks.translation_benchmark_simple import SimpleTranslationBenchmark
 
-# Quick translation benchmark
-benchmark = SimpleTranslationBenchmark(
-    corpus_dir="Corpus",
-    source_file="eng-engULB.txt", 
-    model="gpt-4o",
-    query_method="context"
-)
-benchmark.run_benchmark(
-    num_tests=10,
-    example_counts=[0, 3, 5],
-    output_file="simple_translation.json"
-)
-```
 
 ### Translation Evaluation
 ```python
@@ -464,9 +427,9 @@ for model in models:
     prompt_benchmark = PowerPromptBenchmark("Corpus", "eng-engULB.txt", model)
     prompt_benchmark.run_benchmark(12, f"prompt_{model.replace('/', '_')}.json")
     
-    # Simple translation
-    translation_benchmark = SimpleTranslationBenchmark("Corpus", "eng-engULB.txt", model)
-    translation_benchmark.run_benchmark(10, [0, 3, 5], f"translation_{model.replace('/', '_')}.json")
+    # Context corrigibility  
+    context_benchmark = ContextCorrigibilityBenchmark("Corpus", "eng-engULB.txt", model)
+    context_benchmark.run_benchmark(10, [0, 3, 5], f"context_{model.replace('/', '_')}.json")
 ```
 
 ## XML Output Format

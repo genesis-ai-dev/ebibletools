@@ -74,7 +74,7 @@ class BiblicalRecallBenchmark:
         
         for model in self.models:
             print(f"\n🤖 Testing model: {model}")
-            results = []
+        results = []
             model_details = []
         
             for reference, expected_text in tqdm(test_cases, desc=f"Testing {model}"):
