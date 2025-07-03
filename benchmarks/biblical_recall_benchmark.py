@@ -45,7 +45,10 @@ class BiblicalRecallBenchmark:
         return [(self.references[i], self.verses[i]) for i in test_indices]
 
     def test_reference_recall(self, reference, model):
-        base_prompt = f"What does {reference} say?"
+        # Extract version from source file name (remove .txt extension)
+        version = self.source_file.stem if hasattr(self.source_file, 'stem') else self.source_file.name.replace('.txt', '')
+        
+        base_prompt = f"What does {reference} say in the {version} version?"
         prompt = format_xml_prompt(base_prompt, "verse", "the biblical verse text")
         
         response = litellm.completion(
@@ -73,26 +76,26 @@ class BiblicalRecallBenchmark:
             print(f"\n🤖 Testing model: {model}")
             results = []
             model_details = []
-            
+        
             for reference, expected_text in tqdm(test_cases, desc=f"Testing {model}"):
                 recalled_text = self.test_reference_recall(reference, model)
-                
-                # Evaluate accuracy
-                chrf_score = chrF_plus(recalled_text, expected_text)
-                edit_score = 1.0 - normalized_edit_distance(recalled_text, expected_text)
-                
-                results.append({"chrf": chrf_score, "edit": edit_score})
-                
-                model_details.append({
-                    "reference": reference,
-                    "expected": expected_text,
-                    "recalled": recalled_text,
-                    "scores": {
-                        "chrf": chrf_score,
-                        "edit": edit_score
-                    }
-                })
             
+            # Evaluate accuracy
+            chrf_score = chrF_plus(recalled_text, expected_text)
+            edit_score = 1.0 - normalized_edit_distance(recalled_text, expected_text)
+            
+            results.append({"chrf": chrf_score, "edit": edit_score})
+            
+                model_details.append({
+                "reference": reference,
+                "expected": expected_text,
+                "recalled": recalled_text,
+                "scores": {
+                    "chrf": chrf_score,
+                    "edit": edit_score
+                }
+            })
+        
             all_results[model] = results
             detailed_results[model] = model_details
         
