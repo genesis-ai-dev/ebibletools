@@ -49,7 +49,7 @@ Tests how well models can recall biblical text when given verse references.
 python biblical_recall_benchmark.py --num-tests 20 --model gpt-4o --output recall_results.json
 
 # Multi-model comparison
-python biblical_recall_benchmark.py --models gpt-4o claude-3-opus gemini-pro --num-tests 10
+python biblical_recall_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 10
 ```
 
 **What it tests:**
@@ -71,7 +71,7 @@ Tests how in-context examples improve translation accuracy across ALL target lan
 python context_corrigibility_benchmark.py --model gpt-4o --example-counts 0 3 5 --num-tests 10
 
 # Multi-model comparison
-python context_corrigibility_benchmark.py --models gpt-4o claude-3-haiku --example-counts 0 3 --num-tests 5
+python context_corrigibility_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --example-counts 0 3 --num-tests 5
 ```
 
 **What it tests:**
@@ -92,7 +92,7 @@ Tests how having source text affects translation accuracy across ALL target lang
 python true_source_benchmark.py --num-tests 15 --model gpt-4o --output source_results.json
 
 # Multi-model comparison
-python true_source_benchmark.py --models gpt-4o claude-3-haiku --num-tests 10
+python true_source_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 10
 ```
 
 **What it tests:**
@@ -114,7 +114,7 @@ Tests effectiveness of different prompt styles for translation across ALL target
 python power_prompt_benchmark.py --num-tests 12 --model gpt-4o --output prompt_results.json
 
 # Multi-model comparison
-python power_prompt_benchmark.py --models gpt-4o claude-3-haiku --num-tests 8
+python power_prompt_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 8
 ```
 
 **What it tests:**
@@ -148,12 +148,12 @@ models_to_test = [
 ```bash
 # Biblical Recall (multi-model)
 python biblical_recall_benchmark.py \
-  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 \
+  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 20 \
   --output multi_model_recall.json
 
 # Context Corrigibility (run separately for each model due to multi-language complexity)
-for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620"; do
+for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620" "anthropic/claude-sonnet-4-20250514"; do
   python context_corrigibility_benchmark.py \
     --model "$model" \
     --example-counts 0 3 5 \
@@ -162,7 +162,7 @@ for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "c
 done
 
 # True Source (run separately for each model)
-for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620"; do
+for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620" "anthropic/claude-sonnet-4-20250514"; do
   python true_source_benchmark.py \
     --model "$model" \
     --num-tests 15 \
@@ -170,7 +170,7 @@ for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "c
 done
 
 # Power Prompt (run separately for each model)
-for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620"; do
+for model in "gpt-3.5-turbo" "claude-3-haiku-20240307" "gpt-4o-mini" "gpt-4o" "claude-3-5-sonnet-20240620" "anthropic/claude-sonnet-4-20250514"; do
   python power_prompt_benchmark.py \
     --model "$model" \
     --num-tests 12 \
@@ -283,7 +283,7 @@ python biblical_recall_benchmark.py \
 
 # Multi-model comparison  
 python biblical_recall_benchmark.py \
-  --models gpt-4o claude-3-opus gemini-pro \
+  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 10 \
   --output multi_model_recall.json
 ```
@@ -300,7 +300,7 @@ python context_corrigibility_benchmark.py \
 
 # Multi-model comparison (separate runs recommended)
 python context_corrigibility_benchmark.py \
-  --models gpt-4o claude-3-haiku \
+  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 5 \
   --example-counts 0 3 \
   --output multi_context_results.json
@@ -316,7 +316,7 @@ python true_source_benchmark.py \
 
 # Multi-model comparison (separate runs recommended)
 python true_source_benchmark.py \
-  --models gpt-4o claude-3-haiku \
+  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 10 \
   --output multi_source_results.json
 ```
@@ -331,7 +331,7 @@ python power_prompt_benchmark.py \
 
 # Multi-model comparison (separate runs recommended)
 python power_prompt_benchmark.py \
-  --models gpt-4o claude-3-haiku \
+  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 8 \
   --output multi_prompt_results.json
 ```
@@ -370,8 +370,8 @@ liteLLM automatically detects and uses the appropriate API keys from your enviro
 The biblical recall benchmark supports comparing multiple models:
 
 ```bash
-# Compare 3 models on biblical recall
-python biblical_recall_benchmark.py --models gpt-4o claude-3-opus gemini-pro --num-tests 20
+# Compare all recommended models on biblical recall
+python biblical_recall_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 20
 ```
 
 **Output includes:**
@@ -479,7 +479,7 @@ benchmark.run_benchmark(num_tests=20, output_file="recall_results.json")
 benchmark = BiblicalRecallBenchmark(
     corpus_dir="Corpus", 
     source_file="eng-engULB.txt",
-    models=["gpt-4o", "claude-3-opus", "gemini-pro"]
+    models=["gpt-3.5-turbo", "claude-3-haiku-20240307", "gpt-4o-mini", "gpt-4o", "claude-3-5-sonnet-20240620", "anthropic/claude-sonnet-4-20250514"]
 )
 benchmark.run_benchmark(num_tests=10, output_file="multi_model_recall.json")
 ```
@@ -528,7 +528,7 @@ for metric, score in scores.items():
 ### Batch Processing
 ```python
 # Run all benchmarks for comprehensive analysis
-models = ["gpt-4o", "claude-3-opus", "gemini-pro"]
+models = ["gpt-3.5-turbo", "claude-3-haiku-20240307", "gpt-4o-mini", "gpt-4o", "claude-3-5-sonnet-20240620", "anthropic/claude-sonnet-4-20250514"]
 
 # Multi-model biblical recall
 recall_benchmark = BiblicalRecallBenchmark("Corpus", "eng-engULB.txt", models)
