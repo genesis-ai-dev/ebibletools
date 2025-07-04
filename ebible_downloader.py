@@ -4,11 +4,18 @@ import random
 from typing import List, Dict, Optional
 
 class EBibleDownloader:
-    def __init__(self):
+    def __init__(self, output_dir=None):
         self.api_base = "https://api.github.com/repos/BibleNLP/ebible"
         self.raw_base = "https://raw.githubusercontent.com/BibleNLP/ebible/main"
         self.corpus_path = "corpus"
-        self.output_dir = "Corpus"
+        
+        # If no output_dir specified, use Corpus in the same directory as this script
+        if output_dir is None:
+            import os
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            self.output_dir = os.path.join(script_dir, "Corpus")
+        else:
+            self.output_dir = output_dir
         
     def list_files(self, filter_term: str = "") -> List[Dict[str, str]]:
         url = f"{self.api_base}/contents/{self.corpus_path}"
