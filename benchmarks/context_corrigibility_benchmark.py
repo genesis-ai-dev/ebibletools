@@ -305,7 +305,9 @@ def main():
     load_dotenv()
     
     parser = argparse.ArgumentParser(description="Context Corrigibility Benchmark")
-    parser.add_argument("--corpus-dir", default="../Corpus")
+    # Use project root's Corpus directory
+    default_corpus = str(Path(__file__).parent.parent / "Corpus")
+    parser.add_argument("--corpus-dir", default=default_corpus)
     parser.add_argument("--source-file", default="eng-engULB.txt")
     parser.add_argument("--model", default="gpt-4o")
     parser.add_argument("--query-method", default="context", choices=["bm25", "tfidf", "context"])

@@ -32,7 +32,17 @@ downloader.download_most_complete_for_language('fra')  # French
 print("📁 Corpus files:")
 !ls -la Corpus/
 
-# Cell 6: Configuration
+# Cell 6: Verify benchmark paths work correctly
+from pathlib import Path
+print("\n🔍 Verifying benchmark paths:")
+benchmark_file = Path("benchmarks/biblical_recall_benchmark.py")
+corpus_path = benchmark_file.parent.parent / "Corpus"
+print(f"   Benchmark location: {benchmark_file}")
+print(f"   Corpus path: {corpus_path}")
+print(f"   Corpus exists: {corpus_path.exists()}")
+print(f"   Files in corpus: {len(list(corpus_path.glob('*.txt')))}")
+
+# Cell 7: Configuration
 models_to_test = [
     "gpt-3.5-turbo",
     "claude-3-haiku-20240307",
@@ -42,20 +52,20 @@ models_to_test = [
     "anthropic/claude-sonnet-4-20250514",
 ]
 
-# Cell 7: Run Biblical Recall Benchmark (Multi-model)
-print("Running Biblical Recall Benchmark...")
+# Cell 8: Run Biblical Recall Benchmark (Multi-model)
+print("\n🧠 Running Biblical Recall Benchmark...")
 !python benchmarks/biblical_recall_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 10
 
-# Cell 8: Run Context Corrigibility Benchmark
-print("\nRunning Context Corrigibility Benchmark...")
+# Cell 9: Run Context Corrigibility Benchmark
+print("\n🎯 Running Context Corrigibility Benchmark...")
 !python benchmarks/context_corrigibility_benchmark.py --model gpt-4o-mini --example-counts 0 3 5 --num-tests 5
 
-# Cell 9: Run True Source Benchmark
-print("\nRunning True Source Benchmark...")
+# Cell 10: Run True Source Benchmark
+print("\n📖 Running True Source Benchmark...")
 !python benchmarks/true_source_benchmark.py --model gpt-4o-mini --num-tests 5
 
-# Cell 10: Run Power Prompt Benchmark
-print("\nRunning Power Prompt Benchmark...")
+# Cell 11: Run Power Prompt Benchmark
+print("\n⚡ Running Power Prompt Benchmark...")
 !python benchmarks/power_prompt_benchmark.py --model gpt-4o-mini --num-tests 5
 
 print("\n✅ All benchmarks completed!") 
