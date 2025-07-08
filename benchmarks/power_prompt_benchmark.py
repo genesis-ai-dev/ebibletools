@@ -37,17 +37,11 @@ class PowerPromptBenchmark:
         
         self.target_files = [f for f in self.corpus_dir.glob('*.txt') if f != self.source_file]
         
-        # Use custom prompts if provided, otherwise use defaults
-        if custom_prompts:
-            self.prompt_templates = custom_prompts
-        else:
-            # Default prompt styles
-            self.prompt_templates = {
-                "basic": "Translate this text: {text}",
-                "expert": "You are an expert translator. Translate this text: {text}",
-                "biblical": "You are a biblical scholar. Translate this biblical text: {text}",
-                "direct": "{text}"
-            }
+        # Prompts must be provided - no hardcoded defaults
+        if not custom_prompts:
+            raise ValueError("No prompts provided. Use --prompts, --prompts-file, or provide custom_prompts parameter.")
+        
+        self.prompt_templates = custom_prompts
 
     def load_file_pair(self, target_file):
         with open(self.source_file, 'r', encoding='utf-8') as f:
@@ -91,12 +85,16 @@ class PowerPromptBenchmark:
         return all_language_tests
 
     def translate_with_prompt(self, text, prompt_template):
-        base_prompt = prompt_template.format(text=text)
-        prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
+        # Use system prompt for the role/instruction, user prompt for the text
+        system_prompt = prompt_template
+        user_prompt = format_xml_prompt(f"Translate this text: {text}", "translation", "your translation here")
         
         response = litellm.completion(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
             max_tokens=800,
             temperature=0.1
         )
@@ -297,16 +295,12 @@ class PowerPromptBenchmark:
 
 
 def load_prompts_from_json(json_file):
-    """Load custom prompts from a JSON file"""
+    """Load custom system prompts from a JSON file"""
     try:
         with open(json_file, 'r', encoding='utf-8') as f:
             prompts = json.load(f)
         
-        # Validate that all prompts contain {text} placeholder
-        for name, template in prompts.items():
-            if "{text}" not in template:
-                raise ValueError(f"Prompt '{name}' must contain '{{text}}' placeholder")
-        
+        # System prompts don't need {text} placeholder - that goes in user message
         return prompts
     except Exception as e:
         print(f"❌ Error loading prompts from {json_file}: {e}")
@@ -314,18 +308,14 @@ def load_prompts_from_json(json_file):
 
 
 def parse_prompt_args(prompt_args):
-    """Parse prompts from command line arguments in format name:template"""
+    """Parse system prompts from command line arguments in format name:template"""
     prompts = {}
     for arg in prompt_args:
         if ":" not in arg:
-            print(f"❌ Invalid prompt format: {arg}. Use 'name:template' format.")
+            print(f"❌ Invalid prompt format: {arg}. Use 'name:system_prompt' format.")
             continue
         
         name, template = arg.split(":", 1)
-        if "{text}" not in template:
-            print(f"❌ Prompt '{name}' must contain '{{text}}' placeholder")
-            continue
-        
         prompts[name] = template
     
     return prompts
@@ -339,22 +329,22 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Use default prompts
-  python power_prompt_benchmark.py --model gpt-4o --num-tests 10
+  # Use example prompts from file
+  python power_prompt_benchmark.py --model gpt-4o --num-tests 10 --keep-defaults
   
   # Use custom prompts from JSON file
   python power_prompt_benchmark.py --prompts-file my_prompts.json
   
-  # Use custom prompts from command line
-  python power_prompt_benchmark.py --prompts "simple:Translate: {text}" "formal:Please provide a formal translation of: {text}"
+  # Use custom system prompts from command line
+  python power_prompt_benchmark.py --prompts "simple:You are a simple translator." "formal:You are a formal, academic translator."
   
-  # Mix default prompts with additional custom ones
-  python power_prompt_benchmark.py --prompts "custom:My custom prompt: {text}" --keep-defaults
+  # Mix example prompts with additional custom ones
+  python power_prompt_benchmark.py --prompts "custom:You are a specialized biblical translator." --keep-defaults
   
 JSON file format:
   {
-    "prompt_name": "Template with {text} placeholder",
-    "another_prompt": "Another template: {text}"
+    "prompt_name": "System prompt describing the role/style",
+    "another_prompt": "Another system prompt"
   }
         """
     )
@@ -374,23 +364,28 @@ JSON file format:
     prompt_group.add_argument("--prompts", nargs="+", 
                              help="Custom prompts in 'name:template' format")
     prompt_group.add_argument("--keep-defaults", action="store_true",
-                             help="Keep default prompts when using custom ones")
+                             help="Include example prompts from example_prompts.json when using custom ones")
     prompt_group.add_argument("--list-defaults", action="store_true",
-                             help="List default prompts and exit")
+                             help="List example prompts from example_prompts.json and exit")
     
     args = parser.parse_args()
     
-    # Handle --list-defaults
+    # Handle --list-defaults (show example prompts from file)
     if args.list_defaults:
-        default_prompts = {
-            "basic": "Translate this text: {text}",
-            "expert": "You are an expert translator. Translate this text: {text}",
-            "biblical": "You are a biblical scholar. Translate this biblical text: {text}",
-            "direct": "{text}"
-        }
-        print("🔖 Default prompt templates:")
-        for name, template in default_prompts.items():
-            print(f"  {name}: {template}")
+        example_file = Path(__file__).parent / "example_prompts.json"
+        if example_file.exists():
+            example_prompts = load_prompts_from_json(example_file)
+            if example_prompts:
+                print("🔖 Example system prompts (from example_prompts.json):")
+                for name, template in example_prompts.items():
+                    if template:
+                        print(f"  {name}: {template}")
+                    else:
+                        print(f"  {name}: (no system prompt)")
+            else:
+                print("❌ Could not load example prompts")
+        else:
+            print("❌ No example_prompts.json file found")
         return 0
     
     # Determine which prompts to use
@@ -412,25 +407,36 @@ JSON file format:
         else:
             custom_prompts = cmd_prompts
     
-    # If keeping defaults, merge with default prompts
+    # If keeping defaults, merge with example prompts from file
     if args.keep_defaults and custom_prompts:
-        default_prompts = {
-            "basic": "Translate this text: {text}",
-            "expert": "You are an expert translator. Translate this text: {text}",
-            "biblical": "You are a biblical scholar. Translate this biblical text: {text}",
-            "direct": "{text}"
-        }
-        default_prompts.update(custom_prompts)
-        custom_prompts = default_prompts
+        example_file = Path(__file__).parent / "example_prompts.json"
+        if example_file.exists():
+            example_prompts = load_prompts_from_json(example_file)
+            if example_prompts:
+                example_prompts.update(custom_prompts)
+                custom_prompts = example_prompts
+            else:
+                print("⚠️  Could not load example prompts, using only custom prompts")
+        else:
+            print("⚠️  No example_prompts.json file found, using only custom prompts")
+    
+    # Validate that prompts were provided
+    if not custom_prompts:
+        print("❌ No prompts provided! You must specify prompts using:")
+        print("   --prompts 'name:system_prompt' [additional prompts...]")
+        print("   --prompts-file path/to/prompts.json")
+        print("   --keep-defaults (to use example_prompts.json)")
+        print("\nUse --list-defaults to see example prompts")
+        return 1
     
     # Print selected prompts
-    if custom_prompts:
-        print(f"✨ Using custom prompts:")
-        for name, template in custom_prompts.items():
+    print(f"✨ Using system prompts:")
+    for name, template in custom_prompts.items():
+        if template:
             print(f"  {name}: {template}")
-        print()
-    else:
-        print(f"🔖 Using default prompts")
+        else:
+            print(f"  {name}: (no system prompt)")
+    print()
     
     benchmark = PowerPromptBenchmark(args.corpus_dir, args.source_file, args.model, custom_prompts)
     benchmark.run_benchmark(args.num_tests, args.output)
