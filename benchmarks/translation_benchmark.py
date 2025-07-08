@@ -58,10 +58,15 @@ class TranslationBenchmark:
         return source_lines, target_lines
 
     def get_examples(self, query_obj, query_text, num_examples):
-        """Get examples using Query"""
-        results = query_obj.search_by_text(query_text, top_k=num_examples * 2)
-        examples = []
+        """Get examples using Query with context-aware search when specified"""
+        if self.query_method == "context":
+            # Use context-aware search for better semantic matching
+            results = query_obj.search_by_context(query_text, top_k=num_examples * 2)
+        else:
+            # Fallback to basic text search for other methods
+            results = query_obj.search_by_text(query_text, top_k=num_examples * 2)
         
+        examples = []
         for result in results:
             # Query returns (line_number, source_text, target_text, score)
             line_num, src, tgt, score = result

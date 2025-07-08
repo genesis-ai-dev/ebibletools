@@ -30,20 +30,24 @@ except ImportError as e:
 
 
 class PowerPromptBenchmark:
-    def __init__(self, corpus_dir, source_file, model="gpt-4o"):
+    def __init__(self, corpus_dir, source_file, model="gpt-4o", custom_prompts=None):
         self.model = model
         self.corpus_dir = Path(corpus_dir)
         self.source_file = self.corpus_dir / source_file
         
         self.target_files = [f for f in self.corpus_dir.glob('*.txt') if f != self.source_file]
         
-        # Simplified to just 4 key prompt styles
-        self.prompt_templates = {
-            "basic": "Translate this text: {text}",
-            "expert": "You are an expert translator. Translate this text: {text}",
-            "biblical": "You are a biblical scholar. Translate this biblical text: {text}",
-            "direct": "{text}"
-        }
+        # Use custom prompts if provided, otherwise use defaults
+        if custom_prompts:
+            self.prompt_templates = custom_prompts
+        else:
+            # Default prompt styles
+            self.prompt_templates = {
+                "basic": "Translate this text: {text}",
+                "expert": "You are an expert translator. Translate this text: {text}",
+                "biblical": "You are a biblical scholar. Translate this biblical text: {text}",
+                "direct": "{text}"
+            }
 
     def load_file_pair(self, target_file):
         with open(self.source_file, 'r', encoding='utf-8') as f:
@@ -292,21 +296,143 @@ class PowerPromptBenchmark:
         print(f"\n💾 Results saved to: {output_file}")
 
 
+def load_prompts_from_json(json_file):
+    """Load custom prompts from a JSON file"""
+    try:
+        with open(json_file, 'r', encoding='utf-8') as f:
+            prompts = json.load(f)
+        
+        # Validate that all prompts contain {text} placeholder
+        for name, template in prompts.items():
+            if "{text}" not in template:
+                raise ValueError(f"Prompt '{name}' must contain '{{text}}' placeholder")
+        
+        return prompts
+    except Exception as e:
+        print(f"❌ Error loading prompts from {json_file}: {e}")
+        return None
+
+
+def parse_prompt_args(prompt_args):
+    """Parse prompts from command line arguments in format name:template"""
+    prompts = {}
+    for arg in prompt_args:
+        if ":" not in arg:
+            print(f"❌ Invalid prompt format: {arg}. Use 'name:template' format.")
+            continue
+        
+        name, template = arg.split(":", 1)
+        if "{text}" not in template:
+            print(f"❌ Prompt '{name}' must contain '{{text}}' placeholder")
+            continue
+        
+        prompts[name] = template
+    
+    return prompts
+
+
 def main():
     load_dotenv()
     
-    parser = argparse.ArgumentParser(description="Power Prompt Benchmark")
+    parser = argparse.ArgumentParser(
+        description="Power Prompt Benchmark - Test different prompt styles",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Use default prompts
+  python power_prompt_benchmark.py --model gpt-4o --num-tests 10
+  
+  # Use custom prompts from JSON file
+  python power_prompt_benchmark.py --prompts-file my_prompts.json
+  
+  # Use custom prompts from command line
+  python power_prompt_benchmark.py --prompts "simple:Translate: {text}" "formal:Please provide a formal translation of: {text}"
+  
+  # Mix default prompts with additional custom ones
+  python power_prompt_benchmark.py --prompts "custom:My custom prompt: {text}" --keep-defaults
+  
+JSON file format:
+  {
+    "prompt_name": "Template with {text} placeholder",
+    "another_prompt": "Another template: {text}"
+  }
+        """
+    )
+    
     # Use project root's Corpus directory
     default_corpus = str(Path(__file__).parent.parent / "Corpus")
-    parser.add_argument("--corpus-dir", default=default_corpus)
-    parser.add_argument("--source-file", default="eng-engULB.txt")
-    parser.add_argument("--model", default="gpt-4o")
-    parser.add_argument("--num-tests", type=int, default=12)
-    parser.add_argument("--output", type=str)
+    parser.add_argument("--corpus-dir", default=default_corpus, help="Corpus directory path")
+    parser.add_argument("--source-file", default="eng-engULB.txt", help="Source file name")
+    parser.add_argument("--model", default="gpt-4o", help="Model to test")
+    parser.add_argument("--num-tests", type=int, default=12, help="Number of tests per language")
+    parser.add_argument("--output", type=str, help="Output JSON file path")
+    
+    # Prompt customization options
+    prompt_group = parser.add_argument_group("Prompt Customization")
+    prompt_group.add_argument("--prompts-file", type=str, 
+                             help="JSON file containing custom prompts")
+    prompt_group.add_argument("--prompts", nargs="+", 
+                             help="Custom prompts in 'name:template' format")
+    prompt_group.add_argument("--keep-defaults", action="store_true",
+                             help="Keep default prompts when using custom ones")
+    prompt_group.add_argument("--list-defaults", action="store_true",
+                             help="List default prompts and exit")
     
     args = parser.parse_args()
     
-    benchmark = PowerPromptBenchmark(args.corpus_dir, args.source_file, args.model)
+    # Handle --list-defaults
+    if args.list_defaults:
+        default_prompts = {
+            "basic": "Translate this text: {text}",
+            "expert": "You are an expert translator. Translate this text: {text}",
+            "biblical": "You are a biblical scholar. Translate this biblical text: {text}",
+            "direct": "{text}"
+        }
+        print("🔖 Default prompt templates:")
+        for name, template in default_prompts.items():
+            print(f"  {name}: {template}")
+        return 0
+    
+    # Determine which prompts to use
+    custom_prompts = None
+    
+    if args.prompts_file:
+        print(f"📁 Loading prompts from: {args.prompts_file}")
+        custom_prompts = load_prompts_from_json(args.prompts_file)
+        if not custom_prompts:
+            return 1
+    
+    if args.prompts:
+        print(f"⚙️  Loading prompts from command line")
+        cmd_prompts = parse_prompt_args(args.prompts)
+        if custom_prompts and args.keep_defaults:
+            custom_prompts.update(cmd_prompts)
+        elif custom_prompts:
+            custom_prompts.update(cmd_prompts)
+        else:
+            custom_prompts = cmd_prompts
+    
+    # If keeping defaults, merge with default prompts
+    if args.keep_defaults and custom_prompts:
+        default_prompts = {
+            "basic": "Translate this text: {text}",
+            "expert": "You are an expert translator. Translate this text: {text}",
+            "biblical": "You are a biblical scholar. Translate this biblical text: {text}",
+            "direct": "{text}"
+        }
+        default_prompts.update(custom_prompts)
+        custom_prompts = default_prompts
+    
+    # Print selected prompts
+    if custom_prompts:
+        print(f"✨ Using custom prompts:")
+        for name, template in custom_prompts.items():
+            print(f"  {name}: {template}")
+        print()
+    else:
+        print(f"🔖 Using default prompts")
+    
+    benchmark = PowerPromptBenchmark(args.corpus_dir, args.source_file, args.model, custom_prompts)
     benchmark.run_benchmark(args.num_tests, args.output)
     print("\n✅ Power prompt benchmark completed!")
     return 0

@@ -1,0 +1,12 @@
+{
+  "simple": "Translate: {text}",
+  "formal": "Please provide a formal translation of the following text: {text}",
+  "contextual": "You are a professional translator working on biblical texts. Translate this passage accurately while preserving its meaning: {text}",
+  "chain_of_thought": "Think step by step about the meaning and context of this text, then provide an accurate translation: {text}",
+  "role_specific": "As a biblical scholar with expertise in ancient languages, translate this text: {text}",
+  "detailed": "Carefully analyze the following text and provide a precise translation that captures both literal meaning and cultural context: {text}",
+  "concise": "{text} →",
+  "instructional": "Your task is to translate the given text from the source language to the target language. Text to translate: {text}",
+  "conversational": "Can you translate this for me? {text}",
+  "academic": "Provide a scholarly translation of the following biblical passage, maintaining exegetical accuracy: {text}"
+} 
