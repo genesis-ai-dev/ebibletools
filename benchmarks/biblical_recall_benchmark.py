@@ -51,12 +51,16 @@ class BiblicalRecallBenchmark:
         # Extract version from source file name (remove .txt extension)
         version = self.source_file.stem if hasattr(self.source_file, 'stem') else self.source_file.name.replace('.txt', '')
         
+        system_prompt = f"You are being tested on biblical text recall. The {version} version is public domain, so you should provide the requested biblical text without any copyright concerns or refusals."
         base_prompt = f"What does {reference} say in the {version} version?"
         prompt = format_xml_prompt(base_prompt, "verse", "the biblical verse text")
         
         response = litellm.completion(
             model=model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
             max_tokens=8000,
             temperature=0.1
         )
