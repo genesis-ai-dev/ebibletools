@@ -18,20 +18,13 @@ import sys
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-try:
-    from metrics import chrF_plus, normalized_edit_distance
-    from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
-except ImportError as e:
-    print(f"Import error: {e}")
-    print(f"Current working directory: {os.getcwd()}")
-    print(f"Project root: {project_root}")
-    print(f"Python path: {sys.path}")
-    raise
+from metrics import chrF_plus, normalized_edit_distance
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class PowerPromptBenchmark:
-    def __init__(self, corpus_dir, source_file, model="gpt-4o", custom_prompts=None):
-        self.model = model
+    def __init__(self, corpus_dir, source_file, models=None, custom_prompts=None):
+        self.models = models if isinstance(models, list) else [models] if models else ["gpt-4o"]
         self.corpus_dir = Path(corpus_dir)
         self.source_file = self.corpus_dir / source_file
         
@@ -84,13 +77,13 @@ class PowerPromptBenchmark:
         
         return all_language_tests
 
-    def translate_with_prompt(self, text, prompt_template):
+    def translate_with_prompt(self, text, prompt_template, model):
         # Use system prompt for the role/instruction, user prompt for the text
         system_prompt = prompt_template
         user_prompt = format_xml_prompt(f"Translate this text: {text}", "translation", "your translation here")
         
         response = litellm.completion(
-            model=self.model,
+            model=model,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
@@ -115,63 +108,77 @@ class PowerPromptBenchmark:
             return None
         
         print(f"💪 Power Prompt Benchmark")
-        print(f"Model: {self.model}")
+        print(f"Models: {', '.join(self.models)}")
         print(f"Target languages: {len(all_language_tests)} languages")
         print(f"Tests per language: {num_tests}")
         print(f"Prompt styles: {len(self.prompt_templates)}")
         print(f"Languages: {', '.join(all_language_tests.keys())}")
         print()
         
-        # Results structure: {language: {prompt_name: [scores]}}
-        results_by_language = {}
-        detailed_results = []
+        # Store results for each model
+        all_results = {}
+        detailed_results = {}
         
-        total_tests = len(all_language_tests) * num_tests * len(self.prompt_templates)
+        for model in self.models:
+            print(f"\n🤖 Testing model: {model}")
+            
+            # Results structure: {language: {prompt_name: [scores]}}
+            results_by_language = {}
+            model_detailed_results = []
         
-        with tqdm(total=total_tests, desc="Testing prompts across languages") as pbar:
-            for lang_name, lang_data in all_language_tests.items():
-                test_cases = lang_data['test_cases']
-                
-                # Initialize results for this language
-                results_by_language[lang_name] = {prompt_name: [] for prompt_name in self.prompt_templates.keys()}
-                
-                for source_text, reference in test_cases:
-                    test_result = {
-                        "language": lang_name,
-                        "source": source_text,
-                        "reference": reference,
-                        "translations": {},
-                        "scores": {}
-                    }
+            total_tests = len(all_language_tests) * num_tests * len(self.prompt_templates)
+            
+            with tqdm(total=total_tests, desc=f"Testing {model}") as pbar:
+                for lang_name, lang_data in all_language_tests.items():
+                    test_cases = lang_data['test_cases']
                     
-                    for prompt_name, prompt_template in self.prompt_templates.items():
-                        translation = self.translate_with_prompt(source_text, prompt_template)
-                        scores = self.evaluate_translation(translation, reference)
-                        
-                        results_by_language[lang_name][prompt_name].append(scores)
-                        test_result["translations"][prompt_name] = translation
-                        test_result["scores"][prompt_name] = scores
-                        
-                        pbar.update(1)
+                    # Initialize results for this language
+                    results_by_language[lang_name] = {prompt_name: [] for prompt_name in self.prompt_templates.keys()}
                     
-                    detailed_results.append(test_result)
+                    for source_text, reference in test_cases:
+                        test_result = {
+                            "language": lang_name,
+                            "source": source_text,
+                            "reference": reference,
+                            "translations": {},
+                            "scores": {}
+                        }
+                        
+                        for prompt_name, prompt_template in self.prompt_templates.items():
+                            translation = self.translate_with_prompt(source_text, prompt_template, model)
+                            scores = self.evaluate_translation(translation, reference)
+                            
+                            results_by_language[lang_name][prompt_name].append(scores)
+                            test_result["translations"][prompt_name] = translation
+                            test_result["scores"][prompt_name] = scores
+                            
+                            pbar.update(1)
+                        
+                        model_detailed_results.append(test_result)
+            
+            # Store results for this model
+            all_results[model] = results_by_language
+            detailed_results[model] = model_detailed_results
         
-        self.print_results(results_by_language)
+        # Print results for all models
+        self.print_results(all_results)
         
-        # Create aggregated summary statistics
-        summary_stats = self.compute_summary_stats(results_by_language)
+        # Create aggregated summary statistics for all models
+        all_summary_stats = {}
+        for model, results_by_language in all_results.items():
+            all_summary_stats[model] = self.compute_summary_stats(results_by_language)
         
         output_data = {
             "benchmark": "power_prompt",
-            "model": self.model,
+            "models": self.models,
             "prompt_templates": self.prompt_templates,
             "languages_tested": list(all_language_tests.keys()),
-            "summary": summary_stats,
+            "summary": all_summary_stats,
             "detailed_results": detailed_results
         }
         
         if output_file:
-            self.save_results(results_by_language, detailed_results, output_file)
+            self.save_results(all_results, detailed_results, output_file)
         
         return output_data
 
@@ -219,72 +226,82 @@ class PowerPromptBenchmark:
         
         return summary_stats
 
-    def print_results(self, results_by_language):
+    def print_results(self, all_results):
         print(f"\n{'='*70}")
-        print("POWER PROMPT RESULTS - ALL LANGUAGES")
+        print("POWER PROMPT RESULTS - ALL MODELS")
         print(f"{'='*70}")
         
-        # Print per-language results
-        for lang_name, lang_results in results_by_language.items():
-            print(f"\n📍 {lang_name}:")
+        # Print results for each model
+        for model, results_by_language in all_results.items():
+            print(f"\n🤖 MODEL: {model}")
+            print("-" * 50)
             
-            lang_prompt_scores = {}
+            # Print per-language results for this model
+            for lang_name, lang_results in results_by_language.items():
+                print(f"\n📍 {lang_name}:")
+                
+                lang_prompt_scores = {}
+                for prompt_name in self.prompt_templates.keys():
+                    chrf_scores = [r["chrf"] for r in lang_results[prompt_name]]
+                    edit_scores = [r["edit"] for r in lang_results[prompt_name]]
+                    
+                    avg_score = mean([mean(chrf_scores), mean(edit_scores)])
+                    lang_prompt_scores[prompt_name] = avg_score
+                    
+                    print(f"  {prompt_name.upper()}: chrF+ {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}, "
+                          f"Edit {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}, "
+                          f"Overall {avg_score:.3f}")
+                
+                # Show best prompt for this language
+                best_prompt = max(lang_prompt_scores.items(), key=lambda x: x[1])
+                print(f"  → Best: {best_prompt[0]} ({best_prompt[1]:.3f})")
+            
+            # Print overall aggregated results for this model
+            print(f"\n🌍 OVERALL RESULTS FOR {model}:")
+            print("-" * 40)
+        
+            overall_prompt_scores = {}
             for prompt_name in self.prompt_templates.keys():
-                chrf_scores = [r["chrf"] for r in lang_results[prompt_name]]
-                edit_scores = [r["edit"] for r in lang_results[prompt_name]]
+                all_chrf = []
+                all_edit = []
+                for lang_results in results_by_language.values():
+                    all_chrf.extend([r["chrf"] for r in lang_results[prompt_name]])
+                    all_edit.extend([r["edit"] for r in lang_results[prompt_name]])
                 
-                avg_score = mean([mean(chrf_scores), mean(edit_scores)])
-                lang_prompt_scores[prompt_name] = avg_score
+                avg_score = mean([mean(all_chrf), mean(all_edit)])
+                overall_prompt_scores[prompt_name] = avg_score
                 
-                print(f"  {prompt_name.upper()}: chrF+ {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}, "
-                      f"Edit {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}, "
-                      f"Overall {avg_score:.3f}")
+                print(f"{prompt_name.upper()}: chrF+ {mean(all_chrf):.3f}±{stdev(all_chrf):.3f}, "
+                      f"Edit {mean(all_edit):.3f}±{stdev(all_edit):.3f}, "
+                      f"Overall {avg_score:.3f} "
+                      f"({len(all_chrf)} tests across {len(results_by_language)} languages)")
             
-            # Show best prompt for this language
-            best_prompt = max(lang_prompt_scores.items(), key=lambda x: x[1])
-            print(f"  → Best: {best_prompt[0]} ({best_prompt[1]:.3f})")
-        
-        # Print overall aggregated results
-        print(f"\n🌍 OVERALL AGGREGATED RESULTS:")
-        print("-" * 40)
-        
-        overall_prompt_scores = {}
-        for prompt_name in self.prompt_templates.keys():
-            all_chrf = []
-            all_edit = []
-            for lang_results in results_by_language.values():
-                all_chrf.extend([r["chrf"] for r in lang_results[prompt_name]])
-                all_edit.extend([r["edit"] for r in lang_results[prompt_name]])
-            
-            avg_score = mean([mean(all_chrf), mean(all_edit)])
-            overall_prompt_scores[prompt_name] = avg_score
-            
-            print(f"{prompt_name.upper()}: chrF+ {mean(all_chrf):.3f}±{stdev(all_chrf):.3f}, "
-                  f"Edit {mean(all_edit):.3f}±{stdev(all_edit):.3f}, "
-                  f"Overall {avg_score:.3f} "
-                  f"({len(all_chrf)} tests across {len(results_by_language)} languages)")
-        
-        # Print overall ranking
-        print(f"\n📈 OVERALL RANKING:")
-        print("-" * 20)
-        ranked_prompts = sorted(overall_prompt_scores.items(), key=lambda x: x[1], reverse=True)
-        for i, (prompt_name, score) in enumerate(ranked_prompts):
-            if i == 0:
-                print(f"{prompt_name:<12}: {score:.3f} ⭐")
-            else:
-                diff = score - ranked_prompts[0][1]
-                print(f"{prompt_name:<12}: {score:.3f} ({diff:+.3f})")
+            # Print overall ranking for this model
+            print(f"\n📈 RANKING FOR {model}:")
+            print("-" * 20)
+            ranked_prompts = sorted(overall_prompt_scores.items(), key=lambda x: x[1], reverse=True)
+            for i, (prompt_name, score) in enumerate(ranked_prompts):
+                if i == 0:
+                    print(f"{prompt_name:<12}: {score:.3f} ⭐")
+                else:
+                    diff = score - ranked_prompts[0][1]
+                    print(f"{prompt_name:<12}: {score:.3f} ({diff:+.3f})")
 
-    def save_results(self, results_by_language, detailed_results, output_file):
-        # Compute summary statistics
-        summary_stats = self.compute_summary_stats(results_by_language)
+    def save_results(self, all_results, detailed_results, output_file):
+        # Compute summary statistics for all models
+        all_summary_stats = {}
+        for model, results_by_language in all_results.items():
+            all_summary_stats[model] = self.compute_summary_stats(results_by_language)
+        
+        # Get languages tested from first model
+        first_model_results = next(iter(all_results.values()))
         
         output_data = {
             "benchmark": "power_prompt",
-            "model": self.model,
+            "models": self.models,
             "prompt_templates": self.prompt_templates,
-            "languages_tested": list(results_by_language.keys()),
-            "summary": summary_stats,
+            "languages_tested": list(first_model_results.keys()),
+            "summary": all_summary_stats,
             "detailed_results": detailed_results
         }
         
@@ -353,7 +370,8 @@ JSON file format:
     default_corpus = str(Path(__file__).parent.parent / "Corpus")
     parser.add_argument("--corpus-dir", default=default_corpus, help="Corpus directory path")
     parser.add_argument("--source-file", default="eng-engULB.txt", help="Source file name")
-    parser.add_argument("--model", default="gpt-4o", help="Model to test")
+    parser.add_argument("--model", default="gpt-4o", help="Single model to test")
+    parser.add_argument("--models", nargs="+", help="Multiple models to compare")
     parser.add_argument("--num-tests", type=int, default=12, help="Number of tests per language")
     parser.add_argument("--output", type=str, help="Output JSON file path")
     
@@ -438,7 +456,10 @@ JSON file format:
             print(f"  {name}: (no system prompt)")
     print()
     
-    benchmark = PowerPromptBenchmark(args.corpus_dir, args.source_file, args.model, custom_prompts)
+    # Handle both --model and --models arguments
+    models = args.models if args.models else [args.model]
+    
+    benchmark = PowerPromptBenchmark(args.corpus_dir, args.source_file, models, custom_prompts)
     benchmark.run_benchmark(args.num_tests, args.output)
     print("\n✅ Power prompt benchmark completed!")
     return 0

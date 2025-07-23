@@ -1,6 +1,7 @@
 import os
 import requests
 import random
+import subprocess
 from typing import List, Dict, Optional
 
 class EBibleDownloader:
@@ -152,12 +153,7 @@ class EBibleDownloader:
         analysis_file = Path("most_complete_per_language.json")
         if not analysis_file.exists():
             print("Analysis file not found. Running corpus analysis...")
-            try:
-                import subprocess
-                subprocess.run(["python", "analyze_corpus.py"], check=True)
-            except subprocess.CalledProcessError:
-                print("Failed to run analysis. Please run 'python analyze_corpus.py' first.")
-                return {}
+            subprocess.run(["python", "analyze_corpus.py"], check=True)
         
         # Load the most complete files list
         with open(analysis_file, 'r', encoding='utf-8') as f:
@@ -225,12 +221,7 @@ class EBibleDownloader:
         analysis_file = Path("most_complete_per_language.json")
         if not analysis_file.exists():
             print("Analysis file not found. Running corpus analysis...")
-            try:
-                import subprocess
-                subprocess.run(["python", "analyze_corpus.py"], check=True)
-            except subprocess.CalledProcessError:
-                print("Failed to run analysis. Please run 'python analyze_corpus.py' first.")
-                return False
+            subprocess.run(["python", "analyze_corpus.py"], check=True)
         
         # Load the most complete files list
         with open(analysis_file, 'r', encoding='utf-8') as f:
@@ -292,12 +283,7 @@ class EBibleDownloader:
         analysis_file = Path("most_complete_per_language.json")
         if not analysis_file.exists():
             print("Analysis file not found. Running corpus analysis...")
-            try:
-                import subprocess
-                subprocess.run(["python", "analyze_corpus.py"], check=True)
-            except subprocess.CalledProcessError:
-                print("Failed to run analysis. Please run 'python analyze_corpus.py' first.")
-                return
+            subprocess.run(["python", "analyze_corpus.py"], check=True)
         
         # Load the analysis
         with open(analysis_file, 'r', encoding='utf-8') as f:

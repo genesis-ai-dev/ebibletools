@@ -18,21 +18,14 @@ import sys
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-try:
-    from query import Query
-    from metrics import chrF_plus, normalized_edit_distance
-    from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
-except ImportError as e:
-    print(f"Import error: {e}")
-    print(f"Current working directory: {os.getcwd()}")
-    print(f"Project root: {project_root}")
-    print(f"Python path: {sys.path}")
-    raise
+from query import Query
+from metrics import chrF_plus, normalized_edit_distance
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class ContextCorrigibilityBenchmark:
-    def __init__(self, corpus_dir, source_file, model="gpt-4o", query_method="context"):
-        self.model = model
+    def __init__(self, corpus_dir, source_file, models=None, query_method="context"):
+        self.models = models if isinstance(models, list) else [models] if models else ["gpt-4o"]
         self.corpus_dir = Path(corpus_dir)
         self.source_file = self.corpus_dir / source_file
         self.query_method = query_method
@@ -93,7 +86,7 @@ class ContextCorrigibilityBenchmark:
         
         return examples
 
-    def translate(self, text, examples=None):
+    def translate(self, text, examples=None, model=None):
         if examples:
             base_prompt = "Translate from source to target language. Examples:\n\n"
             for src, tgt in examples:
@@ -105,7 +98,7 @@ class ContextCorrigibilityBenchmark:
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
         response = litellm.completion(
-            model=self.model,
+            model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800,
             temperature=0.1
@@ -129,7 +122,7 @@ class ContextCorrigibilityBenchmark:
             return None
         
         print(f"🔄 Context Corrigibility Benchmark")
-        print(f"Model: {self.model}")
+        print(f"Models: {', '.join(self.models)}")
         print(f"Query method: {self.query_method}")
         print(f"Target languages: {len(all_language_tests)} languages")
         print(f"Tests per language: {num_tests}")
@@ -137,64 +130,78 @@ class ContextCorrigibilityBenchmark:
         print(f"Languages: {', '.join(all_language_tests.keys())}")
         print()
         
-        # Results structure: {language: {count: [scores]}}
-        results_by_language = {}
-        detailed_results = []
+        # Store results for each model
+        all_results = {}
+        detailed_results = {}
         
-        total_tests = len(all_language_tests) * num_tests * len(example_counts)
+        for model in self.models:
+            print(f"\n🤖 Testing model: {model}")
+            
+            # Results structure: {language: {count: [scores]}}
+            results_by_language = {}
+            model_detailed_results = []
         
-        with tqdm(total=total_tests, desc="Testing context corrigibility across languages") as pbar:
-            for lang_name, lang_data in all_language_tests.items():
-                target_file = lang_data['target_file']
-                test_cases = lang_data['test_cases']
-                
-                # Initialize results for this language
-                results_by_language[lang_name] = {count: [] for count in example_counts}
-                
-                # Create query object for this language pair
-                query_obj = Query(str(self.source_file), str(target_file), method=self.query_method)
-                
-                for source_text, reference in test_cases:
-                    test_result = {
-                        "language": lang_name,
-                        "source": source_text,
-                        "reference": reference,
-                        "results": {}
-                    }
+            total_tests = len(all_language_tests) * num_tests * len(example_counts)
+            
+            with tqdm(total=total_tests, desc=f"Testing {model}") as pbar:
+                for lang_name, lang_data in all_language_tests.items():
+                    target_file = lang_data['target_file']
+                    test_cases = lang_data['test_cases']
                     
-                    for count in example_counts:
-                        examples = self.get_examples(query_obj, source_text, count) if count > 0 else []
-                        translation = self.translate(source_text, examples)
-                        scores = self.evaluate_translation(translation, reference)
-                        
-                        results_by_language[lang_name][count].append(scores)
-                        test_result["results"][count] = {
-                            "translation": translation,
-                            "scores": scores,
-                            "num_examples": len(examples)
+                    # Initialize results for this language
+                    results_by_language[lang_name] = {count: [] for count in example_counts}
+                    
+                    # Create query object for this language pair
+                    query_obj = Query(str(self.source_file), str(target_file), method=self.query_method)
+                    
+                    for source_text, reference in test_cases:
+                        test_result = {
+                            "language": lang_name,
+                            "source": source_text,
+                            "reference": reference,
+                            "results": {}
                         }
                         
-                        pbar.update(1)
-                    
-                    detailed_results.append(test_result)
+                        for count in example_counts:
+                            examples = self.get_examples(query_obj, source_text, count) if count > 0 else []
+                            translation = self.translate(source_text, examples, model)
+                            scores = self.evaluate_translation(translation, reference)
+                            
+                            results_by_language[lang_name][count].append(scores)
+                            test_result["results"][count] = {
+                                "translation": translation,
+                                "scores": scores,
+                                "num_examples": len(examples)
+                            }
+                            
+                            pbar.update(1)
+                        
+                        model_detailed_results.append(test_result)
+            
+            # Store results for this model
+            all_results[model] = results_by_language
+            detailed_results[model] = model_detailed_results
         
-        self.print_results(results_by_language, example_counts)
+        # Print results for all models
+        self.print_results(all_results, example_counts)
         
-        # Create aggregated summary statistics
-        summary_stats = self.compute_summary_stats(results_by_language, example_counts)
+        # Create aggregated summary statistics for all models
+        all_summary_stats = {}
+        for model, results_by_language in all_results.items():
+            all_summary_stats[model] = self.compute_summary_stats(results_by_language, example_counts)
         
         output_data = {
             "benchmark": "context_corrigibility",
-            "model": self.model,
+            "models": self.models,
             "query_method": self.query_method,
             "example_counts": example_counts,
             "languages_tested": list(all_language_tests.keys()),
-            "summary": summary_stats,
+            "summary": all_summary_stats,
             "detailed_results": detailed_results
         }
         
         if output_file:
-            self.save_results(results_by_language, detailed_results, example_counts, output_file)
+            self.save_results(all_results, detailed_results, example_counts, output_file)
         
         return output_data
 
@@ -240,58 +247,72 @@ class ContextCorrigibilityBenchmark:
         
         return summary_stats
 
-    def print_results(self, results_by_language, example_counts):
+    def print_results(self, all_results, example_counts):
         print(f"\n{'='*70}")
-        print("CONTEXT CORRIGIBILITY RESULTS - ALL LANGUAGES")
+        print("CONTEXT CORRIGIBILITY RESULTS - ALL MODELS")
         print(f"{'='*70}")
         
-        # Print per-language results
-        for lang_name, lang_results in results_by_language.items():
-            print(f"\n📍 {lang_name}:")
-            for count in example_counts:
-                chrf_scores = [r["chrf"] for r in lang_results[count]]
-                edit_scores = [r["edit"] for r in lang_results[count]]
-                
-                print(f"  {count} examples: chrF+ {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}, "
-                      f"Edit {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}")
-        
-        # Print overall aggregated results
-        print(f"\n🌍 OVERALL AGGREGATED RESULTS:")
-        print("-" * 40)
-        
-        overall_results = {}
-        for count in example_counts:
-            all_chrf = []
-            all_edit = []
-            for lang_results in results_by_language.values():
-                all_chrf.extend([r["chrf"] for r in lang_results[count]])
-                all_edit.extend([r["edit"] for r in lang_results[count]])
+        # Print results for each model
+        for model, results_by_language in all_results.items():
+            print(f"\n🤖 MODEL: {model}")
+            print("-" * 50)
             
-            overall_results[count] = {"chrf": all_chrf, "edit": all_edit}
-            print(f"{count} examples: chrF+ {mean(all_chrf):.3f}±{stdev(all_chrf):.3f}, "
-                  f"Edit {mean(all_edit):.3f}±{stdev(all_edit):.3f} "
-                  f"({len(all_chrf)} tests across {len(results_by_language)} languages)")
+            # Print per-language results for this model
+            for lang_name, lang_results in results_by_language.items():
+                print(f"\n📍 {lang_name}:")
+                for count in example_counts:
+                    chrf_scores = [r["chrf"] for r in lang_results[count]]
+                    edit_scores = [r["edit"] for r in lang_results[count]]
+                    
+                    print(f"  {count} examples: chrF+ {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}, "
+                          f"Edit {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}")
+            
+            # Print overall aggregated results for this model
+            print(f"\n🌍 OVERALL RESULTS FOR {model}:")
+            print("-" * 40)
         
-        # Print corrigibility analysis
-        print(f"\n📈 CORRIGIBILITY ANALYSIS (Overall):")
-        print("-" * 35)
-        baseline_scores = overall_results[0]["chrf"]
-        for count in example_counts[1:]:
-            context_scores = overall_results[count]["chrf"]
-            improvement = mean(context_scores) - mean(baseline_scores)
-            print(f"{count} examples: {improvement:+.3f} chrF+ improvement")
+            overall_results = {}
+            for count in example_counts:
+                all_chrf = []
+                all_edit = []
+                for lang_results in results_by_language.values():
+                    all_chrf.extend([r["chrf"] for r in lang_results[count]])
+                    all_edit.extend([r["edit"] for r in lang_results[count]])
+                
+                overall_results[count] = {"chrf": all_chrf, "edit": all_edit}
+                print(f"{count} examples: chrF+ {mean(all_chrf):.3f}±{stdev(all_chrf):.3f}, "
+                      f"Edit {mean(all_edit):.3f}±{stdev(all_edit):.3f} "
+                      f"({len(all_chrf)} tests across {len(results_by_language)} languages)")
+            
+            # Print corrigibility analysis for this model
+            print(f"\n📈 CORRIGIBILITY ANALYSIS FOR {model}:")
+            print("-" * 35)
+            if len(example_counts) > 1:
+                baseline_count = example_counts[0]
+                baseline_scores = overall_results[baseline_count]["chrf"]
+                for count in example_counts[1:]:
+                    context_scores = overall_results[count]["chrf"]
+                    improvement = mean(context_scores) - mean(baseline_scores)
+                    print(f"{count} examples vs {baseline_count}: {improvement:+.3f} chrF+ improvement")
+            else:
+                print("Need at least 2 example counts to show improvement analysis")
 
-    def save_results(self, results_by_language, detailed_results, example_counts, output_file):
-        # Compute summary statistics
-        summary_stats = self.compute_summary_stats(results_by_language, example_counts)
+    def save_results(self, all_results, detailed_results, example_counts, output_file):
+        # Compute summary statistics for all models
+        all_summary_stats = {}
+        for model, results_by_language in all_results.items():
+            all_summary_stats[model] = self.compute_summary_stats(results_by_language, example_counts)
+        
+        # Get languages tested from first model
+        first_model_results = next(iter(all_results.values()))
         
         output_data = {
             "benchmark": "context_corrigibility",
-            "model": self.model,
+            "models": self.models,
             "query_method": self.query_method,
             "example_counts": example_counts,
-            "languages_tested": list(results_by_language.keys()),
-            "summary": summary_stats,
+            "languages_tested": list(first_model_results.keys()),
+            "summary": all_summary_stats,
             "detailed_results": detailed_results
         }
         
@@ -309,7 +330,8 @@ def main():
     default_corpus = str(Path(__file__).parent.parent / "Corpus")
     parser.add_argument("--corpus-dir", default=default_corpus)
     parser.add_argument("--source-file", default="eng-engULB.txt")
-    parser.add_argument("--model", default="gpt-4o")
+    parser.add_argument("--model", default="gpt-4o", help="Single model to test")
+    parser.add_argument("--models", nargs="+", help="Multiple models to compare")
     parser.add_argument("--query-method", default="context", choices=["bm25", "tfidf", "context"])
     parser.add_argument("--num-tests", type=int, default=10)
     parser.add_argument("--example-counts", nargs="+", type=int, default=[0, 3, 5])
@@ -317,8 +339,11 @@ def main():
     
     args = parser.parse_args()
     
+    # Handle both --model and --models arguments
+    models = args.models if args.models else [args.model]
+    
     benchmark = ContextCorrigibilityBenchmark(
-        args.corpus_dir, args.source_file, args.model, args.query_method
+        args.corpus_dir, args.source_file, models, args.query_method
     )
     benchmark.run_benchmark(args.num_tests, args.example_counts, args.output)
     print("\n✅ Context corrigibility benchmark completed!")

@@ -26,12 +26,12 @@ from metrics import chrF_plus, normalized_edit_distance, ter_score
 
 
 class TranslationBenchmark:
-    def __init__(self, api_key, corpus_dir, source_file, query_method="context", model="gpt-4o"):
+    def __init__(self, api_key, corpus_dir, source_file, query_method="context", models=None):
         # Set up liteLLM with OpenAI (can be easily changed to other providers)
         import os
         os.environ["OPENAI_API_KEY"] = api_key
         
-        self.model = model
+        self.models = models if isinstance(models, list) else [models] if models else ["gpt-4o"]
         self.corpus_dir = Path(corpus_dir)
         self.source_file = self.corpus_dir / source_file
         self.query_method = query_method
@@ -77,7 +77,7 @@ class TranslationBenchmark:
         
         return examples
 
-    def translate(self, text, examples=None):
+    def translate(self, text, examples=None, model=None):
         """Translate using liteLLM with optional examples"""
         if examples:
             prompt = "Translate from source to target language. Examples:\n\n"
@@ -88,7 +88,7 @@ class TranslationBenchmark:
             prompt = f"Translate this text: {text}"
         
         response = litellm.completion(
-            model=self.model,
+            model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800,
             temperature=0.1
@@ -117,6 +117,7 @@ class TranslationBenchmark:
         
         print(f"🌍 Universal Translation Benchmark - {self.query_method.upper()} Query")
         print("=" * 65)
+        print(f"Models: {', '.join(self.models)}")
         print(f"Source: {self.source_file.name}")
         print(f"Target files: {len(target_files)} files")
         print(f"Tests per file: {num_tests_per_file}")
@@ -125,138 +126,155 @@ class TranslationBenchmark:
         print(f"Universal metrics (any language/script): {', '.join(self.metric_names)}")
         print()
         
-        # Results structure: {example_count: {metric: [scores]}}
-        results = {count: {metric: [] for metric in self.metric_names} for count in example_counts}
-        detailed_results = []
+        # Store results for each model
+        all_results = {}
+        detailed_results = {}
         
-        total_tests = len(target_files) * num_tests_per_file * len(example_counts)
-        progress_bar = tqdm(total=total_tests, desc="Running evaluations")
+        for model in self.models:
+            print(f"\n🤖 Testing model: {model}")
+            
+            # Results structure: {example_count: {metric: [scores]}}
+            results = {count: {metric: [] for metric in self.metric_names} for count in example_counts}
+            model_detailed_results = []
         
-        for target_file in target_files:
-            source_lines, target_lines = self.load_file_pair(self.source_file, target_file)
-            query_obj = Query(str(self.source_file), str(target_file), method=self.query_method)
+            total_tests = len(target_files) * num_tests_per_file * len(example_counts)
+            progress_bar = tqdm(total=total_tests, desc=f"Testing {model}")
             
-            # Find valid test lines
-            valid_indices = [
-                i for i in range(min(len(source_lines), len(target_lines)))
-                if len(source_lines[i].strip()) > 10 and len(target_lines[i].strip()) > 10
-            ]
-            
-            if len(valid_indices) < num_tests_per_file:
-                print(f"⚠️  Skipping {target_file.name} - insufficient valid lines")
-                progress_bar.update(num_tests_per_file * len(example_counts))
-                continue
-            
-            test_indices = random.sample(valid_indices, num_tests_per_file)
-            
-            for idx in test_indices:
-                source_text = source_lines[idx].strip()
-                ground_truth = target_lines[idx].strip()
+            for target_file in target_files:
+                source_lines, target_lines = self.load_file_pair(self.source_file, target_file)
+                query_obj = Query(str(self.source_file), str(target_file), method=self.query_method)
                 
-                for count in example_counts:
-                    # Get examples and translate
-                    examples = self.get_examples(query_obj, source_text, count)
-                    translation = self.translate(source_text, examples)
+                # Find valid test lines
+                valid_indices = [
+                    i for i in range(min(len(source_lines), len(target_lines)))
+                    if len(source_lines[i].strip()) > 10 and len(target_lines[i].strip()) > 10
+                ]
+                
+                if len(valid_indices) < num_tests_per_file:
+                    print(f"⚠️  Skipping {target_file.name} - insufficient valid lines")
+                    progress_bar.update(num_tests_per_file * len(example_counts))
+                    continue
+                
+                test_indices = random.sample(valid_indices, num_tests_per_file)
+                
+                for idx in test_indices:
+                    source_text = source_lines[idx].strip()
+                    ground_truth = target_lines[idx].strip()
                     
-                    # Evaluate with all metrics
-                    scores = self.evaluate_translation(translation, ground_truth)
-                    
-                    # Store results
-                    for metric, score in scores.items():
-                        results[count][metric].append(score)
-                    
-                    # Store detailed result
-                    detailed_results.append({
-                        'target_file': target_file.name,
-                        'line_index': idx,
-                        'source': source_text,
-                        'reference': ground_truth,
-                        'translation': translation,
-                        'example_count': count,
-                        'scores': scores
-                    })
-                    
-                    progress_bar.update(1)
-                    time.sleep(0.1)  # Rate limiting
+                    for count in example_counts:
+                        # Get examples and translate
+                        examples = self.get_examples(query_obj, source_text, count)
+                        translation = self.translate(source_text, examples, model)
+                        
+                        # Evaluate with all metrics
+                        scores = self.evaluate_translation(translation, ground_truth)
+                        
+                        # Store results
+                        for metric, score in scores.items():
+                            results[count][metric].append(score)
+                        
+                        # Store detailed result
+                        model_detailed_results.append({
+                            'target_file': target_file.name,
+                            'line_index': idx,
+                            'source': source_text,
+                            'reference': ground_truth,
+                            'translation': translation,
+                            'example_count': count,
+                            'scores': scores
+                        })
+                        
+                        progress_bar.update(1)
+                        time.sleep(0.1)  # Rate limiting
+            
+            progress_bar.close()
+            
+            # Store results for this model
+            all_results[model] = results
+            detailed_results[model] = model_detailed_results
         
-        progress_bar.close()
-        
-        # Print and save results
-        self.print_results(results, example_counts)
+        # Print and save results for all models
+        self.print_results(all_results, example_counts)
         
         if output_file:
-            self.save_results(results, detailed_results, example_counts, output_file)
+            self.save_results(all_results, detailed_results, example_counts, output_file)
 
-    def print_results(self, results, example_counts):
+    def print_results(self, all_results, example_counts):
         """Print comprehensive benchmark results"""
         print(f"\n{'='*80}")
-        print(f"UNIVERSAL TRANSLATION EVALUATION RESULTS")
+        print(f"UNIVERSAL TRANSLATION EVALUATION RESULTS - ALL MODELS")
         print(f"Query Method: {self.query_method.upper()}")
         print(f"Language-Agnostic Metrics Only")
         print(f"{'='*80}")
         
-        # Calculate averages and standard deviations
-        stats = {}
-        for count in example_counts:
-            stats[count] = {}
-            for metric in self.metric_names:
-                scores = results[count][metric]
-                if scores:
-                    stats[count][metric] = {
-                        'mean': mean(scores),
-                        'std': stdev(scores) if len(scores) > 1 else 0.0,
-                        'count': len(scores)
-                    }
-                else:
-                    stats[count][metric] = {'mean': 0.0, 'std': 0.0, 'count': 0}
-        
-        # Print results table
-        print(f"\n{'Metric':<12} ", end="")
-        for count in example_counts:
-            print(f"{count:>2} examples    ", end="")
-        print()
-        print("-" * (12 + len(example_counts) * 14))
-        
-        for metric in self.metric_names:
-            print(f"{metric:<12} ", end="")
+        # Print results for each model
+        for model, results in all_results.items():
+            print(f"\n🤖 MODEL: {model}")
+            print("-" * 60)
+            
+            # Calculate averages and standard deviations
+            stats = {}
             for count in example_counts:
-                mean_score = stats[count][metric]['mean']
-                std_score = stats[count][metric]['std']
-                print(f"{mean_score:.3f}±{std_score:.3f}  ", end="")
+                stats[count] = {}
+                for metric in self.metric_names:
+                    scores = results[count][metric]
+                    if scores:
+                        stats[count][metric] = {
+                            'mean': mean(scores),
+                            'std': stdev(scores) if len(scores) > 1 else 0.0,
+                            'count': len(scores)
+                        }
+                    else:
+                        stats[count][metric] = {'mean': 0.0, 'std': 0.0, 'count': 0}
+            
+            # Print results table for this model
+            print(f"\n{'Metric':<12} ", end="")
+            for count in example_counts:
+                print(f"{count:>2} examples    ", end="")
             print()
-        
-        # Find best configuration for each metric
-        print(f"\n{'Best Configurations:':<25}")
-        print("-" * 25)
-        for metric in self.metric_names:
-            best_count = max(example_counts, key=lambda c: stats[c][metric]['mean'])
-            best_score = stats[best_count][metric]['mean']
-            print(f"{metric:<12}: {best_count} examples ({best_score:.3f})")
-        
-        # Overall ranking by average across metrics
-        print(f"\n{'Overall Ranking:':<20}")
-        print("-" * 20)
-        overall_scores = {}
-        for count in example_counts:
-            # Average across all metrics
-            all_means = [stats[count][metric]['mean'] for metric in self.metric_names]
-            overall_scores[count] = mean(all_means)
-        
-        ranked_counts = sorted(overall_scores.keys(), key=lambda c: overall_scores[c], reverse=True)
-        for i, count in enumerate(ranked_counts):
-            score = overall_scores[count]
-            if i == 0:
-                print(f"{count:>2} examples: {score:.3f} ⭐ (best overall)")
-            else:
-                diff = score - overall_scores[ranked_counts[0]]
-                print(f"{count:>2} examples: {score:.3f} ({diff:+.3f})")
+            print("-" * (12 + len(example_counts) * 14))
+            
+            for metric in self.metric_names:
+                print(f"{metric:<12} ", end="")
+                for count in example_counts:
+                    mean_score = stats[count][metric]['mean']
+                    std_score = stats[count][metric]['std']
+                    print(f"{mean_score:.3f}±{std_score:.3f}  ", end="")
+                print()
+            
+            # Find best configuration for each metric for this model
+            print(f"\n{'Best Configurations:':<25}")
+            print("-" * 25)
+            for metric in self.metric_names:
+                best_count = max(example_counts, key=lambda c: stats[c][metric]['mean'])
+                best_score = stats[best_count][metric]['mean']
+                print(f"{metric:<12}: {best_count} examples ({best_score:.3f})")
+            
+            # Overall ranking by average across metrics for this model
+            print(f"\n{'Overall Ranking:':<20}")
+            print("-" * 20)
+            overall_scores = {}
+            for count in example_counts:
+                # Average across all metrics
+                all_means = [stats[count][metric]['mean'] for metric in self.metric_names]
+                overall_scores[count] = mean(all_means)
+            
+            ranked_counts = sorted(overall_scores.keys(), key=lambda c: overall_scores[c], reverse=True)
+            for i, count in enumerate(ranked_counts):
+                score = overall_scores[count]
+                if i == 0:
+                    print(f"{count:>2} examples: {score:.3f} ⭐ (best overall)")
+                else:
+                    diff = score - overall_scores[ranked_counts[0]]
+                    print(f"{count:>2} examples: {score:.3f} ({diff:+.3f})")
 
-    def save_results(self, results, detailed_results, example_counts, output_file):
+    def save_results(self, all_results, detailed_results, example_counts, output_file):
         """Save detailed results to JSON file"""
         output_data = {
             'benchmark_config': {
                 'query_method': self.query_method,
                 'source_file': self.source_file.name,
+                'models': self.models,
                 'example_counts': example_counts,
                 'metrics': self.metric_names
             },
@@ -264,19 +282,21 @@ class TranslationBenchmark:
             'detailed_results': detailed_results
         }
         
-        # Calculate summary statistics
-        for count in example_counts:
-            output_data['summary_stats'][count] = {}
-            for metric in self.metric_names:
-                scores = results[count][metric]
-                if scores:
-                    output_data['summary_stats'][count][metric] = {
-                        'mean': mean(scores),
-                        'std': stdev(scores) if len(scores) > 1 else 0.0,
-                        'min': min(scores),
-                        'max': max(scores),
-                        'count': len(scores)
-                    }
+        # Calculate summary statistics for all models
+        for model, results in all_results.items():
+            output_data['summary_stats'][model] = {}
+            for count in example_counts:
+                output_data['summary_stats'][model][count] = {}
+                for metric in self.metric_names:
+                    scores = results[count][metric]
+                    if scores:
+                        output_data['summary_stats'][model][count][metric] = {
+                            'mean': mean(scores),
+                            'std': stdev(scores) if len(scores) > 1 else 0.0,
+                            'min': min(scores),
+                            'max': max(scores),
+                            'count': len(scores)
+                        }
         
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
@@ -297,7 +317,9 @@ def main():
     parser.add_argument("--query-method", default="context", choices=["bm25", "tfidf", "context"],
                        help="Query method to use")
     parser.add_argument("--model", default="gpt-4o", 
-                       help="Model to use (supports any liteLLM model)")
+                       help="Single model to test (supports any liteLLM model)")
+    parser.add_argument("--models", nargs="+", 
+                       help="Multiple models to compare")
     parser.add_argument("--num-target-files", type=int, default=2, 
                        help="Number of target files to test")
     parser.add_argument("--num-tests-per-file", type=int, default=5, 
@@ -313,8 +335,11 @@ def main():
         print("❌ Error: API key required. Set OPENAI_API_KEY env var or use --api-key")
         return 1
     
+    # Handle both --model and --models arguments
+    models = args.models if args.models else [args.model]
+    
     try:
-        benchmark = TranslationBenchmark(args.api_key, args.corpus_dir, args.source_file, args.query_method, args.model)
+        benchmark = TranslationBenchmark(args.api_key, args.corpus_dir, args.source_file, args.query_method, models)
         benchmark.run_benchmark(args.num_target_files, args.num_tests_per_file, args.example_counts, args.output)
         print("\n✅ Benchmark completed successfully!")
         return 0

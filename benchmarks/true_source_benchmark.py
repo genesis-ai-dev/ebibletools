@@ -18,20 +18,13 @@ import sys
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-try:
-    from metrics import chrF_plus, normalized_edit_distance
-    from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
-except ImportError as e:
-    print(f"Import error: {e}")
-    print(f"Current working directory: {os.getcwd()}")
-    print(f"Project root: {project_root}")
-    print(f"Python path: {sys.path}")
-    raise
+from metrics import chrF_plus, normalized_edit_distance
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class TrueSourceBenchmark:
-    def __init__(self, corpus_dir, source_file, model="gpt-4o"):
-        self.model = model
+    def __init__(self, corpus_dir, source_file, models=None):
+        self.models = models if isinstance(models, list) else [models] if models else ["gpt-4o"]
         self.corpus_dir = Path(corpus_dir)
         self.source_file = self.corpus_dir / source_file
         
@@ -83,7 +76,7 @@ class TrueSourceBenchmark:
         
         return all_language_tests
 
-    def translate_with_source_examples(self, test_source, example_pairs, target_lang):
+    def translate_with_source_examples(self, test_source, example_pairs, target_lang, model):
         # Build prompt with source-target example pairs
         base_prompt = f"Translate from source to {target_lang}. Examples:\n\n"
         for src, tgt in example_pairs:
@@ -93,14 +86,14 @@ class TrueSourceBenchmark:
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
         response = litellm.completion(
-            model=self.model,
+            model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800,
             temperature=0.1
         )
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
 
-    def translate_with_target_only_examples(self, test_source, example_pairs, target_lang):
+    def translate_with_target_only_examples(self, test_source, example_pairs, target_lang, model):
         # Build prompt with only target examples (no source)
         base_prompt = f"Translate to {target_lang}. Example target language texts:\n\n"
         for _, tgt in example_pairs:
@@ -110,7 +103,7 @@ class TrueSourceBenchmark:
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
         response = litellm.completion(
-            model=self.model,
+            model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800,
             temperature=0.1
@@ -132,41 +125,48 @@ class TrueSourceBenchmark:
             return None
         
         print(f"🎯 True Source Benchmark")
-        print(f"Model: {self.model}")
+        print(f"Models: {', '.join(self.models)}")
         print(f"Target languages: {len(all_language_tests)} languages")
         print(f"Tests per language: {num_tests}")
         print(f"ICL Examples per language: 3")
         print(f"Languages: {', '.join(all_language_tests.keys())}")
         print()
         
-        # Results structure: {language: {condition: [scores]}}
-        results_by_language = {}
-        detailed_results = []
+        # Store results for each model
+        all_results = {}
+        detailed_results = {}
         
-        total_tests = len(all_language_tests) * num_tests * 2  # 2 conditions per test
+        for model in self.models:
+            print(f"\n🤖 Testing model: {model}")
+            
+            # Results structure: {language: {condition: [scores]}}
+            results_by_language = {}
+            model_detailed_results = []
         
-        with tqdm(total=total_tests, desc="Testing ICL source effects across languages") as pbar:
-            for lang_name, lang_data in all_language_tests.items():
-                target_lang = lang_name.split('-')[0] if '-' in lang_name else "target language"
-                example_pairs = lang_data['example_pairs']
-                test_cases = lang_data['test_cases']
-                
-                # Initialize results for this language
-                results_by_language[lang_name] = {"with_source": [], "without_source": []}
-                
-                for source_text, reference in test_cases:
-                    # Test 1: With source-target example pairs
-                    trans_with_source = self.translate_with_source_examples(source_text, example_pairs, target_lang)
-                    scores_with = self.evaluate_translation(trans_with_source, reference)
+            total_tests = len(all_language_tests) * num_tests * 2  # 2 conditions per test
+            
+            with tqdm(total=total_tests, desc=f"Testing {model}") as pbar:
+                for lang_name, lang_data in all_language_tests.items():
+                    target_lang = lang_name.split('-')[0] if '-' in lang_name else "target language"
+                    example_pairs = lang_data['example_pairs']
+                    test_cases = lang_data['test_cases']
                     
-                    # Test 2: With target-only examples  
-                    trans_without_source = self.translate_with_target_only_examples(source_text, example_pairs, target_lang)
-                    scores_without = self.evaluate_translation(trans_without_source, reference)
+                    # Initialize results for this language
+                    results_by_language[lang_name] = {"with_source": [], "without_source": []}
                     
-                    results_by_language[lang_name]["with_source"].append(scores_with)
-                    results_by_language[lang_name]["without_source"].append(scores_without)
-                    
-                    detailed_results.append({
+                    for source_text, reference in test_cases:
+                        # Test 1: With source-target example pairs
+                        trans_with_source = self.translate_with_source_examples(source_text, example_pairs, target_lang, model)
+                        scores_with = self.evaluate_translation(trans_with_source, reference)
+                        
+                        # Test 2: With target-only examples  
+                        trans_without_source = self.translate_with_target_only_examples(source_text, example_pairs, target_lang, model)
+                        scores_without = self.evaluate_translation(trans_without_source, reference)
+                        
+                        results_by_language[lang_name]["with_source"].append(scores_with)
+                        results_by_language[lang_name]["without_source"].append(scores_without)
+                        
+                        model_detailed_results.append({
                         "language": lang_name,
                         "source": source_text,
                         "reference": reference,
@@ -178,25 +178,32 @@ class TrueSourceBenchmark:
                             "with_source": scores_with,
                             "without_source": scores_without
                         }
-                    })
-                    
-                    pbar.update(2)  # 2 conditions tested
+                        })
+                        
+                        pbar.update(2)  # 2 conditions tested
+            
+            # Store results for this model
+            all_results[model] = results_by_language
+            detailed_results[model] = model_detailed_results
         
-        self.print_results(results_by_language)
+        # Print results for all models
+        self.print_results(all_results)
         
-        # Create aggregated summary statistics
-        summary_stats = self.compute_summary_stats(results_by_language)
+        # Create aggregated summary statistics for all models
+        all_summary_stats = {}
+        for model, results_by_language in all_results.items():
+            all_summary_stats[model] = self.compute_summary_stats(results_by_language)
         
         output_data = {
             "benchmark": "true_source",
-            "model": self.model,
+            "models": self.models,
             "languages_tested": list(all_language_tests.keys()),
-            "summary": summary_stats,
+            "summary": all_summary_stats,
             "detailed_results": detailed_results
         }
         
         if output_file:
-            self.save_results(results_by_language, detailed_results, output_file)
+            self.save_results(all_results, detailed_results, output_file)
         
         return output_data
 
@@ -244,62 +251,72 @@ class TrueSourceBenchmark:
         
         return summary_stats
 
-    def print_results(self, results_by_language):
+    def print_results(self, all_results):
         print(f"\n{'='*70}")
-        print("TRUE SOURCE RESULTS - ALL LANGUAGES")
+        print("TRUE SOURCE RESULTS - ALL MODELS")
         print(f"{'='*70}")
         
-        # Print per-language results
-        for lang_name, lang_results in results_by_language.items():
-            print(f"\n📍 {lang_name}:")
+        # Print results for each model
+        for model, results_by_language in all_results.items():
+            print(f"\n🤖 MODEL: {model}")
+            print("-" * 50)
             
-            for condition in ["with_source", "without_source"]:
-                chrf_scores = [r["chrf"] for r in lang_results[condition]]
-                edit_scores = [r["edit"] for r in lang_results[condition]]
+            # Print per-language results for this model
+            for lang_name, lang_results in results_by_language.items():
+                print(f"\n📍 {lang_name}:")
                 
+                for condition in ["with_source", "without_source"]:
+                    chrf_scores = [r["chrf"] for r in lang_results[condition]]
+                    edit_scores = [r["edit"] for r in lang_results[condition]]
+                    
+                    condition_display = condition.replace('_', ' ').title()
+                    print(f"  {condition_display}: chrF+ {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}, "
+                          f"Edit {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}")
+                
+                # Show improvement for this language
+                with_chrf = [r["chrf"] for r in lang_results["with_source"]]
+                without_chrf = [r["chrf"] for r in lang_results["without_source"]]
+                improvement = mean(with_chrf) - mean(without_chrf)
+                print(f"  → Source effect: {improvement:+.3f} chrF+")
+            
+            # Print overall aggregated results for this model
+            print(f"\n🌍 OVERALL RESULTS FOR {model}:")
+            print("-" * 40)
+        
+            overall_results = {}
+            for condition in ["with_source", "without_source"]:
+                all_chrf = []
+                all_edit = []
+                for lang_results in results_by_language.values():
+                    all_chrf.extend([r["chrf"] for r in lang_results[condition]])
+                    all_edit.extend([r["edit"] for r in lang_results[condition]])
+                
+                overall_results[condition] = {"chrf": all_chrf, "edit": all_edit}
                 condition_display = condition.replace('_', ' ').title()
-                print(f"  {condition_display}: chrF+ {mean(chrf_scores):.3f}±{stdev(chrf_scores):.3f}, "
-                      f"Edit {mean(edit_scores):.3f}±{stdev(edit_scores):.3f}")
+                print(f"{condition_display}: chrF+ {mean(all_chrf):.3f}±{stdev(all_chrf):.3f}, "
+                      f"Edit {mean(all_edit):.3f}±{stdev(all_edit):.3f} "
+                      f"({len(all_chrf)} tests across {len(results_by_language)} languages)")
             
-            # Show improvement for this language
-            with_chrf = [r["chrf"] for r in lang_results["with_source"]]
-            without_chrf = [r["chrf"] for r in lang_results["without_source"]]
-            improvement = mean(with_chrf) - mean(without_chrf)
-            print(f"  → Source effect: {improvement:+.3f} chrF+")
-        
-        # Print overall aggregated results
-        print(f"\n🌍 OVERALL AGGREGATED RESULTS:")
-        print("-" * 40)
-        
-        overall_results = {}
-        for condition in ["with_source", "without_source"]:
-            all_chrf = []
-            all_edit = []
-            for lang_results in results_by_language.values():
-                all_chrf.extend([r["chrf"] for r in lang_results[condition]])
-                all_edit.extend([r["edit"] for r in lang_results[condition]])
-            
-            overall_results[condition] = {"chrf": all_chrf, "edit": all_edit}
-            condition_display = condition.replace('_', ' ').title()
-            print(f"{condition_display}: chrF+ {mean(all_chrf):.3f}±{stdev(all_chrf):.3f}, "
-                  f"Edit {mean(all_edit):.3f}±{stdev(all_edit):.3f} "
-                  f"({len(all_chrf)} tests across {len(results_by_language)} languages)")
-        
-        # Show overall source effect
-        print(f"\n📈 OVERALL SOURCE EFFECT:")
-        print("-" * 25)
-        overall_improvement = mean(overall_results["with_source"]["chrf"]) - mean(overall_results["without_source"]["chrf"])
-        print(f"chrF+ improvement with source: {overall_improvement:+.3f}")
+            # Show overall source effect for this model
+            print(f"\n📈 SOURCE EFFECT FOR {model}:")
+            print("-" * 25)
+            overall_improvement = mean(overall_results["with_source"]["chrf"]) - mean(overall_results["without_source"]["chrf"])
+            print(f"chrF+ improvement with source: {overall_improvement:+.3f}")
 
-    def save_results(self, results_by_language, detailed_results, output_file):
-        # Compute summary statistics
-        summary_stats = self.compute_summary_stats(results_by_language)
+    def save_results(self, all_results, detailed_results, output_file):
+        # Compute summary statistics for all models
+        all_summary_stats = {}
+        for model, results_by_language in all_results.items():
+            all_summary_stats[model] = self.compute_summary_stats(results_by_language)
+        
+        # Get languages tested from first model
+        first_model_results = next(iter(all_results.values()))
         
         output_data = {
             "benchmark": "true_source",
-            "model": self.model,
-            "languages_tested": list(results_by_language.keys()),
-            "summary": summary_stats,
+            "models": self.models,
+            "languages_tested": list(first_model_results.keys()),
+            "summary": all_summary_stats,
             "detailed_results": detailed_results
         }
         
@@ -317,13 +334,17 @@ def main():
     default_corpus = str(Path(__file__).parent.parent / "Corpus")
     parser.add_argument("--corpus-dir", default=default_corpus)
     parser.add_argument("--source-file", default="eng-engULB.txt")
-    parser.add_argument("--model", default="gpt-4o")
+    parser.add_argument("--model", default="gpt-4o", help="Single model to test")
+    parser.add_argument("--models", nargs="+", help="Multiple models to compare")
     parser.add_argument("--num-tests", type=int, default=15)
     parser.add_argument("--output", type=str)
     
     args = parser.parse_args()
     
-    benchmark = TrueSourceBenchmark(args.corpus_dir, args.source_file, args.model)
+    # Handle both --model and --models arguments
+    models = args.models if args.models else [args.model]
+    
+    benchmark = TrueSourceBenchmark(args.corpus_dir, args.source_file, models)
     benchmark.run_benchmark(args.num_tests, args.output)
     print("\n✅ True source benchmark completed!")
     return 0

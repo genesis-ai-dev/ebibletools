@@ -51,77 +51,64 @@ class BenchmarkRunner:
 
     def run_power_prompt(self):
         print("\n💪 Running Power Prompt Benchmark")
-        results = {}
         
-        for model in self.models:
-            benchmark = PowerPromptBenchmark(self.corpus_dir, self.source_file, model)
-            output_file = self.results_dir / f"{self.session_id}_power_prompt_{model.replace('/', '_')}.json"
-            benchmark.run_benchmark(num_tests=12, output_file=str(output_file))
-            
-            with open(output_file, 'r', encoding='utf-8') as f:
-                results[model] = json.load(f)
+        # Load example prompts for power prompt benchmark
+        example_file = Path(__file__).parent / "example_prompts.json"
+        custom_prompts = {}
+        if example_file.exists():
+            with open(example_file, 'r', encoding='utf-8') as f:
+                custom_prompts = json.load(f)
+        
+        benchmark = PowerPromptBenchmark(self.corpus_dir, self.source_file, self.models, custom_prompts)
+        output_file = self.results_dir / f"{self.session_id}_power_prompt.json"
+        results = benchmark.run_benchmark(num_tests=12, output_file=str(output_file))
         
         return results
 
     def run_true_source(self):
         print("\n🎯 Running True Source Benchmark")
-        results = {}
         
-        for model in self.models:
-            benchmark = TrueSourceBenchmark(self.corpus_dir, self.source_file, model)
-            output_file = self.results_dir / f"{self.session_id}_true_source_{model.replace('/', '_')}.json"
-            benchmark.run_benchmark(num_tests=15, output_file=str(output_file))
-            
-            with open(output_file, 'r', encoding='utf-8') as f:
-                results[model] = json.load(f)
+        benchmark = TrueSourceBenchmark(self.corpus_dir, self.source_file, self.models)
+        output_file = self.results_dir / f"{self.session_id}_true_source.json"
+        results = benchmark.run_benchmark(num_tests=15, output_file=str(output_file))
         
         return results
 
     def run_context_corrigibility(self):
         print("\n🔄 Running Context Corrigibility Benchmark")
-        results = {}
         
-        for model in self.models:
-            benchmark = ContextCorrigibilityBenchmark(
-                self.corpus_dir, 
-                self.source_file, 
-                model, 
-                query_method="context"
-            )
-            output_file = self.results_dir / f"{self.session_id}_context_corrigibility_{model.replace('/', '_')}.json"
-            benchmark.run_benchmark(
-                num_tests=10, 
-                example_counts=[0, 3, 5], 
-                output_file=str(output_file)
-            )
-            
-            with open(output_file, 'r', encoding='utf-8') as f:
-                results[model] = json.load(f)
+        benchmark = ContextCorrigibilityBenchmark(
+            self.corpus_dir, 
+            self.source_file, 
+            self.models, 
+            query_method="context"
+        )
+        output_file = self.results_dir / f"{self.session_id}_context_corrigibility.json"
+        results = benchmark.run_benchmark(
+            num_tests=10, 
+            example_counts=[0, 3, 5], 
+            output_file=str(output_file)
+        )
         
         return results
 
     def run_translation_benchmark(self):
         print("\n🌍 Running Translation Benchmark")
-        results = {}
         
-        for model in self.models:
-            benchmark = TranslationBenchmark(
-                self.api_key,
-                self.corpus_dir,
-                self.source_file,
-                query_method="context",
-                model=model
-            )
-            output_file = self.results_dir / f"{self.session_id}_translation_{model.replace('/', '_')}.json"
-            benchmark.run_benchmark(
-                num_target_files=2,
-                num_tests_per_file=5,
-                example_counts=[0, 3, 5],
-                output_file=str(output_file)
-            )
-            
-            with open(output_file, 'r', encoding='utf-8') as f:
-                results[model] = json.load(f)
+        benchmark = TranslationBenchmark(
+            self.api_key,
+            self.corpus_dir,
+            self.source_file,
+            query_method="context",
+            models=self.models
+        )
+        output_file = self.results_dir / f"{self.session_id}_translation.json"
+        results = benchmark.run_benchmark(
+            num_target_files=2,
+            num_tests_per_file=5,
+            example_counts=[0, 3, 5],
+            output_file=str(output_file)
+        )
         
         return results
 

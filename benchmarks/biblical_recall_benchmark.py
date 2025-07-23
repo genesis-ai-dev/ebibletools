@@ -18,15 +18,8 @@ import sys
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-try:
-    from metrics import chrF_plus, normalized_edit_distance
-    from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
-except ImportError as e:
-    print(f"Import error: {e}")
-    print(f"Current working directory: {os.getcwd()}")
-    print(f"Project root: {project_root}")
-    print(f"Python path: {sys.path}")
-    raise
+from metrics import chrF_plus, normalized_edit_distance
+from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class BiblicalRecallBenchmark:
