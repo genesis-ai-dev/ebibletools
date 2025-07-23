@@ -24,11 +24,12 @@ from benchmarks.benchmark_utils import extract_xml_content, format_xml_prompt
 
 
 class ContextCorrigibilityBenchmark:
-    def __init__(self, corpus_dir, source_file, models=None, query_method="context"):
+    def __init__(self, corpus_dir, source_file, models=None, query_method="context", verbose=False):
         self.models = models if isinstance(models, list) else [models] if models else ["gpt-4o"]
         self.corpus_dir = Path(corpus_dir)
         self.source_file = self.corpus_dir / source_file
         self.query_method = query_method
+        self.verbose = verbose
         
         self.target_files = [f for f in self.corpus_dir.glob('*.txt') if f != self.source_file]
 
@@ -97,13 +98,32 @@ class ContextCorrigibilityBenchmark:
         
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
+        if self.verbose:
+            print(f"\n🔍 VERBOSE - Model: {model}")
+            print(f"📥 INPUT ({len(examples) if examples else 0} examples):")
+            print(f"   Source: {text}")
+            if examples:
+                print(f"   Examples:")
+                for i, (src, tgt) in enumerate(examples[:3], 1):  # Show first 3 examples
+                    print(f"     {i}. {src[:50]}{'...' if len(src) > 50 else ''} → {tgt[:50]}{'...' if len(tgt) > 50 else ''}")
+                if len(examples) > 3:
+                    print(f"     ... and {len(examples) - 3} more examples")
+        
         response = litellm.completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=800,
             temperature=0.1
         )
-        return extract_xml_content(response.choices[0].message.content.strip(), "translation")
+        
+        translation = extract_xml_content(response.choices[0].message.content.strip(), "translation")
+        
+        if self.verbose:
+            print(f"📤 OUTPUT:")
+            print(f"   Translation: {translation}")
+            print(f"   Raw response: {response.choices[0].message.content.strip()[:100]}{'...' if len(response.choices[0].message.content.strip()) > 100 else ''}")
+        
+        return translation
 
     def evaluate_translation(self, hypothesis, reference):
         return {
@@ -325,7 +345,7 @@ class ContextCorrigibilityBenchmark:
 def main():
     load_dotenv()
     
-    parser = argparse.ArgumentParser(description="Context Corrigibility Benchmark")
+    parser = argparse.ArgumentParser(description="Context Corrigibility & Translation Benchmark - Tests how adding examples affects translation quality")
     # Use project root's Corpus directory
     default_corpus = str(Path(__file__).parent.parent / "Corpus")
     parser.add_argument("--corpus-dir", default=default_corpus)
@@ -336,6 +356,7 @@ def main():
     parser.add_argument("--num-tests", type=int, default=10)
     parser.add_argument("--example-counts", nargs="+", type=int, default=[0, 3, 5])
     parser.add_argument("--output", type=str)
+    parser.add_argument("--verbose", action="store_true", help="Show detailed model inputs and outputs")
     
     args = parser.parse_args()
     
@@ -343,7 +364,7 @@ def main():
     models = args.models if args.models else [args.model]
     
     benchmark = ContextCorrigibilityBenchmark(
-        args.corpus_dir, args.source_file, models, args.query_method
+        args.corpus_dir, args.source_file, models, args.query_method, args.verbose
     )
     benchmark.run_benchmark(args.num_tests, args.example_counts, args.output)
     print("\n✅ Context corrigibility benchmark completed!")

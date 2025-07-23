@@ -10,11 +10,10 @@ from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 
-from biblical_recall_benchmark import BiblicalRecallBenchmark
 from power_prompt_benchmark import PowerPromptBenchmark
 from true_source_benchmark import TrueSourceBenchmark
 from context_corrigibility_benchmark import ContextCorrigibilityBenchmark
-from translation_benchmark import TranslationBenchmark
+from biblical_recall_benchmark import BiblicalRecallBenchmark
 
 
 class BenchmarkRunner:
@@ -92,26 +91,6 @@ class BenchmarkRunner:
         
         return results
 
-    def run_translation_benchmark(self):
-        print("\n🌍 Running Translation Benchmark")
-        
-        benchmark = TranslationBenchmark(
-            self.api_key,
-            self.corpus_dir,
-            self.source_file,
-            query_method="context",
-            models=self.models
-        )
-        output_file = self.results_dir / f"{self.session_id}_translation.json"
-        results = benchmark.run_benchmark(
-            num_target_files=2,
-            num_tests_per_file=5,
-            example_counts=[0, 3, 5],
-            output_file=str(output_file)
-        )
-        
-        return results
-
     def summarize_results(self, all_results):
         print(f"\n{'='*80}")
         print("📊 COMPREHENSIVE BENCHMARK SUMMARY")
@@ -177,25 +156,6 @@ class BenchmarkRunner:
                 print(f"  {model}: +{improvement:.3f} chrF+ improvement")
                 summary["benchmarks"]["context_corrigibility"][model] = improvement
         
-        # Translation Benchmark Summary
-        if "translation_benchmark" in all_results:
-            print(f"\n🌍 Translation (0 vs 5 examples, chrF+):")
-            summary["benchmarks"]["translation_benchmark"] = {}
-            
-            for model, tb_data in all_results["translation_benchmark"].items():
-                if "results" in tb_data:
-                    try:
-                        baseline_scores = tb_data["results"]["0"]["chrF+"]
-                        context_scores = tb_data["results"]["5"]["chrF+"]
-                        baseline_avg = sum(baseline_scores) / len(baseline_scores)
-                        context_avg = sum(context_scores) / len(context_scores)
-                        improvement = context_avg - baseline_avg
-                        print(f"  {model}: +{improvement:.3f} chrF+ improvement")
-                        summary["benchmarks"]["translation_benchmark"][model] = improvement
-                    except (KeyError, ZeroDivisionError):
-                        print(f"  {model}: insufficient data")
-                        summary["benchmarks"]["translation_benchmark"][model] = None
-        
         # Save summary
         summary_file = self.results_dir / f"{self.session_id}_summary.json"
         with open(summary_file, 'w', encoding='utf-8') as f:
@@ -217,7 +177,6 @@ class BenchmarkRunner:
             all_results["power_prompt"] = self.run_power_prompt()
             all_results["true_source"] = self.run_true_source()
             all_results["context_corrigibility"] = self.run_context_corrigibility()
-            all_results["translation_benchmark"] = self.run_translation_benchmark()
             
         except Exception as e:
             print(f"\n❌ Error during benchmark execution: {e}")
