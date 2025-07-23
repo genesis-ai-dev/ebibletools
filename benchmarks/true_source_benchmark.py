@@ -88,7 +88,7 @@ class TrueSourceBenchmark:
         response = litellm.completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=800,
+            max_tokens=8000,
             temperature=0.1
         )
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
@@ -105,7 +105,7 @@ class TrueSourceBenchmark:
         response = litellm.completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=800,
+            max_tokens=8000,
             temperature=0.1
         )
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
