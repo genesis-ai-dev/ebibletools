@@ -112,11 +112,14 @@ class ContextCorrigibilityBenchmark:
                 if len(examples) > 3:
                     print(f"     ... and {len(examples) - 3} more examples")
         
-        response = litellm.completion(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.1
-        )
+        completion_args = {
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}]
+        }
+        if not model.startswith("gpt-5"):
+            completion_args["temperature"] = 0.1
+        
+        response = litellm.completion(**completion_args)
         
         translation = extract_xml_content(response.choices[0].message.content.strip(), "translation")
         

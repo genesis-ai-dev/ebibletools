@@ -55,14 +55,17 @@ class BiblicalRecallBenchmark:
         base_prompt = f"What does {reference} say in the {version} version?"
         prompt = format_xml_prompt(base_prompt, "verse", "the biblical verse text")
         
-        response = litellm.completion(
-            model=model,
-            messages=[
+        completion_args = {
+            "model": model,
+            "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
-            ],
-            temperature=0.1
-        )
+            ]
+        }
+        if not model.startswith("gpt-5"):
+            completion_args["temperature"] = 0.1
+        
+        response = litellm.completion(**completion_args)
         return extract_xml_content(response.choices[0].message.content.strip(), "verse")
 
     def run_benchmark(self, num_tests=20, output_file=None):

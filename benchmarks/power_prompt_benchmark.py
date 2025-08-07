@@ -82,14 +82,17 @@ class PowerPromptBenchmark:
         system_prompt = prompt_template
         user_prompt = format_xml_prompt(f"Translate this text: {text}", "translation", "your translation here")
         
-        response = litellm.completion(
-            model=model,
-            messages=[
+        completion_args = {
+            "model": model,
+            "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
-            ],
-            temperature=0.1
-        )
+            ]
+        }
+        if not model.startswith("gpt-5"):
+            completion_args["temperature"] = 0.1
+        
+        response = litellm.completion(**completion_args)
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
 
     def evaluate_translation(self, hypothesis, reference):

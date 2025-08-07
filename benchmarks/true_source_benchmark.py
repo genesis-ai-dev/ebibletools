@@ -85,12 +85,14 @@ class TrueSourceBenchmark:
         
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
-        response = litellm.completion(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.1
-        )
-        return extract_xml_content(response.choices[0].message.content.strip(), "translation")
+        completion_args = {
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}]
+        }
+        if not model.startswith("gpt-5"):
+            completion_args["temperature"] = 0.1
+        
+        response = litellm.completion(**completion_args)        return extract_xml_content(response.choices[0].message.content.strip(), "translation")
 
     def translate_with_target_only_examples(self, test_source, example_pairs, target_lang, model):
         # Build prompt with only target examples (no source)
@@ -101,11 +103,14 @@ class TrueSourceBenchmark:
         
         prompt = format_xml_prompt(base_prompt, "translation", "your translation here")
         
-        response = litellm.completion(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.1
-        )
+        completion_args = {
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}]
+        }
+        if not model.startswith("gpt-5"):
+            completion_args["temperature"] = 0.1
+        
+        response = litellm.completion(**completion_args)
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
 
     def evaluate_translation(self, hypothesis, reference):
