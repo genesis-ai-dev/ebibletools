@@ -61,7 +61,7 @@ class BiblicalRecallBenchmark:
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=8000,
+            ,
             temperature=0.1
         )
         return extract_xml_content(response.choices[0].message.content.strip(), "verse")
