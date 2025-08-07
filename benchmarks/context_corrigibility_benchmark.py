@@ -115,7 +115,6 @@ class ContextCorrigibilityBenchmark:
         response = litellm.completion(
             model=model,
             messages=[{"role": "user", "content": prompt}],
-            ,
             temperature=0.1
         )
         

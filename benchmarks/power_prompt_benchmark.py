@@ -88,7 +88,6 @@ class PowerPromptBenchmark:
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            ,
             temperature=0.1
         )
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
