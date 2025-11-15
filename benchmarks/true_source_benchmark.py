@@ -11,7 +11,7 @@ from pathlib import Path
 from tqdm import tqdm
 from statistics import mean, stdev
 from dotenv import load_dotenv
-import litellm
+from benchmarks.openrouter_client import completion
 
 # Add project root to path for imports
 import sys
@@ -92,7 +92,8 @@ class TrueSourceBenchmark:
         if not model.startswith("gpt-5"):
             completion_args["temperature"] = 0.1
         
-        response = litellm.completion(**completion_args)        return extract_xml_content(response.choices[0].message.content.strip(), "translation")
+        response = completion(**completion_args)
+        return extract_xml_content(response.choices[0].message.content.strip(), "translation")
 
     def translate_with_target_only_examples(self, test_source, example_pairs, target_lang, model):
         # Build prompt with only target examples (no source)
@@ -110,7 +111,7 @@ class TrueSourceBenchmark:
         if not model.startswith("gpt-5"):
             completion_args["temperature"] = 0.1
         
-        response = litellm.completion(**completion_args)
+        response = completion(**completion_args)
         return extract_xml_content(response.choices[0].message.content.strip(), "translation")
 
     def evaluate_translation(self, hypothesis, reference):

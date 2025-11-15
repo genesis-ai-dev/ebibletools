@@ -23,10 +23,10 @@ class BenchmarkRunner:
         self.corpus_dir = corpus_dir
         self.source_file = source_file
         self.models = models or ["gpt-4o", "gpt-3.5-turbo"]
-        self.api_key = os.getenv("OPENAI_API_KEY")
+        self.api_key = os.getenv("OPENROUTER_API_KEY")
         
         if not self.api_key:
-            raise ValueError("OPENAI_API_KEY not found in environment")
+            raise ValueError("OPENROUTER_API_KEY not found in environment")
         
         self.results_dir = Path("results")
         self.results_dir.mkdir(exist_ok=True)

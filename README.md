@@ -8,7 +8,7 @@ A comprehensive toolkit for biblical text processing, translation benchmarking, 
 - **Four Specialized Benchmarks**: Biblical recall, translation corrigibility, source effects, and prompt optimization
 - **Multi-Model Comparison**: Compare multiple LLM models side-by-side on the same benchmarks
 - **Multi-Language Testing**: Test translation benchmarks across ALL downloaded target languages
-- **Multi-Provider LLM Support**: Use 100+ LLM providers (OpenAI, Anthropic, Google, Groq, etc.) via liteLLM
+- **Multi-Provider LLM Support**: Use 100+ LLM providers (OpenAI, Anthropic, Google, Groq, etc.) via OpenRouter with a single API key
 - **Professional MT Metrics**: Industry-standard evaluation including chrF+, Edit Distance, TER
 - **Semantic Search**: Advanced context-aware search with coverage weighting and branching
 - **Corpus Management**: Tools for downloading and processing biblical texts
@@ -34,7 +34,7 @@ python ebible_downloader.py
 # Run benchmarks (from benchmarks directory)
 cd benchmarks
 python biblical_recall_benchmark.py --num-tests 20
-python context_corrigibility_benchmark.py --model gpt-4o --example-counts 0 3 5
+python context_corrigibility_benchmark.py --model openai/gpt-4o --example-counts 0 3 5
 python true_source_benchmark.py --num-tests 15
 python power_prompt_benchmark.py --num-tests 12
 ```
@@ -45,11 +45,14 @@ python power_prompt_benchmark.py --num-tests 12
 Tests how well models can recall biblical text when given verse references.
 
 ```bash
-# Single model
+# Single model (old format automatically converted)
 python biblical_recall_benchmark.py --num-tests 20 --model gpt-4o --output recall_results.json
 
+# Single model (OpenRouter format)
+python biblical_recall_benchmark.py --num-tests 20 --model openai/gpt-4o --output recall_results.json
+
 # Multi-model comparison
-python biblical_recall_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 10
+python biblical_recall_benchmark.py --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 10
 ```
 
 **What it tests:**
@@ -68,10 +71,10 @@ Tests how in-context examples improve translation accuracy across ALL target lan
 
 ```bash
 # Single model - tests on ALL downloaded languages
-python context_corrigibility_benchmark.py --model gpt-4o --example-counts 0 3 5 --num-tests 10
+python context_corrigibility_benchmark.py --model openai/gpt-4o --example-counts 0 3 5 --num-tests 10
 
 # Multi-model comparison
-python context_corrigibility_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --example-counts 0 3 --num-tests 5
+python context_corrigibility_benchmark.py --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --example-counts 0 3 --num-tests 5
 ```
 
 **What it tests:**
@@ -89,10 +92,10 @@ Tests how having source text affects translation accuracy across ALL target lang
 
 ```bash
 # Single model - tests on ALL downloaded languages
-python true_source_benchmark.py --num-tests 15 --model gpt-4o --output source_results.json
+python true_source_benchmark.py --num-tests 15 --model openai/gpt-4o --output source_results.json
 
 # Multi-model comparison
-python true_source_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 10
+python true_source_benchmark.py --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 10
 ```
 
 **What it tests:**
@@ -268,7 +271,7 @@ All benchmarks support these standard options:
 |--------|---------|-------------|
 | `--corpus-dir` | `../Corpus` | Directory containing corpus files |
 | `--source-file` | `eng-engULB.txt` | Source language file |
-| `--model` | `gpt-4o` | Model to use (any liteLLM model) |
+| `--model` | `gpt-4o` | Model to use (OpenRouter format: `provider/model-name`, old format auto-converted) |
 | `--output` | None | Save detailed results to JSON file |
 
 **Note**: API keys are automatically loaded from your `.env` file - no need to specify them manually.
@@ -278,12 +281,12 @@ All benchmarks support these standard options:
 # Single model
 python biblical_recall_benchmark.py \
   --num-tests 20 \
-  --model gpt-4o \
+  --model openai/gpt-4o \
   --output recall_results.json
 
 # Multi-model comparison  
 python biblical_recall_benchmark.py \
-  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
+  --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 10 \
   --output multi_model_recall.json
 ```
@@ -292,7 +295,7 @@ python biblical_recall_benchmark.py \
 ```bash
 # Single model - tests ALL target languages
 python context_corrigibility_benchmark.py \
-  --model gpt-4o \
+  --model openai/gpt-4o \
   --query-method context \
   --num-tests 10 \
   --example-counts 0 3 5 \
@@ -300,7 +303,7 @@ python context_corrigibility_benchmark.py \
 
 # Multi-model comparison (separate runs recommended)
 python context_corrigibility_benchmark.py \
-  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
+  --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 5 \
   --example-counts 0 3 \
   --output multi_context_results.json
@@ -311,12 +314,12 @@ python context_corrigibility_benchmark.py \
 # Single model - tests ALL target languages
 python true_source_benchmark.py \
   --num-tests 15 \
-  --model gpt-4o \
+  --model openai/gpt-4o \
   --output source_results.json
 
 # Multi-model comparison (separate runs recommended)
 python true_source_benchmark.py \
-  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
+  --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 10 \
   --output multi_source_results.json
 ```
@@ -326,12 +329,12 @@ python true_source_benchmark.py \
 # Single model - tests ALL target languages
 python power_prompt_benchmark.py \
   --num-tests 12 \
-  --model gpt-4o \
+  --model openai/gpt-4o \
   --output prompt_results.json
 
 # Multi-model comparison (separate runs recommended)
 python power_prompt_benchmark.py \
-  --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
+  --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 \
   --num-tests 8 \
   --output multi_prompt_results.json
 ```
@@ -340,30 +343,33 @@ python power_prompt_benchmark.py \
 
 ## LLM Provider Support
 
-All benchmarks use liteLLM for universal LLM access. Supported providers include:
+All benchmarks use **OpenRouter** via the OpenAI package for universal LLM access. OpenRouter provides a single API key that works with 100+ providers, eliminating the need for multiple API keys.
 
-- **OpenAI**: `gpt-4o`, `gpt-4-turbo`, `gpt-3.5-turbo`
-- **Anthropic**: `claude-3-5-sonnet-20241022`, `claude-3-haiku-20240307`
-- **Google**: `gemini/gemini-pro`, `gemini/gemini-pro-vision`
+### Supported Providers
+
+Models are specified in OpenRouter format: `provider/model-name`
+
+- **OpenAI**: `openai/gpt-4o`, `openai/gpt-4-turbo`, `openai/gpt-3.5-turbo`
+- **Anthropic**: `anthropic/claude-3-5-sonnet-20241022`, `anthropic/claude-3-haiku-20240307`
+- **Google**: `google/gemini-pro`, `google/gemini-pro-vision`
 - **Groq**: `groq/llama-3.1-70b-versatile`, `groq/mixtral-8x7b-32768`
-- **OpenRouter**: `openrouter/anthropic/claude-3-haiku`
-- **And 100+ more providers**
+- **And 100+ more providers** - See [OpenRouter Models](https://openrouter.ai/models)
 
 ### Environment Setup
-Create a `.env` file in your project root with your API keys:
+
+Create a `.env` file in your project root with your OpenRouter API key:
 
 ```bash
 # Copy the template
 cp benchmarks/env.template .env
 
-# Edit .env with your keys
-OPENAI_API_KEY=your-openai-key
-ANTHROPIC_API_KEY=your-anthropic-key
-GROQ_API_KEY=your-groq-key
-# etc.
+# Edit .env with your OpenRouter API key
+OPENROUTER_API_KEY=your-openrouter-api-key
 ```
 
-liteLLM automatically detects and uses the appropriate API keys from your environment.
+**Get your API key**: [OpenRouter API Keys](https://openrouter.ai/docs/api-keys)
+
+**Note**: Old format model names (e.g., `gpt-4o`) are automatically converted to OpenRouter format (`openai/gpt-4o`) for backward compatibility.
 
 ## Multi-Model Comparison
 
@@ -371,7 +377,7 @@ The biblical recall benchmark supports comparing multiple models:
 
 ```bash
 # Compare all recommended models on biblical recall
-python biblical_recall_benchmark.py --models gpt-3.5-turbo claude-3-haiku-20240307 gpt-4o-mini gpt-4o claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 20
+python biblical_recall_benchmark.py --models openai/gpt-3.5-turbo anthropic/claude-3-haiku-20240307 openai/gpt-4o-mini openai/gpt-4o anthropic/claude-3-5-sonnet-20240620 anthropic/claude-sonnet-4-20250514 --num-tests 20
 ```
 
 **Output includes:**
@@ -448,7 +454,7 @@ pip install -r requirements.txt
 
 ### Core Requirements
 - `requests` - HTTP requests for downloading
-- `litellm` - Universal LLM API for multiple providers
+- `openai` - OpenAI package configured for OpenRouter API
 - `scikit-learn` - TF-IDF and similarity calculations
 - `tqdm` - Progress bars
 - `numpy` - Numerical computations
@@ -471,7 +477,7 @@ from benchmarks.biblical_recall_benchmark import BiblicalRecallBenchmark
 benchmark = BiblicalRecallBenchmark(
     corpus_dir="Corpus",
     source_file="eng-engULB.txt",
-    models=["gpt-4o"]
+    models=["openai/gpt-4o"]  # OpenRouter format: provider/model-name
 )
 benchmark.run_benchmark(num_tests=20, output_file="recall_results.json")
 

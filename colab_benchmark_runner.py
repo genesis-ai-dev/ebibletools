@@ -2,7 +2,7 @@
 # Run this in Google Colab for interactive benchmarking with visualizations
 
 # Cell 1: Setup and Package Installation
-!pip install litellm matplotlib seaborn plotly pandas numpy scikit-learn tqdm python-dotenv requests nltk
+!pip install openai matplotlib seaborn plotly pandas numpy scikit-learn tqdm python-dotenv requests nltk
 
 # Cell 2: Clone Repository and Setup
 !git clone https://github.com/genesis-ai-dev/ebibletools
@@ -11,8 +11,8 @@
 # Cell 3: Setup API Keys
 import os
 from google.colab import userdata
-os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
-os.environ["ANTHROPIC_API_KEY"] = userdata.get('ANTHROPIC_API_KEY')
+# OpenRouter API Key - single key for all providers
+os.environ["OPENROUTER_API_KEY"] = userdata.get('OPENROUTER_API_KEY')
 
 # Cell 4: Download corpus files
 from ebible_downloader import EBibleDownloader
@@ -51,12 +51,13 @@ from benchmarks.true_source_benchmark import TrueSourceBenchmark
 from benchmarks.power_prompt_benchmark import PowerPromptBenchmark
 
 # Cell 8: Configuration
+# Models in OpenRouter format (provider/model-name)
 models_to_test = [
-    "gpt-3.5-turbo",
-    "claude-3-haiku-20240307",
-    "gpt-4o-mini", 
-    "gpt-4o",
-    "claude-3-5-sonnet-20240620",
+    "openai/gpt-3.5-turbo",
+    "anthropic/claude-3-haiku-20240307",
+    "openai/gpt-4o-mini", 
+    "openai/gpt-4o",
+    "anthropic/claude-3-5-sonnet-20240620",
     "anthropic/claude-sonnet-4-20250514",
 ]
 

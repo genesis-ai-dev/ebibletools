@@ -11,7 +11,7 @@ from pathlib import Path
 from tqdm import tqdm
 from statistics import mean, stdev
 from dotenv import load_dotenv
-import litellm
+from benchmarks.openrouter_client import completion
 
 # Add project root to path for imports
 import sys
@@ -119,7 +119,7 @@ class ContextCorrigibilityBenchmark:
         if not model.startswith("gpt-5"):
             completion_args["temperature"] = 0.1
         
-        response = litellm.completion(**completion_args)
+        response = completion(**completion_args)
         
         translation = extract_xml_content(response.choices[0].message.content.strip(), "translation")
         
