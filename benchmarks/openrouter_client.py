@@ -67,12 +67,13 @@ def convert_model_name(model_name: str) -> str:
     return f"openai/{model_name}"
 
 
-def get_openrouter_client(provider: Optional[str] = None) -> OpenAI:
+def get_openrouter_client(provider: Optional[str] = None, disable_reasoning: bool = True) -> OpenAI:
     """
     Get OpenAI client configured for OpenRouter.
     
     Args:
         provider: Optional provider name (e.g., "cerebras") to set X-Provider header
+        disable_reasoning: If True, sets X-Reasoning header to disable thinking/reasoning (default: True)
         
     Returns:
         OpenAI client instance configured with OpenRouter base URL and API key
@@ -87,10 +88,12 @@ def get_openrouter_client(provider: Optional[str] = None) -> OpenAI:
             "Please set OPENROUTER_API_KEY environment variable."
         )
     
-    # Prepare default headers if provider is specified
+    # Prepare default headers
     default_headers = {}
     if provider:
         default_headers["X-Provider"] = provider
+    if disable_reasoning:
+        default_headers["X-Reasoning"] = "false"
     
     return OpenAI(
         base_url="https://openrouter.ai/api/v1",
@@ -130,8 +133,12 @@ def completion(**kwargs) -> Any:
     # Extract provider if specified (for X-Provider header)
     provider = kwargs.pop("provider", None)
     
-    # Get client with provider header if specified
-    client = get_openrouter_client(provider=provider)
+    # Disable thinking/reasoning for all models to ensure fair testing
+    # This is done via X-Reasoning header, which models that don't support it will ignore
+    disable_reasoning = kwargs.pop("disable_reasoning", True)
+    
+    # Get client with provider and reasoning headers
+    client = get_openrouter_client(provider=provider, disable_reasoning=disable_reasoning)
     
     # Create completion
     response = client.chat.completions.create(
